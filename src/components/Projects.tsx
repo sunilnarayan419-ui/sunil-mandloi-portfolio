@@ -1,20 +1,42 @@
-import { useReveal } from '../useReveal'
-import { projects } from '../data/projects'
-import SectionHeading from './SectionHeading'
-import ProjectRow from './ProjectRow'
+import Reveal from "./Reveal";
+import ProjectCard from "./ProjectCard";
+import { projects, profile } from "../data/content";
 
 export default function Projects() {
-  const ref = useReveal<HTMLElement>()
   return (
-    <section id="projects" ref={ref} className="border-b border-line px-6 py-24 lg:px-16 lg:py-32 xl:pl-40">
-      <SectionHeading number="05" title="Projects" eyebrow="Science, technology, and business — worked through in code" />
+    <section id="projects" className="relative border-b border-void-line py-28 sm:py-36">
+      <div className="mx-auto max-w-6xl px-6 sm:px-10">
+        <div className="flex flex-wrap items-end justify-between gap-6">
+          <div>
+            <Reveal>
+              <span className="ledger-num text-sm text-crimson">04 — Projects</span>
+            </Reveal>
+            <Reveal delayMs={80}>
+              <h2 className="mt-6 max-w-xl font-display text-3xl font-medium text-paper sm:text-4xl">
+                Curated work, not everything.
+              </h2>
+            </Reveal>
+          </div>
+          <Reveal delayMs={120}>
+            <a
+              href={profile.github}
+              target="_blank"
+              rel="noreferrer"
+              className="text-sm text-paper-dim underline decoration-void-line underline-offset-4 hover:text-crimson-bright"
+            >
+              Full GitHub profile ↗
+            </a>
+          </Reveal>
+        </div>
 
-      <div>
-        {projects.map((p, i) => (
-          <ProjectRow key={p.name} project={p} delay={i * 60} />
-        ))}
-        <div className="border-t border-line" />
+        <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {projects.map((project, i) => (
+            <Reveal key={project.name} delayMs={(i % 3) * 90} className="h-full">
+              <ProjectCard project={project} />
+            </Reveal>
+          ))}
+        </div>
       </div>
     </section>
-  )
+  );
 }

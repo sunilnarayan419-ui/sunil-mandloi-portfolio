@@ -1,104 +1,96 @@
-import { profile } from '../data/profile'
-import { useReveal } from '../useReveal'
+import { useMouseParallax } from "../hooks/useMouseParallax";
+import NetworkField from "./NetworkField";
+import { profile } from "../data/content";
 
 export default function Hero() {
-  const ref = useReveal<HTMLElement>()
+  const { x, y } = useMouseParallax();
+
   return (
     <section
-      id="home"
-      ref={ref}
-      className="relative flex min-h-screen flex-col justify-center overflow-hidden border-b border-line px-6 pt-24 lg:pl-32 lg:pr-16 lg:pt-0 xl:pl-40"
+      id="hero"
+      className="relative flex min-h-[100svh] items-center overflow-hidden border-b border-void-line"
     >
-      <span
-        aria-hidden
-        className="numeral-watermark pointer-events-none absolute -right-6 -top-10 select-none text-[38vw] leading-none lg:-right-10 lg:-top-24 lg:text-[26vw]"
-      >
-        01
-      </span>
+      <NetworkField density="hero" className="opacity-70" />
 
-      <div className="relative grid gap-14 lg:grid-cols-[1.15fr_0.85fr] lg:items-center lg:gap-8">
-        <div>
-          <p
-            className="reveal font-mono text-[11px] tracking-[0.2em] text-crimson"
-            style={{ transitionDelay: '0ms' }}
-          >
-            {profile.label.toUpperCase()}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -left-40 top-1/4 h-96 w-96 rounded-full bg-crimson/10 blur-[120px]"
+        style={{ transform: `translate3d(${x * 12}px, ${y * 12}px, 0)` }}
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-violet/15 blur-[110px]"
+        style={{ transform: `translate3d(${x * -10}px, ${y * -10}px, 0)` }}
+      />
+
+      <div className="relative mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-16 px-6 pt-28 pb-16 sm:px-10 md:grid-cols-[1.15fr_0.85fr] md:pt-24">
+        <div style={{ transform: `translate3d(${x * -6}px, ${y * -6}px, 0)` }}>
+          <p className="ledger-num mb-6 text-sm tracking-wide text-crimson">
+            {profile.label} — {profile.institution}
           </p>
 
-          <h1 className="mt-6 font-display text-[15vw] leading-[0.92] tracking-tight text-ink sm:text-[10vw] lg:text-[6vw] xl:text-[5.5vw]">
-            <span className="reveal block" style={{ transitionDelay: '90ms' }}>
-              {profile.firstName}
-            </span>
-            <span className="reveal block" style={{ transitionDelay: '180ms' }}>
-              {profile.lastName}
-            </span>
+          <h1 className="font-display text-balance text-6xl font-medium leading-[0.95] text-paper sm:text-7xl lg:text-8xl">
+            Sunil
+            <br />
+            Mandloi
           </h1>
 
-          <p
-            className="reveal mt-8 max-w-md font-display text-xl italic text-ink-soft sm:text-2xl"
-            style={{ transitionDelay: '280ms' }}
-          >
-            {profile.headline}
+          <p className="mt-8 font-display text-lg text-paper-dim sm:text-xl">
+            Life Sciences <span className="text-crimson">×</span> Technology{" "}
+            <span className="text-crimson">×</span> Business
           </p>
 
-          <p
-            className="reveal mt-5 max-w-md text-base leading-relaxed text-ink-soft"
-            style={{ transitionDelay: '360ms' }}
-          >
-            {profile.statement}
+          <p className="mt-6 max-w-prose text-base leading-relaxed text-paper-dim sm:text-lg">
+            {profile.tagline}
           </p>
 
-          <div className="reveal mt-10 flex flex-wrap items-center gap-x-8 gap-y-4" style={{ transitionDelay: '440ms' }}>
-            <a
-              href="#projects"
-              className="border-b border-ink pb-1 text-sm font-medium text-ink transition-colors hover:border-crimson hover:text-crimson"
+          <div className="mt-10 flex flex-wrap items-center gap-4">
+            <button
+              onClick={() =>
+                document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
+              }
+              className="rounded-sm border border-paper/25 px-6 py-3 text-sm text-paper transition-colors hover:border-crimson hover:text-crimson-bright"
             >
-              View projects
-            </a>
+              See the work
+            </button>
             <a
-              href="#contact"
-              className="border-b border-transparent pb-1 text-sm font-medium text-ink-soft transition-colors hover:border-crimson hover:text-crimson"
+              href={`mailto:${profile.email}`}
+              className="rounded-sm bg-paper px-6 py-3 text-sm font-medium text-void transition-colors hover:bg-crimson-bright hover:text-paper"
             >
-              Connect with me
-            </a>
-          </div>
-
-          <div
-            className="reveal mt-14 flex items-center gap-6 font-mono text-xs tracking-wide text-ink-faint"
-            style={{ transitionDelay: '520ms' }}
-          >
-            <a href={profile.github} target="_blank" rel="noreferrer" className="transition-colors hover:text-crimson">
-              GitHub
-            </a>
-            <span className="h-px w-4 bg-line" aria-hidden />
-            <a href={profile.linkedin} target="_blank" rel="noreferrer" className="transition-colors hover:text-crimson">
-              LinkedIn
+              Get in touch
             </a>
           </div>
         </div>
 
-        <div className="reveal relative mx-auto w-full max-w-[320px] justify-self-center lg:max-w-[380px] lg:justify-self-end" style={{ transitionDelay: '200ms' }}>
-          <div
-            aria-hidden
-            className="absolute inset-0 -z-10 translate-x-4 translate-y-4 rounded-full border border-line lg:translate-x-6 lg:translate-y-6"
-          />
-          <div className="aspect-square overflow-hidden rounded-full border border-line bg-paper-dim">
+        <div
+          className="relative mx-auto aspect-square w-full max-w-sm"
+          style={{ transform: `translate3d(${x * 10}px, ${y * 10}px, 0)` }}
+        >
+          <div className="reticle absolute inset-6 overflow-hidden rounded-full border border-crimson/30 bg-void-panel">
             <img
               src="/images/profile-photo.png"
               alt="Portrait of Sunil Mandloi"
               className="h-full w-full object-cover"
-              onError={(e) => {
-                ;(e.currentTarget as HTMLImageElement).style.display = 'none'
-                const fallback = e.currentTarget.nextElementSibling as HTMLElement | null
-                if (fallback) fallback.style.display = 'flex'
-              }}
+              width={640}
+              height={640}
             />
-            <div className="hidden h-full w-full items-center justify-center font-display text-sm text-ink-faint" style={{ display: 'none' }}>
-              Add portrait to /public/images/profile-photo.png
-            </div>
+            <div className="absolute inset-0 bg-gradient-to-t from-void/50 via-transparent to-crimson/5" />
           </div>
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 animate-[spin_40s_linear_infinite] rounded-full border border-dashed border-paper/10 motion-reduce:animate-none"
+          />
+          <div
+            aria-hidden="true"
+            className="absolute -inset-3 rounded-full border border-crimson/10"
+          />
         </div>
       </div>
+
+      <div className="absolute inset-x-0 bottom-6 mx-auto hidden w-fit items-center gap-2 text-xs text-paper-faint sm:flex">
+        <span className="ledger-num">SCROLL</span>
+        <span className="h-6 w-px animate-pulse bg-paper-faint motion-reduce:animate-none" />
+      </div>
     </section>
-  )
+  );
 }

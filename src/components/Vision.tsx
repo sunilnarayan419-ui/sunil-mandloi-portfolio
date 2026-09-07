@@ -1,31 +1,40 @@
-import { useReveal } from '../useReveal'
-import { profile } from '../data/profile'
-import SectionHeading from './SectionHeading'
+import Reveal from "./Reveal";
+
+const terms = ["Biology", "Technology", "Data", "Economics", "Strategy"];
 
 export default function Vision() {
-  const ref = useReveal<HTMLElement>()
   return (
-    <section id="vision" ref={ref} className="border-b border-line px-6 py-24 lg:px-16 lg:py-32 xl:pl-40">
-      <SectionHeading number="08" title="Where I'm Heading" />
+    <section id="vision" className="relative border-b border-void-line py-28 sm:py-36">
+      <div className="mx-auto max-w-6xl px-6 sm:px-10">
+        <Reveal>
+          <span className="ledger-num text-sm text-crimson">06 — Vision</span>
+        </Reveal>
+        <Reveal delayMs={80}>
+          <h2 className="mt-6 font-display text-3xl font-medium text-paper sm:text-4xl">
+            Where I'm heading
+          </h2>
+        </Reveal>
 
-      <div className="grid gap-14 lg:grid-cols-[1.2fr_1fr] lg:gap-16">
-        <p className="reveal max-w-xl text-base leading-relaxed text-ink-soft lg:text-lg">{profile.vision}</p>
-
-        <div className="reveal flex flex-wrap items-center gap-x-3 gap-y-3 lg:justify-end" style={{ transitionDelay: '100ms' }}>
-          {profile.visionEquation.map((term, i) => (
-            <span key={term} className="flex items-center gap-3">
-              <span className="rounded-full border border-line px-4 py-2 font-display text-base text-ink">
-                {term}
-              </span>
-              {i < profile.visionEquation.length - 1 && <span className="text-ink-faint">+</span>}
-            </span>
+        <div className="mt-16 flex flex-wrap items-center justify-center gap-x-5 gap-y-6 text-center">
+          {terms.map((term, i) => (
+            <Reveal key={term} delayMs={i * 90} className="flex items-center gap-x-5">
+              <span className="font-display text-xl text-paper sm:text-3xl">{term}</span>
+              {i < terms.length - 1 && (
+                <span className="font-display text-xl text-crimson sm:text-3xl">+</span>
+              )}
+            </Reveal>
           ))}
-          <span className="text-ink-faint">=</span>
-          <span className="rounded-full bg-crimson px-4 py-2 font-display text-base text-paper">
-            {profile.visionResult}
-          </span>
         </div>
+
+        <Reveal delayMs={terms.length * 90 + 100}>
+          <div className="mx-auto mt-10 w-fit border-t border-void-line pt-10 text-center">
+            <span className="font-display text-2xl text-paper-faint sm:text-3xl">=</span>
+            <p className="mt-6 font-display text-3xl font-medium text-crimson-bright sm:text-4xl lg:text-5xl">
+              Better life-science decisions
+            </p>
+          </div>
+        </Reveal>
       </div>
     </section>
-  )
+  );
 }

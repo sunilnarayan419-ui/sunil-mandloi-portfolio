@@ -1,24 +1,34 @@
-import { useReveal } from '../useReveal'
-import { profile } from '../data/profile'
-import SectionHeading from './SectionHeading'
+import Reveal from "./Reveal";
+import { profile } from "../data/content";
 
 export default function Education() {
-  const ref = useReveal<HTMLElement>()
   return (
-    <section id="education" ref={ref} className="border-b border-line px-6 py-24 lg:px-16 lg:py-32 xl:pl-40">
-      <SectionHeading number="03" title="Education" />
+    <section id="education" className="relative border-b border-void-line py-28 sm:py-36">
+      <div className="mx-auto max-w-6xl px-6 sm:px-10">
+        <Reveal>
+          <span className="ledger-num text-sm text-crimson">02 — Education</span>
+        </Reveal>
 
-      <div className="reveal relative max-w-2xl border-l border-line pl-8 lg:pl-10">
-        <span className="absolute -left-[5px] top-1.5 h-2.5 w-2.5 rounded-full bg-crimson" aria-hidden />
-        <p className="font-mono text-xs text-ink-faint">Present</p>
-        <h3 className="mt-3 font-display text-3xl text-ink lg:text-4xl">{profile.education.degree}</h3>
-        <p className="mt-2 text-lg text-ink-soft">{profile.education.institution}</p>
-        <p className="mt-1 text-sm text-ink-faint">{profile.education.note}</p>
-        <p className="mt-5 max-w-md text-sm leading-relaxed text-ink-soft">
-          The academic foundation underneath everything else here — the point where the rest of this page's
-          direction begins.
-        </p>
+        <div className="mt-14 flex gap-8 sm:gap-12">
+          <div className="relative hidden w-px shrink-0 bg-void-line sm:block">
+            <span className="absolute -left-[5px] top-1 h-[11px] w-[11px] rounded-full bg-crimson" />
+          </div>
+
+          <Reveal delayMs={100} className="w-full">
+            <div className="reticle border border-void-line bg-void-panel/60 p-8 sm:p-10">
+              <p className="ledger-num text-xs text-paper-faint">Ongoing</p>
+              <h3 className="mt-3 font-display text-2xl font-medium text-paper sm:text-3xl">
+                {profile.label}
+              </h3>
+              <p className="mt-2 text-base text-paper-dim">{profile.institution}</p>
+              <p className="mt-6 max-w-prose text-sm leading-relaxed text-paper-dim">
+                An integrated program spanning the core biological sciences, giving room to
+                build computational, data and business capability alongside it.
+              </p>
+            </div>
+          </Reveal>
+        </div>
       </div>
     </section>
-  )
+  );
 }

@@ -1,84 +1,105 @@
-# Sunil Mandloi — Portfolio
+# Sunil Mandloi — Portfolio (Redesign)
 
-A personal, one-page editorial portfolio built with React, TypeScript, Vite, and Tailwind CSS.
+A dark, immersive personal portfolio for **Sunil Mandloi**, an Integrated M.Sc. Life
+Sciences student at the University of Hyderabad building at the intersection of
+biotechnology, computation, AI, data and business strategy.
 
-## Before you run it: add your portrait
+> **Read this first:** this redesign was built as a fresh Vite + React + TypeScript
+> project rather than an edit of the previous codebase, because the
+> `sunil-mandloi-portfolio` repository wasn't reachable to read from (private, or
+> under a different name) at build time. All real content — name, education,
+> project list, GitHub/LinkedIn/email links — was pulled from your public GitHub
+> profile and verified. If you'd like this merged back into your original repo's
+> file structure instead, share repo access and it can be reconciled directly.
+>
+> This environment also has no network access, so `npm install` / `npm run build`
+> could not be run or verified here. Please run the install + build steps below
+> yourself before deploying, and open an issue with any error output if something
+> doesn't compile — the code has been written and reviewed carefully, but hasn't
+> been machine-verified.
 
-The photo URL provided couldn't be fetched automatically (it wasn't reachable from the
-build environment). The site is already wired to use it — you just need to add the file:
+## Technology stack
 
-1. Save your portrait as `profile-photo.png`
-2. Place it at `public/images/profile-photo.png`
+- **Vite** + **React 18** + **TypeScript**
+- **Tailwind CSS** for styling, with a custom dark design system (`tailwind.config.js`)
+- No 3D or animation library dependency — the immersive feel (ambient node field,
+  parallax hero, scroll reveals, card tilt) is built with the Canvas 2D API,
+  `IntersectionObserver`, and CSS transforms, kept deliberately light so the site
+  stays fast on low-powered devices
+- Fully respects `prefers-reduced-motion` and is keyboard-navigable throughout
 
-If the file is missing, the hero section shows a placeholder circle with a reminder
-message instead of breaking — so the site still runs fine either way.
+## Project structure
 
-## What's inside
+```
+sunil-mandloi-portfolio/
+├── public/
+│   ├── favicon.svg
+│   └── images/
+│       └── profile-photo.png      ← placeholder, replace with your real photo
+├── src/
+│   ├── components/                 One component per section
+│   ├── hooks/                      useReducedMotion, useMouseParallax
+│   ├── data/content.ts             All real copy, links and project data — edit here
+│   ├── App.tsx
+│   ├── main.tsx
+│   └── index.css
+├── index.html                      SEO/meta tags, Google Fonts
+├── netlify.toml                    Netlify build + SPA redirect config
+├── tailwind.config.js
+├── vite.config.ts
+└── package.json
+```
 
-- **Stack:** React 19 + TypeScript + Vite 8 + Tailwind CSS v4
-- **Structure:** a single-page site with 9 sections (Home, About, Education, Expertise,
-  Projects, What I'm Building, Learning & Development, Vision, Contact), a slim left-side
-  navigation rail on desktop, and a hamburger menu on mobile
-- **Content:** every project, skill, and biographical fact comes from your GitHub profile
-  (`sunilnarayan419-ui`) and the brief you provided. Nothing is invented — your LinkedIn
-  profile is not publicly crawlable, so if there's content there you'd like reflected,
-  add it to `src/data/profile.ts` directly
+## Replace the profile photo
+
+`public/images/profile-photo.png` currently contains a generated placeholder
+(monogram in a ring) since the original photo file wasn't accessible from here.
+Drop your real photo in at the same path and filename — no code changes needed.
 
 ## Getting started
 
 ```bash
 npm install
-npm run dev
+npm run dev       # local dev server
+npm run build     # production build → dist/
+npm run preview   # preview the production build locally
 ```
 
-Then open the URL Vite prints (usually `http://localhost:5173`).
+## Deploying to Netlify
 
-## Production build
+The project is already configured for the existing Netlify site
+(`https://sunil-narayan.netlify.app`):
 
-```bash
-npm run build
-```
+- Build command: `npm run build`
+- Publish directory: `dist`
+- `netlify.toml` includes an SPA redirect (`/* → /index.html`) so client-side
+  routing/anchors keep working on refresh and direct links.
 
-Output goes to `dist/`. Preview it locally with:
+Push this project to your GitHub repo and connect/redeploy it on Netlify (or run
+`netlify deploy --prod` from the CLI) — no other configuration changes should be
+needed.
 
-```bash
-npm run preview
-```
+## Editing content
 
-## Project structure
+Everything that appears on the page — name, tagline, nav labels, education,
+expertise domains, the project list (name, description, tech, GitHub link,
+category, status), the development-journey stages, and the philosophy/vision
+copy — lives in **`src/data/content.ts`**. Update it there rather than in the
+components.
 
-```
-src/
-├── components/       # Navigation, Hero, About, Education, Expertise,
-│                      Projects, ProjectRow, Building, DevelopmentPath,
-│                      Philosophy, Vision, Contact, Footer, SectionHeading
-├── data/             # profile.ts, projects.ts, sections.ts — edit these
-│                      to update content without touching components
-├── useReveal.ts      # small scroll-reveal hook used by every section
-├── App.tsx
-├── main.tsx
-└── index.css         # design tokens (colors, fonts) live here as
-                        Tailwind v4 @theme variables
-```
+## Adding real project detail
 
-## Updating content
+Each project card can show an expandable panel (tech + status today). If you
+want a fuller `Problem / Approach / Outcome` breakdown per project, add those
+fields to the relevant object in `src/data/content.ts` and extend
+`src/components/ProjectCard.tsx` to render them — left out here rather than
+invented, per the brief's instruction not to fabricate project detail.
 
-- **Profile text, education, philosophy, vision:** edit `src/data/profile.ts`
-- **Projects:** edit `src/data/projects.ts` — add, remove, or reorder entries; each one
-  needs `number`, `name`, `category`, `description`, `technology`, `problem`, and `url`
-- **Section order / labels in navigation:** edit `src/data/sections.ts`
+## Accessibility & performance notes
 
-## Design notes
-
-- Palette: off-white paper background, near-black ink, a single restrained crimson
-  accent used only for navigation state, section numbering, and hover/interactive
-  moments — never as a background color
-- Type: Fraunces (serif, display/headlines) paired with IBM Plex Sans (body/UI) and
-  IBM Plex Mono (numbering and small data labels)
-- Motion: one authored reveal on the hero at load, plus a single subtle fade-and-rise
-  on scroll for each section — respects `prefers-reduced-motion`
-
-## Deploying
-
-The `dist/` folder from `npm run build` is a static site — it can be deployed as-is to
-Vercel, Netlify, GitHub Pages, or any static host.
+- Semantic landmarks (`header`, `main`, `section`, `footer`), a skip-to-content
+  link, and visible focus rings throughout
+- The ambient canvas background lowers its node count on small screens and
+  renders a single static frame (no animation loop) under `prefers-reduced-motion`
+- All motion — hero parallax, card tilt, orbit rotation — is CSS/canvas driven
+  and disabled the same way

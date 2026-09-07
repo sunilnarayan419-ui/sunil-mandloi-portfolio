@@ -1,39 +1,6 @@
-@import url('https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;0,9..144,600;1,9..144,400&family=IBM+Plex+Sans:wght@300;400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap');
-@import 'tailwindcss';
-
-@theme {
-  --color-paper: #f7f6f2;
-  --color-paper-dim: #efeee8;
-  --color-ink: #14140f;
-  --color-ink-soft: #55544c;
-  --color-ink-faint: #8b897d;
-  --color-line: #dcdad0;
-  --color-crimson: #a3172a;
-  --color-crimson-dim: #7c111f;
-
-  --font-display: 'Fraunces', 'Georgia', serif;
-  --font-sans: 'IBM Plex Sans', -apple-system, sans-serif;
-  --font-mono: 'IBM Plex Mono', 'SF Mono', monospace;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .reveal {
-    opacity: 0;
-    transform: translateY(14px);
-    transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-  }
-  .reveal.is-visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  * {
-    animation-duration: 0.01ms !important;
-    transition-duration: 0.01ms !important;
-  }
-}
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 html {
   scroll-behavior: smooth;
@@ -43,29 +10,96 @@ html {
   html {
     scroll-behavior: auto;
   }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }
 
 body {
-  background-color: var(--color-paper);
-  color: var(--color-ink);
-  font-family: var(--font-sans);
-  -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 ::selection {
-  background-color: var(--color-crimson);
-  color: var(--color-paper);
+  background: #c81e3a;
+  color: #f3f1ec;
 }
 
 :focus-visible {
-  outline: 2px solid var(--color-crimson);
+  outline: 2px solid #ff3b54;
   outline-offset: 3px;
 }
 
-.numeral-watermark {
-  font-family: var(--font-display);
-  color: var(--color-ink);
-  opacity: 0.04;
-  pointer-events: none;
-  user-select: none;
+/* Reveal-on-scroll primitive */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.16, 1, 0.3, 1), transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reveal {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
+/* Reticle corner brackets — the recurring structural motif */
+.reticle {
+  position: relative;
+}
+.reticle::before,
+.reticle::after,
+.reticle .rt-tl,
+.reticle .rt-br {
+  content: "";
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: #c81e3a;
+  opacity: 0.55;
+  transition: opacity 0.35s ease, width 0.35s ease, height 0.35s ease;
+}
+.reticle::before {
+  top: -1px;
+  left: -1px;
+  border-top: 1.5px solid;
+  border-left: 1.5px solid;
+}
+.reticle::after {
+  bottom: -1px;
+  right: -1px;
+  border-bottom: 1.5px solid;
+  border-right: 1.5px solid;
+}
+.reticle:hover::before,
+.reticle:hover::after,
+.reticle:focus-within::before,
+.reticle:focus-within::after {
+  opacity: 1;
+  width: 20px;
+  height: 20px;
+}
+
+.ledger-num {
+  font-family: "IBM Plex Mono", monospace;
+  font-variant-numeric: tabular-nums;
+}
+
+.text-balance {
+  text-wrap: balance;
+}
+
+.bg-grain {
+  background-image: radial-gradient(rgba(243, 241, 236, 0.035) 1px, transparent 1px);
+  background-size: 3px 3px;
 }
