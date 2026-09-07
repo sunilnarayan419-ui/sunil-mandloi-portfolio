@@ -86,8 +86,8 @@ export default function NetworkField({ className = "", density = "ambient" }: Ne
           const dy = a.y - b.y;
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < maxDist) {
-            const alpha = (1 - dist / maxDist) * 0.16 * ((a.z + b.z) / 2 + 0.3);
-            ctx!.strokeStyle = `rgba(200, 30, 58, ${alpha})`;
+            const alpha = (1 - dist / maxDist) * 0.14 * ((a.z + b.z) / 2 + 0.3);
+            ctx!.strokeStyle = `rgba(159, 18, 57, ${alpha})`;
             ctx!.lineWidth = 0.6;
             ctx!.beginPath();
             ctx!.moveTo(a.x, a.y);
@@ -100,7 +100,7 @@ export default function NetworkField({ className = "", density = "ambient" }: Ne
       for (const n of nodes) {
         const r = 0.6 + n.z * 1.8;
         ctx!.beginPath();
-        ctx!.fillStyle = `rgba(243, 241, 236, ${0.15 + n.z * 0.35})`;
+        ctx!.fillStyle = `rgba(23, 23, 23, ${0.1 + n.z * 0.22})`;
         ctx!.arc(n.x, n.y, r, 0, Math.PI * 2);
         ctx!.fill();
       }

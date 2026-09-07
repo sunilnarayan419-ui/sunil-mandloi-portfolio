@@ -10,16 +10,16 @@ export default function Hero() {
       id="hero"
       className="relative flex min-h-[100svh] items-center overflow-hidden border-b border-void-line"
     >
-      <NetworkField density="hero" className="opacity-70" />
+      <NetworkField density="hero" className="opacity-40" />
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -left-40 top-1/4 h-96 w-96 rounded-full bg-crimson/10 blur-[120px]"
+        className="pointer-events-none absolute -left-40 top-1/4 h-96 w-96 rounded-full bg-crimson/[0.06] blur-[120px]"
         style={{ transform: `translate3d(${x * 12}px, ${y * 12}px, 0)` }}
       />
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-violet/15 blur-[110px]"
+        className="pointer-events-none absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-violet/10 blur-[110px]"
         style={{ transform: `translate3d(${x * -10}px, ${y * -10}px, 0)` }}
       />
 
@@ -49,24 +49,33 @@ export default function Hero() {
               onClick={() =>
                 document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" })
               }
-              className="rounded-sm border border-paper/25 px-6 py-3 text-sm text-paper transition-colors hover:border-crimson hover:text-crimson-bright"
+              className="rounded-sm border border-paper/20 px-6 py-3 text-sm text-paper transition-colors hover:border-crimson hover:text-crimson"
             >
               See the work
             </button>
             <a
               href={`mailto:${profile.email}`}
-              className="rounded-sm bg-paper px-6 py-3 text-sm font-medium text-void transition-colors hover:bg-crimson-bright hover:text-paper"
+              className="rounded-sm bg-paper px-6 py-3 text-sm font-medium text-void transition-colors hover:bg-crimson-bright"
             >
               Get in touch
             </a>
           </div>
         </div>
 
+        {/* Portrait — kept as a clean, clearly visible photograph. No dark
+            overlay or heavy frame sits on top of the face; the scientific
+            framing lives in the thin rings and small orbit nodes around it. */}
         <div
           className="relative mx-auto aspect-square w-full max-w-sm"
           style={{ transform: `translate3d(${x * 10}px, ${y * 10}px, 0)` }}
         >
-          <div className="reticle absolute inset-6 overflow-hidden rounded-full border border-crimson/30 bg-void-panel">
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 animate-[spin_50s_linear_infinite] rounded-full border border-dashed border-crimson/20 motion-reduce:animate-none"
+          />
+          <div aria-hidden="true" className="absolute -inset-3 rounded-full border border-void-line" />
+
+          <div className="reticle absolute inset-6 overflow-hidden rounded-full border border-void-line bg-void-panel shadow-card">
             <img
               src="/images/profile-photo.png"
               alt="Portrait of Sunil Mandloi"
@@ -74,15 +83,21 @@ export default function Hero() {
               width={640}
               height={640}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-void/50 via-transparent to-crimson/5" />
           </div>
-          <div
+
+          {/* Small orbit nodes — the "scientific instrument" accents around
+              the frame, per the light-scientific composition. */}
+          <span
             aria-hidden="true"
-            className="absolute inset-0 animate-[spin_40s_linear_infinite] rounded-full border border-dashed border-paper/10 motion-reduce:animate-none"
+            className="absolute -top-2 left-1/4 h-2.5 w-2.5 rounded-full border border-crimson/40 bg-void-panel shadow-card"
           />
-          <div
+          <span
             aria-hidden="true"
-            className="absolute -inset-3 rounded-full border border-crimson/10"
+            className="absolute bottom-2 -right-2 h-3 w-3 rounded-full border border-crimson/30 bg-void-panel shadow-card"
+          />
+          <span
+            aria-hidden="true"
+            className="absolute bottom-6 left-0 h-2 w-2 rounded-full bg-crimson/40"
           />
         </div>
       </div>

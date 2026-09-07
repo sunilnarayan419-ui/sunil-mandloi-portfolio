@@ -25,12 +25,12 @@ body {
 }
 
 ::selection {
-  background: #c81e3a;
-  color: #f3f1ec;
+  background: #9f1239;
+  color: #ffffff;
 }
 
 :focus-visible {
-  outline: 2px solid #ff3b54;
+  outline: 2px solid #e11d48;
   outline-offset: 3px;
 }
 
@@ -53,9 +53,22 @@ body {
   }
 }
 
-/* Reticle corner brackets — the recurring structural motif */
+/* Reticle corner brackets + soft card elevation — the recurring
+   structural/scientific-instrument motif used across cards, the portrait
+   frame, and contact links. */
 .reticle {
   position: relative;
+  box-shadow: 0 1px 2px rgba(23, 23, 23, 0.04), 0 12px 28px -16px rgba(23, 23, 23, 0.12);
+  transition: box-shadow 0.3s ease, transform 0.3s ease;
+}
+.reticle:hover {
+  box-shadow: 0 2px 4px rgba(23, 23, 23, 0.05), 0 20px 36px -16px rgba(23, 23, 23, 0.16);
+  transform: translateY(-2px);
+}
+@media (prefers-reduced-motion: reduce) {
+  .reticle:hover {
+    transform: none;
+  }
 }
 .reticle::before,
 .reticle::after,
@@ -65,8 +78,8 @@ body {
   position: absolute;
   width: 14px;
   height: 14px;
-  border-color: #c81e3a;
-  opacity: 0.55;
+  border-color: #9f1239;
+  opacity: 0.45;
   transition: opacity 0.35s ease, width 0.35s ease, height 0.35s ease;
 }
 .reticle::before {
@@ -85,7 +98,7 @@ body {
 .reticle:hover::after,
 .reticle:focus-within::before,
 .reticle:focus-within::after {
-  opacity: 1;
+  opacity: 0.9;
   width: 20px;
   height: 20px;
 }
@@ -99,7 +112,16 @@ body {
   text-wrap: balance;
 }
 
+/* Faint scientific texture: a fine dot grid plus coordinate lines, visible
+   only on close inspection — never competing with content. */
 .bg-grain {
-  background-image: radial-gradient(rgba(243, 241, 236, 0.035) 1px, transparent 1px);
+  background-image: radial-gradient(rgba(23, 23, 23, 0.045) 1px, transparent 1px);
   background-size: 3px 3px;
+}
+
+.bg-scientific-grid {
+  background-image: linear-gradient(to right, rgba(23, 23, 23, 0.035) 1px, transparent 1px),
+    linear-gradient(to bottom, rgba(23, 23, 23, 0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 80% 60% at 50% 0%, black 40%, transparent 90%);
 }
