@@ -10,6 +10,13 @@ export default function Hero() {
       id="hero"
       className="relative flex min-h-[100svh] items-center overflow-hidden border-b border-void-line"
     >
+      {/* Faint coordinate-grid texture, scoped to the Hero section only so
+          its edge-fade mask can never affect content further down the
+          page (see index.css .bg-scientific-grid — mask-image masks an
+          element's entire painted subtree, not just its own background,
+          so this must stay off any wrapper that contains other sections). */}
+      <div aria-hidden="true" className="bg-scientific-grid pointer-events-none absolute inset-0" />
+
       <NetworkField density="hero" className="opacity-40" />
 
       <div
