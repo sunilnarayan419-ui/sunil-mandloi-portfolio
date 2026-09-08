@@ -3,7 +3,10 @@ import { journeyStages } from "../data/content";
 
 export default function Journey() {
   return (
-    <section id="journey" className="relative border-b border-void-line py-28 sm:py-36">
+    <section
+      id="journey"
+      className="relative border-b border-void-line bg-void-raised py-28 sm:py-36"
+    >
       <div className="mx-auto max-w-6xl px-6 sm:px-10">
         <Reveal>
           <span className="ledger-num text-sm text-crimson">05 — Development</span>

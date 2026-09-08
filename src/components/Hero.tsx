@@ -14,13 +14,17 @@ export default function Hero() {
 
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute -left-40 top-1/4 h-96 w-96 rounded-full bg-crimson/[0.06] blur-[120px]"
+        className="pointer-events-none absolute -left-40 top-1/4 h-96 w-96 rounded-full bg-crimson/[0.07] blur-[120px]"
         style={{ transform: `translate3d(${x * 12}px, ${y * 12}px, 0)` }}
       />
       <div
         aria-hidden="true"
         className="pointer-events-none absolute -right-32 bottom-0 h-80 w-80 rounded-full bg-violet/10 blur-[110px]"
         style={{ transform: `translate3d(${x * -10}px, ${y * -10}px, 0)` }}
+      />
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute right-10 top-10 h-64 w-64 rounded-full bg-void-raised/70 blur-[90px]"
       />
 
       <div className="relative mx-auto grid w-full max-w-6xl grid-cols-1 items-center gap-16 px-6 pt-28 pb-16 sm:px-10 md:grid-cols-[1.15fr_0.85fr] md:pt-24">
@@ -69,9 +73,23 @@ export default function Hero() {
           className="relative mx-auto aspect-square w-full max-w-sm"
           style={{ transform: `translate3d(${x * 10}px, ${y * 10}px, 0)` }}
         >
+          {/* Warm gradient glow behind the portrait, so the frame reads as
+              sitting in a lit, scientific environment rather than floating
+              on a flat background. */}
           <div
             aria-hidden="true"
-            className="absolute inset-0 animate-[spin_50s_linear_infinite] rounded-full border border-dashed border-crimson/20 motion-reduce:animate-none"
+            className="absolute inset-[-10%] rounded-full bg-[radial-gradient(circle,_rgba(159,18,57,0.10),_rgba(242,239,231,0)_65%)] blur-2xl"
+          />
+
+          {/* Two counter-rotating orbital rings — the restrained "orbital
+              system" scientific motif requested for the portrait frame. */}
+          <div
+            aria-hidden="true"
+            className="absolute inset-0 animate-[spin_50s_linear_infinite] rounded-full border border-dashed border-crimson/25 motion-reduce:animate-none"
+          />
+          <div
+            aria-hidden="true"
+            className="absolute inset-[8%] animate-[spin_70s_linear_infinite_reverse] rounded-full border border-dotted border-paper/15 motion-reduce:animate-none"
           />
           <div aria-hidden="true" className="absolute -inset-3 rounded-full border border-void-line" />
 
@@ -93,11 +111,15 @@ export default function Hero() {
           />
           <span
             aria-hidden="true"
-            className="absolute bottom-2 -right-2 h-3 w-3 rounded-full border border-crimson/30 bg-void-panel shadow-card"
+            className="absolute bottom-2 -right-2 h-3 w-3 rounded-full border border-crimson/30 bg-void-panel shadow-card animate-pulse motion-reduce:animate-none"
           />
           <span
             aria-hidden="true"
             className="absolute bottom-6 left-0 h-2 w-2 rounded-full bg-crimson/40"
+          />
+          <span
+            aria-hidden="true"
+            className="absolute right-4 top-6 h-1.5 w-1.5 rounded-full bg-paper/25"
           />
         </div>
       </div>

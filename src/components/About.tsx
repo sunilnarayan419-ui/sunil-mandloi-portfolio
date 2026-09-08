@@ -4,7 +4,10 @@ const highlights = ["Life Sciences", "Biotechnology", "Computation", "AI", "Busi
 
 export default function About() {
   return (
-    <section id="about" className="relative border-b border-void-line py-28 sm:py-36">
+    <section
+      id="about"
+      className="relative border-b border-void-line bg-void-raised py-28 sm:py-36"
+    >
       <div className="mx-auto max-w-6xl px-6 sm:px-10">
         <Reveal>
           <span className="ledger-num text-sm text-crimson">01 — About</span>

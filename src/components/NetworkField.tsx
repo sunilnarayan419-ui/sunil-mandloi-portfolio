@@ -4,6 +4,10 @@ import { useReducedMotion } from "../hooks/useReducedMotion";
 interface NetworkFieldProps {
   className?: string;
   density?: "hero" | "ambient";
+  /** "light" (default) draws dark ink nodes for use on warm-ivory
+   *  surfaces; "dark" draws warm mist-toned nodes for use on the
+   *  graphite anchor sections. */
+  tone?: "light" | "dark";
 }
 
 interface Node {
@@ -21,7 +25,11 @@ interface Node {
  * predictable across devices. Node count and motion scale down on small
  * screens and switch off entirely under prefers-reduced-motion.
  */
-export default function NetworkField({ className = "", density = "ambient" }: NetworkFieldProps) {
+export default function NetworkField({
+  className = "",
+  density = "ambient",
+  tone = "light",
+}: NetworkFieldProps) {
   const canvasRef = useRef<HTMLCanvasElement | null>(null);
   const reduced = useReducedMotion();
 
@@ -97,10 +105,11 @@ export default function NetworkField({ className = "", density = "ambient" }: Ne
         }
       }
 
+      const nodeColor = tone === "dark" ? "243, 240, 232" : "27, 23, 18";
       for (const n of nodes) {
         const r = 0.6 + n.z * 1.8;
         ctx!.beginPath();
-        ctx!.fillStyle = `rgba(23, 23, 23, ${0.1 + n.z * 0.22})`;
+        ctx!.fillStyle = `rgba(${nodeColor}, ${0.1 + n.z * 0.22})`;
         ctx!.arc(n.x, n.y, r, 0, Math.PI * 2);
         ctx!.fill();
       }
@@ -130,7 +139,7 @@ export default function NetworkField({ className = "", density = "ambient" }: Ne
       cancelAnimationFrame(raf);
       window.removeEventListener("resize", handleResize);
     };
-  }, [density, reduced]);
+  }, [density, reduced, tone]);
 
   return (
     <canvas

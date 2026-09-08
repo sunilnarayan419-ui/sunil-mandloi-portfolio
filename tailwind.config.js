@@ -4,27 +4,42 @@ export default {
   theme: {
     extend: {
       colors: {
-        // "void" = background surfaces (light, warm-scientific — NOT dark
-        // despite the token name, kept for continuity with existing code)
+        // "void" = light surfaces — warm ivory/gray, deliberately NOT pure
+        // white. This is the "light canvas" half of the light+dark rhythm.
         void: {
-          DEFAULT: "#F7F7F5", // page background — warm scientific white
-          raised: "#EFEFED", // secondary surface
-          panel: "#FFFFFF", // card surface
-          line: "#DFDDD8", // hairline borders
+          DEFAULT: "#F2EFE7", // page background — warm ivory
+          raised: "#E7E2D6", // secondary/alternating section surface
+          panel: "#F8F6F0", // card surface, warm off-white (not #FFFFFF)
+          line: "#DCD5C6", // warm hairline borders
         },
-        // "paper" = text (dark, on the light surfaces above)
+        // "graphite" = dark anchor surfaces used for a handful of sections
+        // (Philosophy, Contact, Footer) to give the page controlled dark
+        // contrast against the warm-light canvas — "light canvas, dark
+        // anchors" per the design direction.
+        graphite: {
+          DEFAULT: "#211D18", // dark anchor section background
+          raised: "#2B2620", // card/panel on a dark section
+          deep: "#161310", // darkest — footer
+          line: "#3E362C", // hairline borders on dark sections
+        },
+        // "paper" = ink (text) on the light "void" surfaces
         paper: {
-          DEFAULT: "#171717",
-          dim: "#5B5B5B",
-          faint: "#8A8A87",
+          DEFAULT: "#1B1712",
+          dim: "#5A5348",
+          faint: "#8F8779",
+        },
+        // "mist" = light text used on the dark "graphite" surfaces
+        mist: {
+          DEFAULT: "#F3F0E8",
+          dim: "#C9C1B0",
+          faint: "#8F887A",
         },
         crimson: {
-          DEFAULT: "#9F1239", // labels, hairlines, small accents — AA on white
+          DEFAULT: "#9F1239", // labels, hairlines, small accents
           bright: "#E11D48", // hover states, buttons, large display accents
           deep: "#4C0519", // darkest hairline / orbital accents
         },
-        // kept for continuity with earlier code; now a soft cool-gray wash
-        // rather than a saturated violet, per the light/editorial direction
+        // soft cool-gray wash used as a secondary ambient accent
         violet: {
           DEFAULT: "#8B8FA3",
         },
@@ -38,8 +53,9 @@ export default {
         prose: "68ch",
       },
       boxShadow: {
-        card: "0 1px 2px rgba(23,23,23,0.04), 0 12px 28px -16px rgba(23,23,23,0.12)",
-        "card-hover": "0 2px 4px rgba(23,23,23,0.05), 0 20px 36px -16px rgba(23,23,23,0.16)",
+        card: "0 1px 2px rgba(27,23,18,0.05), 0 12px 28px -16px rgba(27,23,18,0.16)",
+        "card-hover": "0 2px 4px rgba(27,23,18,0.06), 0 20px 36px -16px rgba(27,23,18,0.22)",
+        "card-dark": "0 1px 2px rgba(0,0,0,0.3), 0 16px 32px -16px rgba(0,0,0,0.5)",
       },
     },
   },

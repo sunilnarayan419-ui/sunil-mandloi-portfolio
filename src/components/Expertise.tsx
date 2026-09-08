@@ -9,7 +9,10 @@ export default function Expertise() {
   const activeDomain = expertiseDomains.find((d) => d.id === active) ?? expertiseDomains[0];
 
   return (
-    <section id="expertise" className="relative border-b border-void-line py-28 sm:py-36">
+    <section
+      id="expertise"
+      className="relative border-b border-void-line bg-void-raised py-28 sm:py-36"
+    >
       <div className="mx-auto max-w-6xl px-6 sm:px-10">
         <Reveal>
           <span className="ledger-num text-sm text-crimson">03 — Expertise</span>

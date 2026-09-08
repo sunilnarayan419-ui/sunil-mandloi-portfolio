@@ -1,6 +1,10 @@
 import Reveal from "./Reveal";
-import ProjectCard from "./ProjectCard";
+import ProjectCard, { type CardTone } from "./ProjectCard";
 import { projects, profile } from "../data/content";
+
+// Mixed card treatment so projects don't read as identical white
+// rectangles — ivory, warm-gray, and an occasional dark graphite card.
+const tones: CardTone[] = ["ivory", "warm", "graphite"];
 
 export default function Projects() {
   return (
@@ -32,7 +36,7 @@ export default function Projects() {
         <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
           {projects.map((project, i) => (
             <Reveal key={project.name} delayMs={(i % 3) * 90} className="h-full">
-              <ProjectCard project={project} />
+              <ProjectCard project={project} tone={tones[i % tones.length]} />
             </Reveal>
           ))}
         </div>
