@@ -54,16 +54,16 @@ export default function Nav() {
           {profile.name}
         </a>
 
-        <ul className="hidden items-center gap-1 md:flex">
+        <ul className="hidden items-center gap-0.5 lg:flex xl:gap-1">
           {navSections.map((s, i) => (
             <li key={s.id}>
               <button
                 onClick={() => handleJump(s.id)}
-                className={`group flex items-center gap-2 rounded px-3 py-2 text-sm transition-colors ${
+                className={`group flex items-center gap-1.5 rounded px-2 py-2 text-xs transition-colors xl:px-3 xl:text-sm ${
                   active === s.id ? "text-paper" : "text-paper-faint hover:text-paper-dim"
                 }`}
               >
-                <span className="ledger-num text-xs text-crimson">
+                <span className="ledger-num hidden text-xs text-crimson xl:inline">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 {s.label}
@@ -76,7 +76,7 @@ export default function Nav() {
           aria-expanded={open}
           aria-label="Toggle navigation menu"
           onClick={() => setOpen((v) => !v)}
-          className="flex h-9 w-9 flex-col items-center justify-center gap-1.5 md:hidden"
+          className="flex h-9 w-9 flex-col items-center justify-center gap-1.5 lg:hidden"
         >
           <span
             className={`block h-px w-5 bg-paper transition-transform duration-300 ${
@@ -92,7 +92,7 @@ export default function Nav() {
       </nav>
 
       {open && (
-        <div className="border-t border-void-line bg-void/97 px-6 pb-6 pt-2 md:hidden">
+        <div className="border-t border-void-line bg-void/97 px-6 pb-6 pt-2 lg:hidden">
           <ul className="flex flex-col gap-1">
             {navSections.map((s, i) => (
               <li key={s.id}>

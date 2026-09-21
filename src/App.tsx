@@ -2,8 +2,11 @@ import Nav from "./components/Nav";
 import Hero from "./components/Hero";
 import About from "./components/About";
 import Education from "./components/Education";
+import Experience from "./components/Experience";
 import Expertise from "./components/Expertise";
 import Projects from "./components/Projects";
+import Research from "./components/Research";
+import Certifications from "./components/Certifications";
 import Journey from "./components/Journey";
 import Philosophy from "./components/Philosophy";
 import Vision from "./components/Vision";
@@ -24,8 +27,11 @@ export default function App() {
         <Hero />
         <About />
         <Education />
+        <Experience />
         <Expertise />
         <Projects />
+        <Research />
+        <Certifications />
         <Journey />
         <Philosophy />
         <Vision />

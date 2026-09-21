@@ -7,7 +7,7 @@ export default function Vision() {
     <section id="vision" className="relative border-b border-void-line py-28 sm:py-36">
       <div className="mx-auto max-w-6xl px-6 sm:px-10">
         <Reveal>
-          <span className="ledger-num text-sm text-crimson">06 — Vision</span>
+          <span className="ledger-num text-sm text-crimson">09 — Vision</span>
         </Reveal>
         <Reveal delayMs={80}>
           <h2 className="mt-6 font-display text-3xl font-medium text-paper sm:text-4xl">

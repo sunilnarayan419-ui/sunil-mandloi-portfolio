@@ -13,7 +13,7 @@ export default function Contact() {
       />
       <div className="relative mx-auto max-w-6xl px-6 sm:px-10">
         <Reveal>
-          <span className="ledger-num text-sm text-crimson-bright">07 — Contact</span>
+          <span className="ledger-num text-sm text-crimson-bright">10 — Contact</span>
         </Reveal>
 
         <Reveal delayMs={80}>

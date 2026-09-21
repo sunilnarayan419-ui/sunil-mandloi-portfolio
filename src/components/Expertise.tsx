@@ -15,7 +15,7 @@ export default function Expertise() {
     >
       <div className="mx-auto max-w-6xl px-6 sm:px-10">
         <Reveal>
-          <span className="ledger-num text-sm text-crimson">03 — Expertise</span>
+          <span className="ledger-num text-sm text-crimson">04 — Expertise</span>
         </Reveal>
         <Reveal delayMs={80}>
           <h2 className="mt-6 max-w-2xl font-display text-3xl font-medium text-paper sm:text-4xl">

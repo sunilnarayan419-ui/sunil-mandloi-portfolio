@@ -1,4 +1,5 @@
 import Reveal from "./Reveal";
+import { approach, currentFocus } from "../data/content";
 
 const highlights = ["Life Sciences", "Biotechnology", "Computation", "AI", "Business", "Strategy"];
 
@@ -37,6 +38,54 @@ export default function About() {
               </span>
             </Reveal>
           ))}
+        </div>
+
+        {/* The working lens every problem gets run through. */}
+        <Reveal delayMs={420}>
+          <div className="mt-16 flex flex-wrap items-center gap-x-3 gap-y-3 border-t border-void-line pt-10">
+            {approach.map((step, i) => (
+              <span key={step} className="flex items-center gap-3">
+                <span className="ledger-num text-xs text-paper-dim sm:text-sm">{step}</span>
+                {i < approach.length - 1 && (
+                  <span className="text-xs text-crimson sm:text-sm" aria-hidden="true">
+                    →
+                  </span>
+                )}
+              </span>
+            ))}
+          </div>
+        </Reveal>
+
+        {/* Currently building vs. long-term interest — kept explicitly
+            separate so future ambition never reads as present expertise. */}
+        <div className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2">
+          <Reveal delayMs={480} className="h-full">
+            <div className="reticle h-full border border-void-line bg-void-panel/60 p-7">
+              <p className="ledger-num text-xs text-crimson">Currently building</p>
+              <ul className="mt-5 space-y-3">
+                {currentFocus.building.map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-sm text-paper-dim">
+                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-crimson" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
+
+          <Reveal delayMs={540} className="h-full">
+            <div className="reticle h-full border border-void-line bg-void-panel/60 p-7">
+              <p className="ledger-num text-xs text-paper-faint">Exploring long-term</p>
+              <ul className="mt-5 space-y-3">
+                {currentFocus.exploring.map((item) => (
+                  <li key={item} className="flex items-start gap-3 text-sm text-paper-dim">
+                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-paper-faint" />
+                    {item}
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </Reveal>
         </div>
       </div>
     </section>

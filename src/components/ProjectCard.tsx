@@ -79,15 +79,35 @@ export default function ProjectCard({
       </button>
 
       {open && (
-        <div className={`mt-4 space-y-2 border-t pt-4 text-sm ${isDark ? "border-graphite-line" : "border-void-line"}`}>
+        <div className={`mt-4 space-y-4 border-t pt-4 text-sm ${isDark ? "border-graphite-line" : "border-void-line"}`}>
           <p className={isDark ? "text-mist-dim" : "text-paper-dim"}>
-            <span className={`ledger-num ${isDark ? "text-mist-faint" : "text-paper-faint"}`}>Built with </span>
-            {project.tech.join(", ")}
+            <span className={`ledger-num block text-[11px] ${isDark ? "text-mist-faint" : "text-paper-faint"}`}>
+              Problem
+            </span>
+            {project.problem}
           </p>
           <p className={isDark ? "text-mist-dim" : "text-paper-dim"}>
-            <span className={`ledger-num ${isDark ? "text-mist-faint" : "text-paper-faint"}`}>Status </span>
-            {project.status}
+            <span className={`ledger-num block text-[11px] ${isDark ? "text-mist-faint" : "text-paper-faint"}`}>
+              Approach
+            </span>
+            {project.approach}
           </p>
+          <p className={isDark ? "text-mist-dim" : "text-paper-dim"}>
+            <span className={`ledger-num block text-[11px] ${isDark ? "text-mist-faint" : "text-paper-faint"}`}>
+              Result
+            </span>
+            {project.result}
+          </p>
+          <div className={`flex flex-wrap items-center justify-between gap-3 border-t pt-3 ${isDark ? "border-graphite-line" : "border-void-line"}`}>
+            <p className={isDark ? "text-mist-dim" : "text-paper-dim"}>
+              <span className={`ledger-num ${isDark ? "text-mist-faint" : "text-paper-faint"}`}>Built with </span>
+              {project.tech.join(", ")}
+            </p>
+            <p className={isDark ? "text-mist-dim" : "text-paper-dim"}>
+              <span className={`ledger-num ${isDark ? "text-mist-faint" : "text-paper-faint"}`}>Status </span>
+              {project.status}
+            </p>
+          </div>
         </div>
       )}
 

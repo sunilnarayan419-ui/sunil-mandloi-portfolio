@@ -13,7 +13,7 @@ export default function Projects() {
         <div className="flex flex-wrap items-end justify-between gap-6">
           <div>
             <Reveal>
-              <span className="ledger-num text-sm text-crimson">04 — Projects</span>
+              <span className="ledger-num text-sm text-crimson">05 — Projects</span>
             </Reveal>
             <Reveal delayMs={80}>
               <h2 className="mt-6 max-w-xl font-display text-3xl font-medium text-paper sm:text-4xl">
