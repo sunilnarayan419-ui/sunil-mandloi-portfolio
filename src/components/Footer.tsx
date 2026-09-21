@@ -7,21 +7,24 @@ export default function Footer() {
         <div>
           <p className="font-display text-sm text-mist">{profile.name}</p>
           <p className="mt-1 text-xs text-mist-faint">
-            Life Sciences × Biotechnology × Technology × Business
+            Life Sciences × Computational Biology × AI × Data × Business
           </p>
         </div>
 
-        <div className="flex gap-6 text-xs text-mist-faint">
-          <a href={profile.github} target="_blank" rel="noreferrer" className="hover:text-crimson-bright">
+        <nav aria-label="Elsewhere" className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-mist-faint">
+          <a href={profile.github} target="_blank" rel="noopener noreferrer" className="hover:text-crimson-soft">
             GitHub
           </a>
-          <a href={profile.linkedin} target="_blank" rel="noreferrer" className="hover:text-crimson-bright">
+          <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-crimson-soft">
             LinkedIn
           </a>
-          <a href={`mailto:${profile.email}`} className="hover:text-crimson-bright">
+          <a href={profile.researchgate} target="_blank" rel="noopener noreferrer" className="hover:text-crimson-soft">
+            ResearchGate
+          </a>
+          <a href={`mailto:${profile.email}`} className="hover:text-crimson-soft">
             Email
           </a>
-        </div>
+        </nav>
 
         <p className="text-xs text-mist-faint">© 2026 {profile.name}</p>
       </div>

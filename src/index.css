@@ -24,6 +24,11 @@ body {
   overflow-x: hidden;
 }
 
+/* Anchor jumps land below the fixed header. */
+section[id] {
+  scroll-margin-top: 4rem;
+}
+
 ::selection {
   background: #9f1239;
   color: #ffffff;

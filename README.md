@@ -1,137 +1,69 @@
-# Sunil Mandloi — Portfolio (V2)
+# Sunil Mandloi — Portfolio
 
-A light, editorial-scientific personal portfolio for **Sunil Mandloi**, an
-Integrated M.Sc. Life Sciences student at the University of Hyderabad building
-at the intersection of biotechnology, computation, AI, data and business
-strategy.
+Personal portfolio of **Sunil Mandloi**, a second-year Integrated M.Sc. Life Sciences
+student at the University of Hyderabad working across biotechnology, computational biology,
+Python and data analytics, and life-science business strategy.
 
-This is a **content and depth upgrade** of the existing site — same stack,
-same visual identity (warm ivory / graphite anchors / crimson accent,
-"scientific instrument" reticle cards, ambient node field, scroll reveals),
-substantially more information underneath it. Nothing about the architecture,
-palette, or working components was thrown away; three new sections were added
-and the existing ones were enriched with verified detail.
+Live: https://sunil-narayan.netlify.app/
 
-## What changed in this pass
+## Stack
 
-- **Cleaned up dead code.** A previous iteration of this repo left behind an
-  unused, unreferenced set of files from an earlier (dark-theme) design pass —
-  `data/profile.ts`, `data/sections.ts`, `data/projects.ts`, `Navigation.tsx`,
-  `DevelopmentPath.tsx`, `ProjectRow.tsx`, `SectionHeading.tsx`,
-  `Building.tsx`, `useReveal.ts`, `theme.css`, and a duplicate profile image.
-  None of these were imported by `App.tsx` or wired into the live site — they
-  were removed as pure cleanup, no visible behavior changed.
-- **Three new sections**, styled to match the existing component patterns
-  exactly (`Reveal`, `reticle` cards, `ledger-num` labels):
-  - **Experience** (`src/components/Experience.tsx`) — the Epochfolio R&D
-    internship and participation in the University of Hyderabad Data Science
-    Conference, sourced from what was provided directly rather than invented.
-  - **Research** (`src/components/Research.tsx`) — pulled from the real,
-    verified ResearchGate profile: bio, skill tags, and the one research
-    question actually posted there. Framed explicitly as scientific
-    engagement, not a publication list.
-  - **Certifications** (`src/components/Certifications.tsx`) — Power BI for
-    Beginners and Introduction to MS Excel (Microsoft/Simplilearn/SkillUp).
-- **About** now includes the Problem → Research → Data → Analysis →
-  Economics → Strategy → Decision → Output framework as a visual row, plus an
-  explicit "Currently building" vs. "Exploring long-term" split so
-  present-day skills are never conflated with future ambition.
-- **Project cards** now expand into Problem / Approach / Result, not just a
-  tech-and-status line — all six project entries were checked against the
-  live GitHub profile (`github.com/sunilnarayan419-ui`) during this pass and
-  are current; nothing was added or removed.
-- **Navigation** now carries 9 sections; the breakpoint for the full desktop
-  nav was moved from `md:` to `lg:` and the item numbers hide below `xl:` so
-  it doesn't crowd on tablet-width screens.
-- **SEO**: canonical tag, refreshed title/description, and a JSON-LD `Person`
-  schema with the real social links (LinkedIn, GitHub, ResearchGate).
+- Vite + React 18 + TypeScript (strict)
+- Tailwind CSS 3 — warm-ivory surfaces, graphite anchors, crimson accent
+- No animation or 3D library: the network field is Canvas 2D; reveals use `IntersectionObserver`
+- All motion respects `prefers-reduced-motion`
+- Deployed on Netlify (`netlify.toml`: build, SPA redirect, security and cache headers)
 
-## Technology stack
-
-- **Vite** + **React 18** + **TypeScript**
-- **Tailwind CSS** — warm-ivory/off-white surfaces (`void`), graphite dark
-  anchors (`graphite`) for Philosophy/Contact/Footer, near-black text
-  (`paper`)/light text on dark (`mist`), and a deep crimson accent used only
-  for labels, hairlines, hover states, and a few large accent lines
-- No animation/3D library dependency — the ambient node field, parallax hero,
-  scroll reveals, and card tilt are Canvas 2D, `IntersectionObserver`, and CSS
-  transforms, kept light so the site stays fast on low-powered devices
-- Fully respects `prefers-reduced-motion` and is keyboard-navigable throughout
-
-## Project structure
-
-```
-sunil-mandloi-portfolio/
-├── public/
-│   ├── favicon.svg
-│   └── images/
-│       └── profile-photo.png
-├── src/
-│   ├── components/                 One component per section
-│   ├── hooks/                      useReducedMotion, useMouseParallax
-│   ├── data/content.ts             All copy, links and project/experience data — edit here
-│   ├── App.tsx
-│   ├── main.tsx
-│   └── index.css
-├── index.html                      SEO/meta tags, JSON-LD, Google Fonts
-├── netlify.toml                    Netlify build + SPA redirect config
-├── tailwind.config.js
-├── vite.config.ts
-└── package.json
-```
-
-## Getting started
+## Develop
 
 ```bash
 npm install
-npm run dev       # local dev server
-npm run build     # production build → dist/
-npm run preview   # preview the production build locally
+npm run dev              # local dev server
+npm run build            # type-check + production build → dist/
+npm run preview          # serve the production build
+npm run verify:projects  # check the Projects section against GitHub (see below)
 ```
 
-> Note: this environment had no network access, so `npm install` /
-> `npm run build` could not be executed here to produce a fresh `dist/` or
-> verify the TypeScript build end-to-end. Every file was hand-checked for
-> import resolution and JSX/brace balance, but please run `npm install &&
-> npm run build` yourself before deploying and flag anything that doesn't
-> compile.
+## Where things live
 
-## Deploying to Netlify
+```
+src/data/content.ts      Every piece of copy, link, project, experience entry — edit here
+src/components/          One component per section (Hero, About, Education, Experience,
+                         Expertise, Projects, DataBusiness, Research, Journey, Contact …)
+src/hooks/               useReducedMotion, useMouseParallax
+public/                  favicon, images (WebP portrait, JPG social card), robots.txt, sitemap.xml
+scripts/verify-projects.mjs
+```
 
-Unchanged from before — the project is already configured for the existing
-Netlify site (`https://sunil-narayan.netlify.app`):
+Section order: Hero → About → Education → Experience → Skills → Projects → Data & Business →
+Research → Direction → Vision → Contact.
 
-- Build command: `npm run build`
-- Publish directory: `dist`
-- `netlify.toml` includes an SPA redirect (`/* → /index.html`)
+## Content rules
 
-Push this to your GitHub repo and redeploy on Netlify (or `netlify deploy
---prod` from the CLI) — no configuration changes are needed.
+1. **Projects mirror GitHub.** Only repositories that exist at
+   `github.com/sunilnarayan419-ui` appear, and every claim on a card must be traceable to that
+   repo's README or code. Run `npm run verify:projects` before deploying; it fails on a dead
+   link and lists public repos that are missing from the site. It uses plain github.com pages,
+   so it needs no token, and it is deliberately not part of `npm run build`.
+2. **Status is stated honestly.** `tier` and `status` in `content.ts` distinguish finished work
+   from practice repos and scaffolds. Do not upgrade a status until the code exists.
+3. **Python is the only programming language presented as a skill.** Project tags list Python
+   libraries the repo actually imports or declares.
+4. **Now vs later.** `currentFocus.building` is work under way; `currentFocus.exploring` and the
+   "Direction" stages carry a status label so ambition never reads as expertise.
+5. **No invented credentials.** The hackathon entry is participation. There are no publications
+   (ResearchGate shows one question and none). The Novo Nordisk repo is an independent case study.
+6. Public contact: `sunilnarayan419@gmail.com`; no phone number is published.
 
-## Editing content
+## Accessibility and performance notes
 
-Everything on the page — profile, nav labels, education, expertise domains,
-projects (name, description, problem/approach/result, tech, GitHub link,
-category, status), experience & activities, certifications, research
-engagement, the development-journey stages, and the philosophy/vision copy —
-lives in **`src/data/content.ts`**. Update it there rather than in the
-components. Keep the "Currently building" vs. "Exploring long-term" split in
-`currentFocus` honest as things change — that's the mechanism that keeps
-future ambition from reading as present-day expertise.
+- Semantic landmarks, skip link to `#main`, real anchor links in the nav, Escape closes the
+  mobile menu, visible focus rings, `aria-expanded` / `aria-pressed` on interactive controls
+- Small-text colours meet WCAG AA (`paper-faint` and `mist-faint` were adjusted; `crimson-soft`
+  is used for small crimson text on graphite)
+- Hero portrait is a ~43 KB WebP (was a 1.9 MB PNG); hashed assets are cached immutably
+- Google Fonts load with `display=swap`
 
-## A note on the color token names
+## Deploying
 
-In `tailwind.config.js` the token named **`void`** holds the light background
-colors and **`paper`** holds the dark text colors — the reverse of what the
-names suggest, left over from an earlier dark version. Renaming every class
-across every component is a larger, riskier diff than it's worth right now;
-flagged here again in case it's worth doing as a dedicated pass later.
-
-## Accessibility & performance notes
-
-- Semantic landmarks (`header`, `main`, `section`, `footer`), a skip-to-content
-  link, and visible focus rings throughout
-- The ambient canvas background lowers its node count on small screens and
-  renders a single static frame under `prefers-reduced-motion`
-- All motion — hero parallax, card tilt, orbit rotation — is CSS/canvas driven
-  and disabled the same way
+Unchanged: Netlify builds with `npm run build` and publishes `dist/`. Push to `main`.

@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState, type MouseEvent } from "react";
 import { navSections, profile } from "../data/content";
 
 export default function Nav() {
@@ -31,9 +31,25 @@ export default function Nav() {
     return () => observer.disconnect();
   }, []);
 
+  useEffect(() => {
+    if (!open) return;
+    const onKey = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKey);
+    return () => window.removeEventListener("keydown", onKey);
+  }, [open]);
+
   const handleJump = (id: string) => {
     setOpen(false);
     document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
+  };
+
+  // Real links (so middle-click, copy-link and screen readers work); the
+  // click handler only adds the smooth scroll.
+  const jump = (id: string) => (e: MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    handleJump(id);
   };
 
   return (
@@ -42,7 +58,10 @@ export default function Nav() {
         scrolled ? "bg-void/85 backdrop-blur-md border-b border-void-line" : "bg-transparent"
       }`}
     >
-      <nav className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 sm:px-10">
+      <nav
+        aria-label="Primary"
+        className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 sm:px-10"
+      >
         <a
           href="#hero"
           onClick={(e) => {
@@ -57,23 +76,26 @@ export default function Nav() {
         <ul className="hidden items-center gap-0.5 lg:flex xl:gap-1">
           {navSections.map((s, i) => (
             <li key={s.id}>
-              <button
-                onClick={() => handleJump(s.id)}
-                className={`group flex items-center gap-1.5 rounded px-2 py-2 text-xs transition-colors xl:px-3 xl:text-sm ${
-                  active === s.id ? "text-paper" : "text-paper-faint hover:text-paper-dim"
+              <a
+                href={`#${s.id}`}
+                onClick={jump(s.id)}
+                aria-current={active === s.id ? "true" : undefined}
+                className={`group flex items-center gap-1.5 whitespace-nowrap rounded px-2 py-2 text-xs transition-colors xl:px-3 xl:text-sm ${
+                  active === s.id ? "text-paper" : "text-paper-faint hover:text-paper"
                 }`}
               >
-                <span className="ledger-num hidden text-xs text-crimson xl:inline">
+                <span className="ledger-num hidden text-xs text-crimson 2xl:inline">
                   {String(i + 1).padStart(2, "0")}
                 </span>
                 {s.label}
-              </button>
+              </a>
             </li>
           ))}
         </ul>
 
         <button
           aria-expanded={open}
+          aria-controls="mobile-menu"
           aria-label="Toggle navigation menu"
           onClick={() => setOpen((v) => !v)}
           className="flex h-9 w-9 flex-col items-center justify-center gap-1.5 lg:hidden"
@@ -92,21 +114,23 @@ export default function Nav() {
       </nav>
 
       {open && (
-        <div className="border-t border-void-line bg-void/97 px-6 pb-6 pt-2 lg:hidden">
+        <div id="mobile-menu" className="border-t border-void-line bg-void px-6 pb-6 pt-2 lg:hidden">
           <ul className="flex flex-col gap-1">
             {navSections.map((s, i) => (
               <li key={s.id}>
-                <button
-                  onClick={() => handleJump(s.id)}
+                <a
+                  href={`#${s.id}`}
+                  onClick={jump(s.id)}
+                  aria-current={active === s.id ? "true" : undefined}
                   className={`flex w-full items-center gap-3 rounded px-2 py-3 text-left text-base ${
-                    active === s.id ? "text-paper" : "text-paper-faint"
+                    active === s.id ? "text-paper" : "text-paper-dim"
                   }`}
                 >
                   <span className="ledger-num text-xs text-crimson">
                     {String(i + 1).padStart(2, "0")}
                   </span>
                   {s.label}
-                </button>
+                </a>
               </li>
             ))}
           </ul>

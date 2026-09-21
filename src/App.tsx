@@ -6,7 +6,7 @@ import Experience from "./components/Experience";
 import Expertise from "./components/Expertise";
 import Projects from "./components/Projects";
 import Research from "./components/Research";
-import Certifications from "./components/Certifications";
+import DataBusiness from "./components/DataBusiness";
 import Journey from "./components/Journey";
 import Philosophy from "./components/Philosophy";
 import Vision from "./components/Vision";
@@ -17,21 +17,21 @@ export default function App() {
   return (
     <div className="bg-grain min-h-screen bg-void">
       <a
-        href="#about"
+        href="#main"
         className="sr-only focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[60] focus:rounded focus:bg-paper focus:px-4 focus:py-2 focus:text-void"
       >
         Skip to content
       </a>
       <Nav />
-      <main>
+      <main id="main" tabIndex={-1} className="outline-none">
         <Hero />
         <About />
         <Education />
         <Experience />
         <Expertise />
         <Projects />
+        <DataBusiness />
         <Research />
-        <Certifications />
         <Journey />
         <Philosophy />
         <Vision />

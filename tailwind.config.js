@@ -26,17 +26,18 @@ export default {
         paper: {
           DEFAULT: "#1B1712",
           dim: "#5A5348",
-          faint: "#8F8779",
+          faint: "#6B6458", // darkened from #8F8779 to pass WCAG AA (4.5:1) for small labels
         },
         // "mist" = light text used on the dark "graphite" surfaces
         mist: {
           DEFAULT: "#F3F0E8",
           dim: "#C9C1B0",
-          faint: "#8F887A",
+          faint: "#A39C8D", // lightened from #8F887A so small text on graphite-raised passes AA
         },
         crimson: {
           DEFAULT: "#9F1239", // labels, hairlines, small accents
           bright: "#E11D48", // hover states, buttons, large display accents
+          soft: "#F4607B", // small text on graphite (passes AA; crimson-bright does not)
           deep: "#4C0519", // darkest hairline / orbital accents
         },
         // soft cool-gray wash used as a secondary ambient accent

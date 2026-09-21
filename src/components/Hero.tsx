@@ -1,6 +1,6 @@
 import { useMouseParallax } from "../hooks/useMouseParallax";
 import NetworkField from "./NetworkField";
-import { profile } from "../data/content";
+import { profile, narrative } from "../data/content";
 
 export default function Hero() {
   const { x, y } = useMouseParallax();
@@ -38,21 +38,28 @@ export default function Hero() {
         <div style={{ transform: `translate3d(${x * -6}px, ${y * -6}px, 0)` }}>
           <p className="ledger-num mb-6 text-sm tracking-wide text-crimson">
             {profile.label} — {profile.institution}
+            <span className="mt-1 block text-xs text-paper-faint sm:ml-3 sm:mt-0 sm:inline">
+              {profile.stage}
+            </span>
           </p>
 
           <h1 className="font-display text-balance text-6xl font-medium leading-[0.95] text-paper sm:text-7xl lg:text-8xl">
-            Sunil
-            <br />
+            Sunil{" "}
+            <br aria-hidden="true" />
             Mandloi
           </h1>
 
-          <p className="mt-8 font-display text-lg text-paper-dim sm:text-xl">
-            Life Sciences <span className="text-crimson">×</span> Technology{" "}
-            <span className="text-crimson">×</span> Business
+          <p className="text-balance mt-8 font-display text-lg text-paper sm:text-2xl">
+            Life Sciences <span className="text-crimson">×</span> Computational Biology{" "}
+            <span className="text-crimson">×</span> AI
+          </p>
+          <p className="text-balance mt-2 font-display text-base text-paper-dim sm:text-lg">
+            Python &amp; data analytics · exploring life-science business &amp; strategy
           </p>
 
           <p className="mt-6 max-w-prose text-base leading-relaxed text-paper-dim sm:text-lg">
-            {profile.tagline}
+            I build Python and data projects around biological and business questions, and I'm
+            learning how a scientific result becomes a decision someone can act on.
           </p>
 
           <div className="mt-10 flex flex-wrap items-center gap-4">
@@ -71,6 +78,22 @@ export default function Hero() {
               Get in touch
             </a>
           </div>
+
+          <ol
+            aria-label="Direction of travel"
+            className="ledger-num mt-10 flex flex-wrap items-center gap-x-2 gap-y-1.5 text-[11px] uppercase tracking-wide text-paper-faint sm:text-xs"
+          >
+            {narrative.map((step, i) => (
+              <li key={step} className="flex items-center gap-2">
+                {step}
+                {i < narrative.length - 1 && (
+                  <span aria-hidden="true" className="text-crimson">
+                    →
+                  </span>
+                )}
+              </li>
+            ))}
+          </ol>
         </div>
 
         {/* Portrait — kept as a clean, clearly visible photograph. No dark
@@ -100,13 +123,15 @@ export default function Hero() {
           />
           <div aria-hidden="true" className="absolute -inset-3 rounded-full border border-void-line" />
 
-          <div className="reticle absolute inset-6 overflow-hidden rounded-full border border-void-line bg-void-panel shadow-card">
+          <div className="reticle !absolute inset-6 overflow-hidden rounded-full border border-void-line bg-void-panel shadow-card">
             <img
-              src="/images/profile-photo.png"
+              src="/images/profile-photo.webp"
               alt="Portrait of Sunil Mandloi"
               className="h-full w-full object-cover"
-              width={640}
-              height={640}
+              width={800}
+              height={800}
+              decoding="async"
+              fetchPriority="high"
             />
           </div>
 

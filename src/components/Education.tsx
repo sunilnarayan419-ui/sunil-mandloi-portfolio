@@ -1,5 +1,5 @@
 import Reveal from "./Reveal";
-import { profile } from "../data/content";
+import { education } from "../data/content";
 
 export default function Education() {
   return (
@@ -16,14 +16,19 @@ export default function Education() {
 
           <Reveal delayMs={100} className="w-full">
             <div className="reticle border border-void-line bg-void-panel/60 p-8 sm:p-10">
-              <p className="ledger-num text-xs text-paper-faint">Ongoing</p>
+              <div className="flex flex-wrap items-center justify-between gap-3">
+                <p className="ledger-num text-xs text-crimson">Ongoing · {education.stage}</p>
+                <p className="ledger-num text-xs text-paper-faint">{education.period}</p>
+              </div>
               <h3 className="mt-3 font-display text-2xl font-medium text-paper sm:text-3xl">
-                {profile.label}
+                {education.degree}
               </h3>
-              <p className="mt-2 text-base text-paper-dim">{profile.institution}</p>
+              <p className="mt-2 text-base text-paper-dim">
+                {education.institution} · {education.unit}
+              </p>
+              <p className="mt-1 text-sm text-paper-faint">{education.location}</p>
               <p className="mt-6 max-w-prose text-sm leading-relaxed text-paper-dim">
-                An integrated program spanning the core biological sciences, giving room to
-                build computational, data and business capability alongside it.
+                {education.note}
               </p>
             </div>
           </Reveal>

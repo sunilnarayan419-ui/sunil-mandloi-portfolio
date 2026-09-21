@@ -23,13 +23,24 @@ export default function Experience() {
               <div className="reticle border border-void-line bg-void-panel/60 p-8 sm:p-10">
                 <div className="flex flex-wrap items-start justify-between gap-4">
                   <div>
-                    <p className="ledger-num text-xs text-crimson">{role.kind}</p>
+                    <p className="ledger-num flex items-center gap-3 text-xs text-crimson">
+                      {role.kind}
+                      {role.current && (
+                        <span className="inline-flex items-center gap-1.5 rounded-sm border border-crimson/40 px-2 py-0.5 text-[10px] uppercase tracking-wide">
+                          <span
+                            aria-hidden="true"
+                            className="h-1.5 w-1.5 animate-pulse rounded-full bg-crimson motion-reduce:animate-none"
+                          />
+                          Current
+                        </span>
+                      )}
+                    </p>
                     <h3 className="mt-2 font-display text-xl font-medium text-paper sm:text-2xl">
                       {role.role}
                     </h3>
                     <p className="mt-1 text-base text-paper-dim">{role.org}</p>
                   </div>
-                  <div className="text-right">
+                  <div className="sm:text-right">
                     <p className="ledger-num text-sm text-paper-faint">{role.period}</p>
                     <p className="mt-1 text-sm text-paper-faint">{role.location}</p>
                   </div>
@@ -47,6 +58,23 @@ export default function Experience() {
                     </li>
                   ))}
                 </ul>
+
+                <ul className="mt-6 flex flex-wrap gap-2" aria-label="Focus areas">
+                  {role.tags.map((tag) => (
+                    <li
+                      key={tag}
+                      className="rounded-sm border border-void-line px-2.5 py-1 text-xs text-paper-dim"
+                    >
+                      {tag}
+                    </li>
+                  ))}
+                </ul>
+
+                {role.learned && (
+                  <p className="mt-6 max-w-prose border-l-2 border-crimson/40 pl-4 text-sm italic leading-relaxed text-paper-dim">
+                    {role.learned}
+                  </p>
+                )}
               </div>
             </Reveal>
           ))}

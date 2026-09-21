@@ -1,7 +1,14 @@
 import Reveal from "./Reveal";
 import { approach, currentFocus } from "../data/content";
 
-const highlights = ["Life Sciences", "Biotechnology", "Computation", "AI", "Business", "Strategy"];
+const highlights = [
+  "Life Sciences",
+  "Biotechnology",
+  "Computational Biology",
+  "Python & Data",
+  "AI",
+  "Business & Strategy",
+];
 
 export default function About() {
   return (
@@ -75,7 +82,7 @@ export default function About() {
 
           <Reveal delayMs={540} className="h-full">
             <div className="reticle h-full border border-void-line bg-void-panel/60 p-7">
-              <p className="ledger-num text-xs text-paper-faint">Exploring long-term</p>
+              <p className="ledger-num text-xs text-paper-faint">Exploring, not yet expertise</p>
               <ul className="mt-5 space-y-3">
                 {currentFocus.exploring.map((item) => (
                   <li key={item} className="flex items-start gap-3 text-sm text-paper-dim">

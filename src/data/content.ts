@@ -1,26 +1,49 @@
+// Single source of truth for everything the site says about Sunil.
+//
+// Rules this file follows (see README → "Content rules"):
+//  • Projects mirror repositories that exist on github.com/sunilnarayan419-ui
+//    RIGHT NOW. Run `npm run verify:projects` before deploying to catch drift.
+//  • Every claim on a project card is traceable to that repo's README/code.
+//  • Programming is presented as Python only.
+//  • Present-day work ("building") is kept separate from long-term interests.
+
 export const profile = {
   name: "Sunil Mandloi",
   label: "I.MSc Life Sciences",
   institution: "University of Hyderabad",
+  stage: "Second year · 2025 – 2030",
   email: "sunilnarayan419@gmail.com",
   linkedin: "https://www.linkedin.com/in/sunil-mandloi-1365582aa",
   github: "https://github.com/sunilnarayan419-ui",
   researchgate: "https://www.researchgate.net/profile/Sunil-Mandloi-2",
+  site: "https://sunil-narayan.netlify.app/",
+  siteLabel: "sunil-narayan.netlify.app",
   tagline:
-    "Building at the intersection of biotechnology, computation, AI, data and business strategy.",
+    "Building at the intersection of biotechnology, computational biology, AI, Python and data analytics, and life-science business strategy.",
 };
 
 export const navSections = [
   { id: "about", label: "About" },
   { id: "education", label: "Education" },
   { id: "experience", label: "Experience" },
-  { id: "expertise", label: "Expertise" },
+  { id: "expertise", label: "Skills" },
   { id: "projects", label: "Projects" },
+  { id: "business", label: "Data & Business" },
   { id: "research", label: "Research" },
-  { id: "journey", label: "Development" },
-  { id: "vision", label: "Vision" },
+  { id: "journey", label: "Direction" },
   { id: "contact", label: "Contact" },
 ] as const;
+
+// The narrative arc shown in the hero.
+export const narrative = [
+  "Science",
+  "Data",
+  "Computation",
+  "AI",
+  "Business",
+  "Strategy",
+  "Impact",
+];
 
 // The eight-step lens the About section frames every problem through.
 export const approach = [
@@ -39,173 +62,306 @@ export const approach = [
 // reads future ambition as present-day expertise.
 export const currentFocus = {
   building: [
-    "Python for data analysis — NumPy, Pandas, Matplotlib, scikit-learn",
-    "Applied research work at Epochfolio: funding, CSR and NGO ecosystem mapping",
-    "MS Excel and Power BI for business and data reporting",
-    "A biology-themed Python curriculum, phase by phase",
+    "Python backends and data tooling: FastAPI, SQLAlchemy and Pandas across the projects below",
+    "Applied research at Epochfolio: mapping funding, CSR and NGO ecosystems",
+    "MS Excel and Power BI for data analysis and reporting",
+    "An independent life-science strategy case study on insulin access in India",
+    "Small biology- and chemistry-themed Python exercises, script by script",
   ],
   exploring: [
     "Computational biology and bioinformatics",
     "AI applied to biological problems",
+    "Scientific Python beyond the basics: visualisation, SciPy, machine learning",
     "Drug discovery and translational research",
-    "Biotechnology commercialization and life-science strategy",
+    "Biotechnology commercialisation and life-science strategy",
   ],
 };
 
+// ---------------------------------------------------------------------------
+// Skills — five domains. `seenIn` names the place the skill is actually shown.
+// ---------------------------------------------------------------------------
 export const expertiseDomains = [
   {
     id: "life-sciences",
     title: "Life Sciences",
     items: [
-      "Molecular biology & genetics",
+      "Molecular biology and genetics",
       "Genomics",
       "Biotechnology",
       "Plant biology",
       "Research methodology",
-      "Cell culture & gel electrophoresis",
+      "Cell culture and gel electrophoresis",
     ],
+    seenIn: "Integrated M.Sc. coursework; skills as listed on ResearchGate",
   },
   {
-    id: "computation",
-    title: "Computation",
-    items: ["Python", "Scientific computing", "Data structures & scripting", "Git", "Automation"],
-  },
-  {
-    id: "ai-data",
-    title: "AI & Data",
+    id: "python",
+    title: "Python & Backend",
     items: [
-      "Data analysis",
-      "NumPy / Pandas / Matplotlib",
-      "scikit-learn",
-      "Applied AI for life sciences",
-      "AI-assisted research workflows",
+      "Python",
+      "FastAPI and REST APIs",
+      "SQLAlchemy, Alembic and Pydantic",
+      "Testing with pytest",
+      "Git and GitHub",
+      "Docker basics",
     ],
+    seenIn: "Cell Division Timer, Library Management System, Startup Runway Manager",
+  },
+  {
+    id: "data",
+    title: "Data & Analytics",
+    items: [
+      "Pandas and NumPy",
+      "Data validation and cleaning",
+      "Excel dashboards (openpyxl, XlsxWriter)",
+      "Microsoft Excel",
+      "Power BI",
+      "Data visualisation",
+    ],
+    seenIn: "Sales Performance Tracker, Epochfolio, Data Science Conference hackathon",
+  },
+  {
+    id: "ai",
+    title: "AI for Science",
+    items: [
+      "AI-assisted research workflows (ChatGPT, Claude)",
+      "Machine-learning approaches: hackathon exploration",
+      "AI for biology: exploring",
+      "Scientific computing: exploring",
+    ],
+    seenIn: "Epochfolio research workflow; Data Science Conference, January 2026",
   },
   {
     id: "business",
     title: "Business & Strategy",
     items: [
-      "Microsoft Excel",
-      "Power BI",
-      "Funding & ecosystem analysis",
-      "Financial modelling basics",
-      "Startup runway analysis",
-      "Strategic frameworks",
+      "Funding and ecosystem analysis",
+      "Market sizing and competitive analysis",
+      "Scenario and sensitivity modelling",
+      "Startup runway and burn analysis",
+      "Strategic frameworks (issue trees, options)",
+      "Economics and finance: building the base",
     ],
+    seenIn: "Epochfolio, Novo Nordisk India case study, Startup Runway Manager",
   },
 ];
 
-export type Category = "biology" | "computation" | "data" | "finance" | "business";
+// ---------------------------------------------------------------------------
+// Projects — synchronised with github.com/sunilnarayan419-ui (verified 21 Sep 2026)
+//
+// Removed this pass: "Mini Bio-Python Projects" — the repository no longer
+// exists (404). Added: Cell Division Timer and the Novo Nordisk India
+// insulin case study, both now public.
+//
+// tier: "flagship" (open card, full Problem/Approach/Result),
+//       "standard" (collapsible), "foundation" (compact, honest status).
+// ---------------------------------------------------------------------------
+export type Category = "biology" | "backend" | "data" | "finance" | "business" | "computation";
+export type ProjectTier = "flagship" | "standard" | "foundation";
 
-export const categoryMeta: Record<Category, { label: string; glyph: string }> = {
-  biology: { label: "Biology", glyph: "01" },
-  computation: { label: "Computation", glyph: "02" },
-  data: { label: "Data", glyph: "03" },
-  finance: { label: "Finance", glyph: "04" },
-  business: { label: "Business", glyph: "05" },
+export const categoryMeta: Record<Category, { label: string }> = {
+  biology: { label: "Computational biology" },
+  business: { label: "Life-science strategy" },
+  data: { label: "Data analytics" },
+  finance: { label: "Finance" },
+  backend: { label: "Backend" },
+  computation: { label: "Python practice" },
 };
 
-export const projects = [
+export interface Project {
+  number: string;
+  name: string;
+  category: Category;
+  tier: ProjectTier;
+  description: string;
+  problem: string;
+  approach: string;
+  result: string;
+  tech: string[];
+  github: string;
+  status: string;
+  caveat?: string;
+}
+
+export const projects: Project[] = [
   {
     number: "01",
-    name: "Library Management System",
-    category: "computation" as Category,
+    name: "Cell Division Timer",
+    category: "biology",
+    tier: "flagship",
     description:
-      "A Python application for cataloguing books, managing members, and handling issue/return workflows — structured for clarity and future extension.",
+      "A FastAPI backend for recording and analysing cell-division data from time-lapse microscopy. It derives division duration, doubling time and specific growth rate, and flags biological outliers.",
     problem:
-      "Practical, well-structured record-keeping: books, borrowers, and circulation, built as a real application rather than a script.",
+      "Time-lapse experiments produce dense streams of division measurements. Manual transcription and unchecked outliers, such as arrested or heat-stressed cells, make results hard to reproduce.",
     approach:
-      "Modelled books, members, and transactions as distinct entities, then built the issue/return logic around that structure so it could grow without a rewrite.",
-    result: "A working library application that handles cataloguing and circulation end to end.",
-    tech: ["Python"],
-    github: "https://github.com/sunilnarayan419-ui/Library-Management-System",
+      "Modelled cells and their division records relationally and calculated the kinetics from timestamps instead of trusting typed-in values. Records are screened against reference ranges for four organisms (S. cerevisiae, E. coli, HeLa, NIH/3T3), with NCBI PubMed lookups for literature context.",
+    result:
+      "A tested research prototype with CSV import and export, analytics endpoints, database migrations and a 100-record synthetic benchmark dataset.",
+    tech: ["Python", "FastAPI", "SQLAlchemy", "Pydantic", "Alembic", "pytest", "Docker"],
+    github: "https://github.com/sunilnarayan419-ui/cell_division_timer",
     status: "Active",
+    caveat: "Research prototype, not a validated clinical or diagnostic system (as stated in the repo).",
   },
   {
     number: "02",
-    name: "Sales Performance Tracker",
-    category: "business" as Category,
+    name: "Novo Nordisk: India Insulin Strategy",
+    category: "business",
+    tier: "flagship",
     description:
-      "A modular tracker for monitoring sales activity, analysing team performance, tracking targets, and surfacing actionable insight through a practical, scalable interface.",
+      "An independent, self-directed strategy case study on expanding insulin access and adoption in India, built entirely from public sources: market sizing, competitors, pricing, market access and a five-year scenario model.",
     problem:
-      "Turning raw sales activity into performance visibility — targets, trends, and team-level insight in one place.",
+      "How can an insulin manufacturer widen access and appropriate adoption in India without an economically unsustainable model, when clinical need, affordability, payers, competition and operations pull in different directions?",
     approach:
-      "Built as separate modules for activity logging, target tracking, and reporting, so each piece can be extended independently.",
-    result: "A reusable tracker template for monitoring sales targets and team performance.",
-    tech: ["Python"],
+      "Structured like a consulting engagement: charter and issue tree, then workstreams for market, competition, pricing, market access, health economics, supply chain and risk. A Python model turns documented assumptions into scenarios.",
+    result:
+      "A completed case study with Base, Upside and Downside five-year scenarios, ±10% sensitivity analysis on eight variables, a TAM/SAM/SOM build-up, strategic options and an executive memo.",
+    tech: ["Python", "Scenario modelling", "Sensitivity analysis", "Market sizing"],
+    github: "https://github.com/sunilnarayan419-ui/novo_nordisk_insulin_india_strategy",
+    status: "Complete",
+    caveat:
+      "Not client work and not affiliated with Novo Nordisk. Figures are labelled consulting assumptions, not company data.",
+  },
+  {
+    number: "03",
+    name: "Sales Performance Tracker",
+    category: "data",
+    tier: "standard",
+    description:
+      "A Python ETL and BI pipeline that turns a raw sales export into a formatted Excel dashboard workbook, reproducibly, from the command line.",
+    problem:
+      "Teams receive raw order exports and need a management-ready view (KPIs, trends, regional and product breakdowns) without rebuilding spreadsheets by hand each time.",
+    approach:
+      "Ingestion with schema detection, then validation, cleaning, feature engineering, KPI and pivot analysis, and automated insights, written out through XlsxWriter. Live Excel formulas cross-check the Python-calculated totals.",
+    result:
+      "One command produces a workbook with a KPI-and-chart dashboard, cleaned data, five pivot sheets, insights and a validation report. Run against an included sample dataset of 30,000 orders.",
+    tech: ["Python", "Pandas", "openpyxl", "XlsxWriter", "pytest"],
     github: "https://github.com/sunilnarayan419-ui/sales-performer-trackers",
     status: "Active",
   },
   {
-    number: "03",
+    number: "04",
     name: "Startup Runway Manager",
-    category: "finance" as Category,
+    category: "finance",
+    tier: "standard",
     description:
-      "A prototype that calculates cash burn, runway, and basic financial health indicators to support early-stage founder decisions.",
+      "A lightweight planning app that answers one founder question: how long can the startup survive, and what happens to runway under different spending and revenue scenarios?",
     problem:
-      "Making an early-stage company's financial runway legible — when cash runs out, and what changes that timeline.",
+      "An early-stage company's runway is easy to misjudge, particularly around break-even and cash-flow-positive edge cases.",
     approach:
-      "Modelled monthly burn against cash on hand to compute runway, then exposed the levers — spend, revenue — that shift it.",
-    result: "A working prototype founders could use to see runway and test what-if changes to burn.",
-    tech: ["Python"],
+      "A pure-function calculation engine behind a FastAPI service and a plain HTML/JS dashboard. Optimistic, Base and Conservative scenarios, plus funding and hiring what-if simulations.",
+    result:
+      "A working prototype with burn analysis, a cash-balance projection, a health indicator and rule-based alerts, covered by tests. Internal planning signals only, not financial advice.",
+    tech: ["Python", "FastAPI", "Pydantic", "pytest"],
     github: "https://github.com/sunilnarayan419-ui/startup-runway-manager",
     status: "Active",
   },
   {
-    number: "04",
-    name: "Mini Bio-Python Projects",
-    category: "biology" as Category,
-    description:
-      "A biology-themed Python curriculum built in eight phases, from foundations through control flow, data structures, NumPy, Pandas, visualization, and scikit-learn — applied throughout to molecular biology and protein-analysis problems.",
-    problem: "Building Python fluency specifically through biological problems, not generic exercises.",
-    approach:
-      "Structured as eight progressive phases, each pairing a Python concept with a molecular-biology or protein-analysis problem to apply it to.",
-    result: "A growing, phase-structured body of work connecting core Python skills directly to biological data.",
-    tech: ["Python", "NumPy", "Pandas", "Matplotlib", "scikit-learn"],
-    github: "https://github.com/sunilnarayan419-ui/Mini-Bio-Python-Projects",
-    status: "Growing",
-  },
-  {
     number: "05",
-    name: "Finance & Logistics — 100 Python Projects",
-    category: "data" as Category,
+    name: "Library Management System",
+    category: "backend",
+    tier: "standard",
     description:
-      "A 100-project curriculum in finance, business analytics, logistics, supply chain, operations research, and network engineering — progressing from single scripts to data pipelines, optimization systems, and decision-support tools.",
+      "A modular library platform with a FastAPI backend, role-based access, a real circulation domain and an analytics dashboard, rebuilt from an earlier CSV-backed student project.",
     problem:
-      "Learning to use Python to understand, diagnose, model, and optimize real business and supply-chain systems, mirroring the biology curriculum but retargeted at computational business engineering.",
+      "Cataloguing, lending and returning books involves state (issued, reserved, overdue) that a flat script handles badly.",
     approach:
-      "Mirrors the biology curriculum's phase structure, moving from single scripts to data pipelines and optimization/decision-support tools as the projects progress.",
-    result: "An ongoing, structured set of finance- and logistics-oriented Python projects of increasing complexity.",
-    tech: ["Python", "NumPy", "Pandas", "NetworkX", "scikit-learn"],
-    github: "https://github.com/sunilnarayan419-ui/Finance-Logistics-100-Python-Projects",
-    status: "Ongoing",
+      "Separated books from physical copies, enforced issue, return, renew and reserve transitions, and added JWT authentication with ADMIN, LIBRARIAN and MEMBER roles, audit logging and versioned REST endpoints.",
+    result:
+      "A tested service with fine calculation, deterministic and explainable recommendations (no ML claimed), a Docker setup and GitHub Actions CI.",
+    tech: ["Python", "FastAPI", "SQLAlchemy", "Alembic", "Pydantic", "pytest", "Docker"],
+    github: "https://github.com/sunilnarayan419-ui/Library-Management-System",
+    status: "Active",
   },
   {
     number: "06",
     name: "Python Practice Vault",
-    category: "computation" as Category,
+    category: "computation",
+    tier: "foundation",
     description:
-      "Fundamentals, logic drills, and problem-solving repetitions — the base layer everything else in this portfolio is built on.",
-    problem: "Deliberate, repeated practice of core Python fundamentals underneath every other project.",
-    approach: "An ongoing set of small, focused exercises revisited and expanded over time rather than a single finished artifact.",
-    result: "A running record of fundamentals practice that supports every other project on this page.",
+      "Numbered practice scripts: calculators and converters first, then DNA, protein and chemistry utilities such as DNA melting point, hydrogen bonds and protein molecular mass.",
+    problem: "Building Python fluency through small, concrete problems, with biology and chemistry as the recurring subject.",
+    approach:
+      "One self-contained script per problem, in standard-library Python, following a written list of 100 problems that steps up from fundamentals.",
+    result: "22 scripts so far against a 100-problem plan. A working log, not a finished product.",
     tech: ["Python"],
     github: "https://github.com/sunilnarayan419-ui/python_practice",
     status: "Ongoing",
   },
+  {
+    number: "07",
+    name: "Finance & Logistics: 100 Python Projects",
+    category: "finance",
+    tier: "foundation",
+    description:
+      "A structured plan for 100 Python projects in finance, business analytics, logistics and operations research, organised into eight phases from scripts to machine learning and optimisation.",
+    problem:
+      "Learning to model and diagnose business and supply-chain systems in Python rather than repeating generic exercises.",
+    approach:
+      "All 100 project folders are scaffolded across eight phases with one consistent layout (README, entry point, src, tests, config, data), so each can be built out in order.",
+    result: "Structure only, so far: the entry points are placeholders and the implementations are still to be written.",
+    tech: ["Python", "pytest"],
+    github: "https://github.com/sunilnarayan419-ui/Finance-Logistics-100-Python-Projects",
+    status: "Scaffold, not yet implemented",
+  },
 ];
 
-export const journeyStages = [
-  "Life Sciences",
-  "Biotechnology",
-  "Computational Biology",
-  "Python",
-  "Data",
-  "AI",
-  "Finance",
-  "Strategy",
-  "Life-Science Consulting",
+// ---------------------------------------------------------------------------
+// Data & Business
+// ---------------------------------------------------------------------------
+export const evidenceChain = [
+  "Scientific evidence",
+  "Decision",
+  "Investment",
+  "Partnership",
+  "Product",
+  "Market impact",
 ];
+
+export const businessThreads = [
+  {
+    kind: "Work",
+    title: "Funding-ecosystem research",
+    org: "Epochfolio",
+    body: "Mapping who funds what across government, CSR, NGO and corporate ecosystems, validating the data behind it, and reporting it in Excel and Power BI.",
+    link: null as string | null,
+  },
+  {
+    kind: "Case study",
+    title: "India insulin strategy",
+    org: "Independent, public sources",
+    body: "Market sizing, competitor and pricing analysis, market access and a five-year scenario model, ending in options and a recommendation.",
+    link: "https://github.com/sunilnarayan419-ui/novo_nordisk_insulin_india_strategy",
+  },
+  {
+    kind: "Project",
+    title: "Sales reporting pipeline",
+    org: "Python + Excel",
+    body: "Raw sales export in, validated KPIs and a dashboard workbook out: the reporting layer a business decision would actually read.",
+    link: "https://github.com/sunilnarayan419-ui/sales-performer-trackers",
+  },
+  {
+    kind: "Project",
+    title: "Runway and scenario planning",
+    org: "Python + FastAPI",
+    body: "Cash burn and runway under optimistic, base and conservative assumptions, with funding and hiring what-ifs.",
+    link: "https://github.com/sunilnarayan419-ui/startup-runway-manager",
+  },
+];
+
+export const businessDisclaimer =
+  "Everything here is coursework-stage, self-directed or internship-level work. There is no client or consulting engagement behind it, and the case study is labelled as independent throughout.";
+
+export const journeyStages = [
+  { stage: "Life Sciences", status: "Foundation" },
+  { stage: "Biotechnology", status: "Foundation" },
+  { stage: "Python", status: "Building" },
+  { stage: "Data analytics", status: "Building" },
+  { stage: "Computational Biology", status: "Exploring" },
+  { stage: "AI for science", status: "Exploring" },
+  { stage: "Finance & economics", status: "Exploring" },
+  { stage: "Strategy", status: "Exploring" },
+  { stage: "Life-science consulting", status: "Long-term direction" },
+] as const;
 
 export const philosophy = [
   { line: "Science explains what is possible.", accent: false },
@@ -213,6 +369,16 @@ export const philosophy = [
   { line: "Economics tells us what is valuable.", accent: false },
   { line: "Strategy determines what we should do.", accent: true },
 ];
+
+export const education = {
+  degree: "Integrated M.Sc. Life Sciences",
+  institution: "University of Hyderabad",
+  unit: "Centre for Integrated Studies",
+  period: "September 2025 – June 2030",
+  stage: "Second year",
+  location: "Hyderabad, Telangana, India",
+  note: "An integrated programme spanning the core biological sciences, leaving room to build computational, data and business capability alongside it.",
+};
 
 // Experience & activities — kept to what is verifiably true of an
 // early-career internship and a conference/hackathon, not senior work.
@@ -224,31 +390,38 @@ export const experience = [
     org: "Epochfolio",
     period: "July 2026 — Present",
     location: "Remote",
+    current: true,
     summary:
-      "Research support across government funding, CSR, NGO and corporate ecosystems — mapping who funds what, how organizations connect, and where the evidence for a decision actually comes from.",
+      "Research support across government funding, CSR, NGO and corporate ecosystems: mapping who funds what, how organisations connect, and where the evidence for a decision actually comes from.",
     bullets: [
       "Research across government funding, CSR, NGO and corporate ecosystems",
-      "Data collection, validation, and donor–recipient mapping",
+      "Data collection, validation and donor–recipient mapping",
       "Funding analysis and research reporting",
-      "Data analysis and visualization in MS Excel and Power BI",
-      "AI-assisted research workflows using tools such as ChatGPT and Claude alongside web-based research platforms",
+      "Data analysis and visualisation in MS Excel and Power BI",
+      "AI-assisted research workflows using ChatGPT and Claude alongside web-based research platforms",
     ],
+    tags: ["Research", "Data validation", "Funding", "CSR", "NGO", "Corporate", "Excel", "Power BI", "AI-assisted research"],
+    learned:
+      "Research is not only finding information. It is asking who funds an idea, who could support it, how organisations connect, what evidence is reliable, and what gaps remain.",
   },
   {
     id: "data-science-conference",
-    kind: "Conference & Hackathon",
-    role: "Participant — Data Science Conference, January 2026 Edition",
+    kind: "Conference & hackathon · participant",
+    role: "Data Science Conference, January 2026 Edition",
     org: "School of Economics, University of Hyderabad",
-    period: "January 2026",
+    period: "January 2026 · hackathon on 25 January",
     location: "Hyderabad",
+    current: false,
     summary:
-      "Supported by the Directorate of Institution of Eminence (IOE), with a hackathon on 25 January 2026 centered on data-driven problem solving.",
+      "Participated in the hackathon of a conference supported by the Directorate of Institution of Eminence (IOE), centred on data-driven problem solving.",
     bullets: [
-      "Python-based data analysis with NumPy and Pandas on structured datasets",
+      "Python-based analysis with NumPy and Pandas on structured datasets",
       "Exploration of machine-learning approaches and pattern recognition",
       "Systems thinking toward scalable, efficient solution design",
-      "Collaborative problem solving alongside a growing interest in AI for biology",
+      "Collaborative problem solving, alongside a growing interest in AI for biology",
     ],
+    tags: ["Python", "NumPy", "Pandas", "Pattern recognition", "Teamwork"],
+    learned: "",
   },
 ];
 
@@ -265,12 +438,12 @@ export const certifications = [
   },
 ];
 
-// Research & scientific engagement — sourced from Sunil's verified
-// ResearchGate profile rather than presenting him as a published researcher.
+// Research & scientific engagement — checked against the live ResearchGate
+// profile on 21 Sep 2026. No publications are listed there, and none are claimed.
 export const research = {
   url: "https://www.researchgate.net/profile/Sunil-Mandloi-2",
   statement:
-    "A Life Sciences undergraduate profile focused on translational research — where biology, biotechnology and computational approaches meet. The current focus is building foundations in molecular biology, biochemistry and quantitative biology, with an eye toward how lab discoveries move toward real-world application.",
+    "A Life Sciences undergraduate profile focused on translational research, where biology, biotechnology and computational approaches meet. The current focus is building foundations in molecular biology, biochemistry and quantitative biology, with an eye toward how lab discoveries move toward real-world application.",
   skills: [
     "Molecular Biology",
     "Genetics",
@@ -285,10 +458,19 @@ export const research = {
   ],
   question: {
     title:
-      "Why is only around 10% of euchromatin transcriptionally active at any given time — and is there an intermediate state between heterochromatin and euchromatin?",
+      "Why is only ~10% of euchromatin transcriptionally active at a time? Is there an intermediate state between heterochromatin and euchromatin?",
     context:
-      "Posed while studying chromatin structure in second-year coursework: what determines which accessible regions of euchromatin are actually transcribed, and how techniques like Hi-C or histone-modification studies might help resolve an intermediate chromatin state.",
+      "Posed while studying chromatin structure in second-year coursework: what decides which accessible regions of euchromatin are actually transcribed, and how could histone-modification studies or Hi-C help resolve an intermediate chromatin state?",
     date: "September 2026",
-    answers: 2,
+    url: "https://www.researchgate.net/post/Why_is_only_10_of_euchromatin_transcriptionally_active_at_a_time_Is_there_an_intermediate_state_between_heterochromatin_and_euchromatin",
   },
+  interests: [
+    "Computational biology",
+    "Bioinformatics",
+    "AI for biology",
+    "Drug discovery",
+    "Plant-based biotechnology",
+    "Translational research",
+    "Life-science commercialisation",
+  ],
 };
