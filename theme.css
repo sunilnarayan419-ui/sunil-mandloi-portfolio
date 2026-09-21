@@ -1,0 +1,360 @@
+/* ============================================================
+   GLOBAL DESIGN TOKEN SYSTEM
+   Sunil Mandloi Portfolio — Warm Neutral + Scientific Pink Palette
+   Drop this in as your base stylesheet (imported before all
+   component CSS) and reference these variables everywhere.
+   ============================================================ */
+
+:root {
+  /* ---------- BACKGROUNDS ---------- */
+  --bg: #F2EFEA;              /* main page background — warm ivory, NEVER pure white */
+  --bg-secondary: #E9E4DE;     /* alternating section background */
+  --surface: #F8F5F1;          /* cards, panels */
+  --surface-light: #FBF9F6;    /* lightest surface, use sparingly */
+  --surface-dark: #242126;     /* dark anchor sections (Philosophy, Contact, Footer) */
+
+  /* ---------- TEXT ---------- */
+  --text: #242126;             /* primary text — dark charcoal, on light backgrounds */
+  --text-secondary: #55505A;   /* secondary text */
+  --text-muted: #77717A;       /* muted / caption text */
+  --text-on-dark: #F5F1EC;     /* primary text on dark-anchor sections */
+  --text-on-dark-secondary: #C9C2C6;
+
+  /* ---------- BORDERS / LINES ---------- */
+  --border: #D5CEC8;           /* default hairline border on light surfaces */
+  --border-dark: #3A353C;      /* hairline border on dark surfaces */
+
+  /* ---------- THE FOUR OFFICIAL PINKS ---------- */
+  --pink-super: #CF6BA9;        /* primary accent — labels, borders, icons, links, buttons */
+  --pink-thulian: #DE6FA1;      /* secondary accent — same family of uses as super pink */
+  --pink-new-york: #D7837F;     /* warm accent — variation, warmth */
+  --pink-light-deep: #FF5CCD;   /* high-energy accent — hover/active/interactive ONLY */
+
+  /* Derived tones (kept in the pink family, never introduce blue/purple/green) */
+  --pink-super-tint: #F3E2ED;   /* very light wash, e.g. subtle button backgrounds */
+  --pink-super-shade: #A8547F;  /* darker variant for text-on-light link default state */
+
+  /* ---------- SEMANTIC TOKENS ---------- */
+  --link: var(--pink-super-shade);
+  --link-hover: var(--pink-light-deep);
+  --accent-label: var(--pink-super);
+  --accent-active: var(--pink-thulian);
+  --accent-warm: var(--pink-new-york);
+  --accent-interactive: var(--pink-light-deep);
+
+  --shadow-sm: 0 1px 2px rgba(36, 33, 38, 0.06);
+  --shadow-md: 0 4px 16px rgba(36, 33, 38, 0.08);
+  --shadow-pink-glow: 0 0 24px rgba(255, 92, 205, 0.25);
+
+  --radius-sm: 6px;
+  --radius-md: 12px;
+  --radius-lg: 20px;
+}
+
+/* ============================================================
+   BASE
+   ============================================================ */
+
+html, body {
+  background: var(--bg);
+  color: var(--text);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: var(--link);
+  text-decoration: none;
+  transition: color 0.2s ease;
+}
+a:hover {
+  color: var(--link-hover);
+}
+a:visited {
+  color: var(--link); /* never fall back to browser purple */
+}
+
+/* ============================================================
+   SECTION RHYTHM — alternate warm-neutral surfaces
+   Apply one of these classes to each <section>
+   ============================================================ */
+
+.section--hero,
+.section--projects {
+  background: var(--bg);
+  color: var(--text);
+}
+
+.section--about,
+.section--development {
+  background: var(--bg-secondary);
+  color: var(--text);
+}
+
+.section--education,
+.section--vision {
+  background: var(--surface-light);
+  color: var(--text);
+}
+
+.section--expertise {
+  background: var(--bg-secondary);
+  color: var(--text);
+}
+
+.section--philosophy,
+.section--contact,
+.section--footer {
+  background: var(--surface-dark);
+  color: var(--text-on-dark);
+}
+.section--philosophy a,
+.section--contact a,
+.section--footer a {
+  color: var(--pink-thulian);
+}
+.section--philosophy a:hover,
+.section--contact a:hover,
+.section--footer a:hover {
+  color: var(--pink-light-deep);
+}
+
+/* ============================================================
+   NAVIGATION
+   ============================================================ */
+
+.nav {
+  background: rgba(248, 245, 241, 0.82);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+
+.nav__link {
+  color: var(--text);
+  font-weight: 500;
+}
+
+.nav__number {
+  color: var(--pink-super);
+  font-weight: 600;
+  margin-right: 0.5em;
+}
+
+.nav__link:hover {
+  color: var(--pink-light-deep);
+}
+
+.nav__link.is-active {
+  color: var(--pink-thulian);
+}
+
+/* ============================================================
+   TYPOGRAPHY
+   ============================================================ */
+
+h1, h2, h3, h4 {
+  color: var(--text);
+}
+
+.label,
+.eyebrow {
+  color: var(--pink-super);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.text-secondary { color: var(--text-secondary); }
+.text-muted { color: var(--text-muted); }
+.text-emphasis { color: var(--pink-new-york); }
+.text-interactive { color: var(--pink-light-deep); }
+
+/* ============================================================
+   BUTTONS
+   ============================================================ */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.75em 1.5em;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+}
+
+.btn--primary {
+  background: var(--pink-super);
+  color: #FBF7FA; /* warm white, not pure #fff */
+  border: 1px solid var(--pink-super);
+}
+.btn--primary:hover {
+  background: var(--pink-light-deep);
+  border-color: var(--pink-light-deep);
+  transform: translateY(-1px);
+}
+
+.btn--secondary {
+  background: transparent;
+  color: var(--text);
+  border: 1px solid var(--text);
+}
+.btn--secondary:hover {
+  border-color: var(--pink-light-deep);
+  color: var(--pink-light-deep);
+  background: var(--pink-super-tint);
+}
+
+/* On dark-anchor sections */
+.section--philosophy .btn--secondary,
+.section--contact .btn--secondary,
+.section--footer .btn--secondary {
+  color: var(--text-on-dark);
+  border-color: var(--text-on-dark-secondary);
+}
+
+/* ============================================================
+   CARDS (projects, expertise, general)
+   ============================================================ */
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-sm);
+  transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+}
+
+.card:hover {
+  box-shadow: var(--shadow-md);
+  border-color: var(--pink-super);
+  transform: translateY(-2px);
+}
+
+.card__title {
+  color: var(--text);
+}
+
+.card__description {
+  color: var(--text-secondary);
+}
+
+.card__category {
+  color: var(--pink-super);
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+}
+
+.card__link {
+  color: var(--pink-thulian);
+  font-weight: 600;
+}
+.card__link:hover {
+  color: var(--pink-light-deep);
+}
+
+/* Featured / dark variant card, used sparingly for emphasis */
+.card--dark {
+  background: var(--surface-dark);
+  border-color: var(--border-dark);
+}
+.card--dark .card__title { color: var(--text-on-dark); }
+.card--dark .card__description { color: var(--text-on-dark-secondary); }
+.card--dark .card__link { color: var(--pink-light-deep); }
+
+/* ============================================================
+   PROFILE IMAGE FRAME
+   ============================================================ */
+
+.profile-frame {
+  position: relative;
+  width: min(360px, 80vw);
+  aspect-ratio: 1 / 1;
+  margin-inline: auto;
+}
+
+.profile-frame__image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+  position: relative;
+  z-index: 2;
+  box-shadow: var(--shadow-md);
+}
+
+.profile-frame__ring {
+  position: absolute;
+  inset: -14px;
+  border-radius: 50%;
+  border: 1.5px solid var(--pink-super);
+  opacity: 0.55;
+  z-index: 1;
+}
+
+.profile-frame__ring--outer {
+  inset: -30px;
+  border-color: var(--pink-new-york);
+  opacity: 0.35;
+}
+
+.profile-frame__node {
+  position: absolute;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--pink-light-deep);
+  box-shadow: 0 0 8px rgba(255, 92, 205, 0.6);
+  z-index: 3;
+}
+
+/* ============================================================
+   GRADIENTS — pink-family only
+   ============================================================ */
+
+.gradient-primary {
+  background: linear-gradient(135deg, var(--pink-super), var(--pink-thulian));
+}
+
+.gradient-warm {
+  background: linear-gradient(135deg, var(--pink-thulian), var(--pink-new-york));
+}
+
+.gradient-energy {
+  background: linear-gradient(135deg, var(--pink-super), var(--pink-light-deep));
+}
+
+/* ============================================================
+   SCIENTIFIC / DIAGRAM ELEMENTS (expertise visualization, bg motifs)
+   ============================================================ */
+
+.diagram-line {
+  stroke: var(--pink-super);
+  stroke-width: 1;
+  opacity: 0.6;
+}
+
+.diagram-node {
+  fill: var(--pink-thulian);
+}
+
+.diagram-node--core {
+  fill: var(--pink-light-deep);
+  filter: drop-shadow(0 0 6px rgba(255, 92, 205, 0.5));
+}
+
+.bg-motif {
+  color: var(--pink-super);
+  opacity: 0.08; /* keep decorative geometry subtle, never competing with text */
+}
+
+/* ============================================================
+   UTILITY — never let contrast fall below this pairing
+   ============================================================ */
+
+.on-light { color: var(--text); background: var(--bg); }
+.on-dark  { color: var(--text-on-dark); background: var(--surface-dark); }
