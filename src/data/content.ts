@@ -12,6 +12,9 @@ export const profile = {
   label: "I.MSc Life Sciences",
   institution: "University of Hyderabad",
   stage: "Second year · 2025 – 2030",
+  // Same wording as the LinkedIn headline; used in the footer.
+  headline:
+    "Biotechnology × Computational Biology × AI · Python & Data Analytics · Exploring Life-Science Business & Strategy",
   email: "sunilnarayan419@gmail.com",
   linkedin: "https://www.linkedin.com/in/sunil-mandloi-1365582aa",
   github: "https://github.com/sunilnarayan419-ui",

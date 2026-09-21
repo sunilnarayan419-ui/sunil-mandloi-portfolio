@@ -6,9 +6,7 @@ export default function Footer() {
       <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 px-6 sm:flex-row sm:items-center sm:px-10">
         <div>
           <p className="font-display text-sm text-mist">{profile.name}</p>
-          <p className="mt-1 text-xs text-mist-faint">
-            Life Sciences × Computational Biology × AI × Data × Business
-          </p>
+          <p className="mt-1 max-w-sm text-xs leading-relaxed text-mist-faint">{profile.headline}</p>
         </div>
 
         <nav aria-label="Elsewhere" className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-mist-faint">
