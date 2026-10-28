@@ -1,0 +1,1910 @@
+diff --git a/src/components/About.tsx b/src/components/About.tsx
+deleted file mode 100644
+index d01c576..0000000
+--- a/src/components/About.tsx
++++ /dev/null
+@@ -1,100 +0,0 @@
+-import Reveal from "./Reveal";
+-import { approach, currentFocus } from "../data/content";
+-
+-const highlights = [
+-  "Life Sciences",
+-  "Biotechnology",
+-  "Computational Biology",
+-  "Python & Data",
+-  "AI",
+-  "Business & Strategy",
+-];
+-
+-export default function About() {
+-  return (
+-    <section
+-      id="about"
+-      className="relative border-b border-void-line bg-void-raised py-28 sm:py-36"
+-    >
+-      <div className="mx-auto max-w-6xl px-6 sm:px-10">
+-        <Reveal>
+-          <span className="ledger-num text-sm text-crimson">01 — About</span>
+-        </Reveal>
+-
+-        <Reveal delayMs={80}>
+-          <h2 className="mt-6 max-w-3xl font-display text-3xl font-medium leading-snug text-paper sm:text-4xl lg:text-5xl">
+-            I'm an Integrated M.Sc. Life Sciences student at the University of Hyderabad,
+-            building at the intersection of life sciences, biotechnology, computation, data,
+-            AI and business.
+-          </h2>
+-        </Reveal>
+-
+-        <Reveal delayMs={160}>
+-          <p className="mt-10 max-w-prose text-base leading-relaxed text-paper-dim sm:text-lg">
+-            Most of what I build starts as a biology question and ends up as a spreadsheet,
+-            a script, or a model — because the parts of this field I find most interesting
+-            live where a lab result has to turn into a decision someone can act on.
+-          </p>
+-        </Reveal>
+-
+-        <div className="mt-14 flex flex-wrap gap-3">
+-          {highlights.map((word, i) => (
+-            <Reveal key={word} delayMs={i * 60}>
+-              <span className="inline-block rounded-sm border border-void-line px-4 py-2 font-display text-sm text-paper-dim">
+-                {word}
+-              </span>
+-            </Reveal>
+-          ))}
+-        </div>
+-
+-        {/* The working lens every problem gets run through. */}
+-        <Reveal delayMs={420}>
+-          <div className="mt-16 flex flex-wrap items-center gap-x-3 gap-y-3 border-t border-void-line pt-10">
+-            {approach.map((step, i) => (
+-              <span key={step} className="flex items-center gap-3">
+-                <span className="ledger-num text-xs text-paper-dim sm:text-sm">{step}</span>
+-                {i < approach.length - 1 && (
+-                  <span className="text-xs text-crimson sm:text-sm" aria-hidden="true">
+-                    →
+-                  </span>
+-                )}
+-              </span>
+-            ))}
+-          </div>
+-        </Reveal>
+-
+-        {/* Currently building vs. long-term interest — kept explicitly
+-            separate so future ambition never reads as present expertise. */}
+-        <div className="mt-14 grid grid-cols-1 gap-8 sm:grid-cols-2">
+-          <Reveal delayMs={480} className="h-full">
+-            <div className="reticle h-full border border-void-line bg-void-panel/60 p-7">
+-              <p className="ledger-num text-xs text-crimson">Currently building</p>
+-              <ul className="mt-5 space-y-3">
+-                {currentFocus.building.map((item) => (
+-                  <li key={item} className="flex items-start gap-3 text-sm text-paper-dim">
+-                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-crimson" />
+-                    {item}
+-                  </li>
+-                ))}
+-              </ul>
+-            </div>
+-          </Reveal>
+-
+-          <Reveal delayMs={540} className="h-full">
+-            <div className="reticle h-full border border-void-line bg-void-panel/60 p-7">
+-              <p className="ledger-num text-xs text-paper-faint">Exploring, not yet expertise</p>
+-              <ul className="mt-5 space-y-3">
+-                {currentFocus.exploring.map((item) => (
+-                  <li key={item} className="flex items-start gap-3 text-sm text-paper-dim">
+-                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-paper-faint" />
+-                    {item}
+-                  </li>
+-                ))}
+-              </ul>
+-            </div>
+-          </Reveal>
+-        </div>
+-      </div>
+-    </section>
+-  );
+-}
+diff --git a/src/components/Building.tsx b/src/components/Building.tsx
+deleted file mode 100644
+index 0865733..0000000
+--- a/src/components/Building.tsx
++++ /dev/null
+@@ -1,39 +0,0 @@
+-import { useReveal } from '../useReveal'
+-import SectionHeading from './SectionHeading'
+-
+-const threads = [
+-  {
+-    title: 'Academic development',
+-    body: 'Coursework and independent study across life sciences, computation, and the business disciplines that sit alongside them.',
+-  },
+-  {
+-    title: 'Independent technical practice',
+-    body: 'Two self-authored, phase-structured Python curricula — one in computational biology, one in business and finance — built repository by repository, project by project.',
+-  },
+-  {
+-    title: 'Applied projects',
+-    body: 'Small working applications — a library system, a sales tracker, a startup runway calculator — built to practice turning a problem into working software.',
+-  },
+-  {
+-    title: 'Research interests',
+-    body: 'An active, developing interest in where biological and computational understanding intersects with economics and strategic decision-making.',
+-  },
+-]
+-
+-export default function Building() {
+-  const ref = useReveal<HTMLElement>()
+-  return (
+-    <section id="building" ref={ref} className="border-b border-line px-6 py-24 lg:px-16 lg:py-32 xl:pl-40">
+-      <SectionHeading number="06" title="What I'm Building" />
+-
+-      <div className="grid gap-x-10 gap-y-10 sm:grid-cols-2">
+-        {threads.map((t, i) => (
+-          <div key={t.title} className="reveal" style={{ transitionDelay: `${i * 80}ms` }}>
+-            <h3 className="font-display text-xl text-ink">{t.title}</h3>
+-            <p className="mt-3 max-w-sm text-sm leading-relaxed text-ink-soft">{t.body}</p>
+-          </div>
+-        ))}
+-      </div>
+-    </section>
+-  )
+-}
+diff --git a/src/components/Certifications.tsx b/src/components/Certifications.tsx
+deleted file mode 100644
+index 17f30af..0000000
+--- a/src/components/Certifications.tsx
++++ /dev/null
+@@ -1,38 +0,0 @@
+-import Reveal from "./Reveal";
+-import { certifications } from "../data/content";
+-
+-export default function Certifications() {
+-  return (
+-    <section
+-      id="certifications"
+-      className="relative border-b border-void-line bg-void-raised py-28 sm:py-36"
+-    >
+-      <div className="mx-auto max-w-6xl px-6 sm:px-10">
+-        <Reveal>
+-          <span className="ledger-num text-sm text-crimson">07 — Certifications</span>
+-        </Reveal>
+-        <Reveal delayMs={80}>
+-          <h2 className="mt-6 max-w-2xl font-display text-3xl font-medium text-paper sm:text-4xl">
+-            Supporting the data & business side.
+-          </h2>
+-        </Reveal>
+-
+-        <div className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2">
+-          {certifications.map((cert, i) => (
+-            <Reveal key={cert.name} delayMs={i * 100}>
+-              <div className="reticle flex h-full flex-col border border-void-line bg-void-panel/60 p-8">
+-                <h3 className="font-display text-lg font-medium text-paper sm:text-xl">
+-                  {cert.name}
+-                </h3>
+-                <p className="mt-2 text-sm text-paper-dim">{cert.issuer}</p>
+-                <p className="ledger-num mt-auto pt-6 text-xs text-paper-faint">
+-                  Completed {cert.completed}
+-                </p>
+-              </div>
+-            </Reveal>
+-          ))}
+-        </div>
+-      </div>
+-    </section>
+-  );
+-}
+diff --git a/src/components/DataBusiness.tsx b/src/components/DataBusiness.tsx
+deleted file mode 100644
+index c8c3da5..0000000
+--- a/src/components/DataBusiness.tsx
++++ /dev/null
+@@ -1,111 +0,0 @@
+-import Reveal from "./Reveal";
+-import {
+-  businessDisclaimer,
+-  businessThreads,
+-  certifications,
+-  evidenceChain,
+-} from "../data/content";
+-
+-export default function DataBusiness() {
+-  return (
+-    <section
+-      id="business"
+-      className="relative border-b border-void-line bg-void-raised py-28 sm:py-36"
+-    >
+-      <div className="mx-auto max-w-6xl px-6 sm:px-10">
+-        <Reveal>
+-          <span className="ledger-num text-sm text-crimson">06 — Data & Business</span>
+-        </Reveal>
+-        <Reveal delayMs={80}>
+-          <h2 className="mt-6 max-w-3xl font-display text-3xl font-medium text-paper sm:text-4xl">
+-            Where scientific evidence becomes a decision.
+-          </h2>
+-        </Reveal>
+-        <Reveal delayMs={140}>
+-          <p className="mt-6 max-w-prose text-base leading-relaxed text-paper-dim sm:text-lg">
+-            The part of life sciences I keep coming back to is the step after the result: who
+-            acts on it, who pays for it, and what has to be true for it to reach a market. Data
+-            is how that argument gets made, so that's what I'm building skills in.
+-          </p>
+-        </Reveal>
+-
+-        {/* Evidence → impact chain */}
+-        <Reveal delayMs={200}>
+-          <ol
+-            aria-label="How scientific evidence becomes market impact"
+-            className="mt-12 flex flex-wrap items-center gap-x-3 gap-y-3 border-y border-void-line py-6"
+-          >
+-            {evidenceChain.map((step, i) => (
+-              <li key={step} className="flex items-center gap-3">
+-                <span
+-                  className={`font-display text-sm sm:text-base ${
+-                    i === evidenceChain.length - 1 ? "text-crimson" : "text-paper"
+-                  }`}
+-                >
+-                  {step}
+-                </span>
+-                {i < evidenceChain.length - 1 && (
+-                  <span aria-hidden="true" className="text-crimson">
+-                    →
+-                  </span>
+-                )}
+-              </li>
+-            ))}
+-          </ol>
+-        </Reveal>
+-
+-        {/* Where each piece actually shows up */}
+-        <div className="mt-12 grid grid-cols-1 gap-6 md:grid-cols-2">
+-          {businessThreads.map((t, i) => (
+-            <Reveal key={t.title} delayMs={i * 80} className="h-full">
+-              <div className="reticle flex h-full flex-col border border-void-line bg-void-panel/60 p-7 sm:p-8">
+-                <p className="ledger-num text-xs text-crimson">{t.kind}</p>
+-                <h3 className="mt-3 font-display text-lg font-medium text-paper sm:text-xl">
+-                  {t.title}
+-                </h3>
+-                <p className="mt-1 text-sm text-paper-faint">{t.org}</p>
+-                <p className="mt-4 text-sm leading-relaxed text-paper-dim">{t.body}</p>
+-                {t.link && (
+-                  <a
+-                    href={t.link}
+-                    target="_blank"
+-                    rel="noopener noreferrer"
+-                    className="mt-auto inline-flex w-fit items-center gap-2 pt-6 text-sm text-paper underline decoration-void-line underline-offset-4 hover:text-crimson-bright"
+-                  >
+-                    View on GitHub <span aria-hidden="true">↗</span>
+-                  </a>
+-                )}
+-              </div>
+-            </Reveal>
+-          ))}
+-        </div>
+-
+-        <Reveal delayMs={120}>
+-          <p className="mt-8 max-w-prose border-l-2 border-crimson/40 pl-4 text-sm leading-relaxed text-paper-dim">
+-            {businessDisclaimer}
+-          </p>
+-        </Reveal>
+-
+-        {/* Certifications: supporting coursework, deliberately compact */}
+-        <Reveal delayMs={160}>
+-          <h3 className="ledger-num mt-16 text-xs uppercase tracking-wide text-paper-faint">
+-            Supporting coursework
+-          </h3>
+-        </Reveal>
+-        <ul className="mt-5 grid grid-cols-1 gap-4 sm:grid-cols-2">
+-          {certifications.map((cert, i) => (
+-            <Reveal key={cert.name} delayMs={i * 80} as="li">
+-              <div className="flex h-full flex-col border border-void-line bg-void-panel/60 px-6 py-5">
+-                <p className="font-display text-base font-medium text-paper">{cert.name}</p>
+-                <p className="mt-1 text-sm text-paper-dim">{cert.issuer}</p>
+-                <p className="ledger-num mt-3 text-xs text-paper-faint">
+-                  Completed {cert.completed}
+-                </p>
+-              </div>
+-            </Reveal>
+-          ))}
+-        </ul>
+-      </div>
+-    </section>
+-  );
+-}
+diff --git a/src/components/DevelopmentPath.tsx b/src/components/DevelopmentPath.tsx
+deleted file mode 100644
+index 5fe6765..0000000
+--- a/src/components/DevelopmentPath.tsx
++++ /dev/null
+@@ -1,41 +0,0 @@
+-import { useReveal } from '../useReveal'
+-import { profile } from '../data/profile'
+-import SectionHeading from './SectionHeading'
+-
+-export default function DevelopmentPath() {
+-  const ref = useReveal<HTMLElement>()
+-  const path = profile.developmentPath
+-
+-  return (
+-    <section id="path" ref={ref} className="border-b border-line px-6 py-24 lg:px-16 lg:py-32 xl:pl-40">
+-      <SectionHeading number="07" title="Learning & Development" eyebrow="I am deliberately building a multidisciplinary capability" />
+-
+-      {/* Mobile: vertical list */}
+-      <ol className="reveal flex flex-col lg:hidden">
+-        {path.map((step, i) => (
+-          <li key={step}>
+-            <div className="flex items-center gap-4 py-3">
+-              <span className="font-mono text-[11px] text-ink-faint">{String(i + 1).padStart(2, '0')}</span>
+-              <span className="text-lg text-ink">{step}</span>
+-            </div>
+-            {i < path.length - 1 && <span className="ml-[42px] block h-6 w-px bg-line" aria-hidden />}
+-          </li>
+-        ))}
+-      </ol>
+-
+-      {/* Desktop: wrapping horizontal path */}
+-      <ol className="reveal hidden flex-wrap items-center gap-y-6 lg:flex">
+-        {path.map((step, i) => (
+-          <li key={step} className="flex items-center">
+-            <span className="text-xl text-ink">{step}</span>
+-            {i < path.length - 1 && (
+-              <span className="mx-5 text-crimson" aria-hidden>
+-                →
+-              </span>
+-            )}
+-          </li>
+-        ))}
+-      </ol>
+-    </section>
+-  )
+-}
+diff --git a/src/components/Education.tsx b/src/components/Education.tsx
+deleted file mode 100644
+index 8c73e85..0000000
+--- a/src/components/Education.tsx
++++ /dev/null
+@@ -1,39 +0,0 @@
+-import Reveal from "./Reveal";
+-import { education } from "../data/content";
+-
+-export default function Education() {
+-  return (
+-    <section id="education" className="relative border-b border-void-line py-28 sm:py-36">
+-      <div className="mx-auto max-w-6xl px-6 sm:px-10">
+-        <Reveal>
+-          <span className="ledger-num text-sm text-crimson">02 — Education</span>
+-        </Reveal>
+-
+-        <div className="mt-14 flex gap-8 sm:gap-12">
+-          <div className="relative hidden w-px shrink-0 bg-void-line sm:block">
+-            <span className="absolute -left-[5px] top-1 h-[11px] w-[11px] rounded-full bg-crimson" />
+-          </div>
+-
+-          <Reveal delayMs={100} className="w-full">
+-            <div className="reticle border border-void-line bg-void-panel/60 p-8 sm:p-10">
+-              <div className="flex flex-wrap items-center justify-between gap-3">
+-                <p className="ledger-num text-xs text-crimson">Ongoing · {education.stage}</p>
+-                <p className="ledger-num text-xs text-paper-faint">{education.period}</p>
+-              </div>
+-              <h3 className="mt-3 font-display text-2xl font-medium text-paper sm:text-3xl">
+-                {education.degree}
+-              </h3>
+-              <p className="mt-2 text-base text-paper-dim">
+-                {education.institution} · {education.unit}
+-              </p>
+-              <p className="mt-1 text-sm text-paper-faint">{education.location}</p>
+-              <p className="mt-6 max-w-prose text-sm leading-relaxed text-paper-dim">
+-                {education.note}
+-              </p>
+-            </div>
+-          </Reveal>
+-        </div>
+-      </div>
+-    </section>
+-  );
+-}
+diff --git a/src/components/Expertise.tsx b/src/components/Expertise.tsx
+deleted file mode 100644
+index 2a966e2..0000000
+--- a/src/components/Expertise.tsx
++++ /dev/null
+@@ -1,108 +0,0 @@
+-import { useState } from "react";
+-import Reveal from "./Reveal";
+-import { expertiseDomains } from "../data/content";
+-
+-export default function Expertise() {
+-  const [active, setActive] = useState<string>(expertiseDomains[0].id);
+-  const activeDomain = expertiseDomains.find((d) => d.id === active) ?? expertiseDomains[0];
+-
+-  return (
+-    <section
+-      id="expertise"
+-      className="relative border-b border-void-line bg-void-raised py-28 sm:py-36"
+-    >
+-      <div className="mx-auto max-w-6xl px-6 sm:px-10">
+-        <Reveal>
+-          <span className="ledger-num text-sm text-crimson">04 — Skills</span>
+-        </Reveal>
+-        <Reveal delayMs={80}>
+-          <h2 className="mt-6 max-w-2xl font-display text-3xl font-medium text-paper sm:text-4xl">
+-            Five domains, one lens.
+-          </h2>
+-        </Reveal>
+-
+-        {/* Phones: the orbit is too tight for five labels, so use tappable chips. */}
+-        <div role="group" aria-label="Skill domains" className="mt-10 flex flex-wrap gap-2 sm:hidden">
+-          {expertiseDomains.map((domain) => (
+-            <button
+-              key={domain.id}
+-              onClick={() => setActive(domain.id)}
+-              aria-pressed={active === domain.id}
+-              className={`rounded-sm border px-3 py-2 text-sm transition-colors ${
+-                active === domain.id
+-                  ? "border-crimson bg-crimson/10 text-paper"
+-                  : "border-void-line bg-void-panel text-paper-dim"
+-              }`}
+-            >
+-              {domain.title}
+-            </button>
+-          ))}
+-        </div>
+-
+-        <div className="mt-8 grid grid-cols-1 items-center gap-14 sm:mt-16 lg:grid-cols-2">
+-          {/* Orbit diagram */}
+-          <Reveal delayMs={140} className="mx-auto hidden w-full max-w-sm sm:block">
+-            <div className="relative aspect-square w-full">
+-              <div
+-                aria-hidden="true"
+-                className="absolute inset-[18%] animate-[spin_60s_linear_infinite] rounded-full border border-dashed border-void-line motion-reduce:animate-none"
+-              />
+-              <div className="absolute inset-0 flex items-center justify-center">
+-                <div className="reticle flex h-20 w-20 items-center justify-center rounded-full border border-crimson/40 bg-void-panel font-display text-xs text-crimson">
+-                  CORE
+-                </div>
+-              </div>
+-
+-              {expertiseDomains.map((domain, i) => {
+-                const angle = ((-90 + (i * 360) / expertiseDomains.length) * Math.PI) / 180;
+-                const radius = 40;
+-                const left = 50 + radius * Math.cos(angle);
+-                const top = 50 + radius * Math.sin(angle);
+-                const isActive = active === domain.id;
+-                return (
+-                  <button
+-                    key={domain.id}
+-                    onMouseEnter={() => setActive(domain.id)}
+-                    onFocus={() => setActive(domain.id)}
+-                    onClick={() => setActive(domain.id)}
+-                    style={{ left: `${left}%`, top: `${top}%` }}
+-                    aria-pressed={isActive}
+-                    className={`absolute -translate-x-1/2 -translate-y-1/2 whitespace-nowrap rounded-sm border px-2.5 py-1.5 text-[11px] font-medium transition-all duration-300 sm:px-3 sm:py-2 sm:text-sm ${
+-                      isActive
+-                        ? "border-crimson bg-crimson/10 text-paper scale-105"
+-                        : "border-void-line bg-void-panel text-paper-dim hover:text-paper"
+-                    }`}
+-                  >
+-                    {domain.title}
+-                  </button>
+-                );
+-              })}
+-            </div>
+-          </Reveal>
+-
+-          {/* Active domain detail — accessible, always-legible */}
+-          <Reveal delayMs={200}>
+-            <div
+-              key={activeDomain.id}
+-              className="reticle border border-void-line bg-void-panel/60 p-8 transition-colors sm:p-10"
+-            >
+-              <span className="ledger-num text-xs text-crimson">{activeDomain.title}</span>
+-              <ul className="mt-6 space-y-4">
+-                {activeDomain.items.map((item) => (
+-                  <li key={item} className="flex items-start gap-3 text-base text-paper-dim">
+-                    <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-crimson" />
+-                    {item}
+-                  </li>
+-                ))}
+-              </ul>
+-              <p className="mt-8 border-t border-void-line pt-5 text-xs leading-relaxed text-paper-faint">
+-                <span className="ledger-num text-crimson">Seen in </span>
+-                {activeDomain.seenIn}
+-              </p>
+-            </div>
+-          </Reveal>
+-        </div>
+-      </div>
+-    </section>
+-  );
+-}
+diff --git a/src/components/Footer.tsx b/src/components/Footer.tsx
+deleted file mode 100644
+index b7c1c1d..0000000
+--- a/src/components/Footer.tsx
++++ /dev/null
+@@ -1,31 +0,0 @@
+-import { profile } from "../data/content";
+-
+-export default function Footer() {
+-  return (
+-    <footer className="border-t border-graphite-line bg-graphite-deep py-10">
+-      <div className="mx-auto flex max-w-6xl flex-col items-start justify-between gap-6 px-6 sm:flex-row sm:items-center sm:px-10">
+-        <div>
+-          <p className="font-display text-sm text-mist">{profile.name}</p>
+-          <p className="mt-1 max-w-sm text-xs leading-relaxed text-mist-faint">{profile.headline}</p>
+-        </div>
+-
+-        <nav aria-label="Elsewhere" className="flex flex-wrap gap-x-6 gap-y-2 text-xs text-mist-faint">
+-          <a href={profile.github} target="_blank" rel="noopener noreferrer" className="hover:text-crimson-soft">
+-            GitHub
+-          </a>
+-          <a href={profile.linkedin} target="_blank" rel="noopener noreferrer" className="hover:text-crimson-soft">
+-            LinkedIn
+-          </a>
+-          <a href={profile.researchgate} target="_blank" rel="noopener noreferrer" className="hover:text-crimson-soft">
+-            ResearchGate
+-          </a>
+-          <a href={`mailto:${profile.email}`} className="hover:text-crimson-soft">
+-            Email
+-          </a>
+-        </nav>
+-
+-        <p className="text-xs text-mist-faint">© 2026 {profile.name}</p>
+-      </div>
+-    </footer>
+-  );
+-}
+diff --git a/src/components/Journey.tsx b/src/components/Journey.tsx
+deleted file mode 100644
+index ab38aa8..0000000
+--- a/src/components/Journey.tsx
++++ /dev/null
+@@ -1,72 +0,0 @@
+-import Reveal from "./Reveal";
+-import { journeyStages } from "../data/content";
+-
+-type Status = (typeof journeyStages)[number]["status"];
+-
+-const badge: Record<Status, string> = {
+-  Foundation: "border-paper-dim/40 text-paper-dim",
+-  Building: "border-crimson bg-crimson/10 text-crimson",
+-  Exploring: "border-void-line text-paper-dim",
+-  "Long-term direction": "border-dashed border-paper-faint/60 text-paper-faint",
+-};
+-
+-export default function Journey() {
+-  return (
+-    <section
+-      id="journey"
+-      className="relative border-b border-void-line bg-void-raised py-28 sm:py-36"
+-    >
+-      <div className="mx-auto max-w-6xl px-6 sm:px-10">
+-        <Reveal>
+-          <span className="ledger-num text-sm text-crimson">08 — Direction</span>
+-        </Reveal>
+-        <Reveal delayMs={80}>
+-          <h2 className="mt-6 max-w-2xl font-display text-3xl font-medium text-paper sm:text-4xl">
+-            Building toward life-science strategy.
+-          </h2>
+-        </Reveal>
+-        <Reveal delayMs={120}>
+-          <p className="mt-5 max-w-prose text-sm leading-relaxed text-paper-dim sm:text-base">
+-            Each stage is labelled with where it honestly stands: in place, being built now, being
+-            explored, or a long-term direction rather than something I've done.
+-          </p>
+-        </Reveal>
+-
+-        <div className="relative mt-16">
+-          <div
+-            aria-hidden="true"
+-            className="absolute left-3 top-2 bottom-2 w-px bg-gradient-to-b from-crimson via-void-line to-void-line sm:left-1/2"
+-          />
+-          <ol className="space-y-10">
+-            {journeyStages.map((item, i) => (
+-              <Reveal key={item.stage} delayMs={i * 50} as="li">
+-                <div
+-                  className={`relative flex items-center gap-6 sm:w-1/2 ${
+-                    i % 2 === 1 ? "sm:ml-auto sm:flex-row-reverse sm:text-right" : ""
+-                  }`}
+-                >
+-                  <span className="ledger-num absolute -left-[3px] flex h-2.5 w-2.5 shrink-0 rounded-full bg-crimson sm:static" />
+-                  <div
+-                    className={`ml-8 flex flex-wrap items-baseline gap-x-3 gap-y-1.5 sm:ml-0 ${
+-                      i % 2 === 1 ? "sm:flex-row-reverse" : ""
+-                    }`}
+-                  >
+-                    <span className="ledger-num text-xs text-paper-faint">
+-                      {String(i + 1).padStart(2, "0")}
+-                    </span>
+-                    <span className="font-display text-lg text-paper sm:text-xl">{item.stage}</span>
+-                    <span
+-                      className={`ledger-num rounded-sm border px-2 py-0.5 text-[10px] uppercase tracking-wide ${badge[item.status]}`}
+-                    >
+-                      {item.status}
+-                    </span>
+-                  </div>
+-                </div>
+-              </Reveal>
+-            ))}
+-          </ol>
+-        </div>
+-      </div>
+-    </section>
+-  );
+-}
+diff --git a/src/components/Navigation.tsx b/src/components/Navigation.tsx
+deleted file mode 100644
+index 29a5ee3..0000000
+--- a/src/components/Navigation.tsx
++++ /dev/null
+@@ -1,126 +0,0 @@
+-import { useEffect, useState } from 'react'
+-import { sections } from '../data/sections'
+-
+-export default function Navigation() {
+-  const [active, setActive] = useState('home')
+-  const [open, setOpen] = useState(false)
+-
+-  useEffect(() => {
+-    const els = sections
+-      .map((s) => document.getElementById(s.id))
+-      .filter((el): el is HTMLElement => el !== null)
+-
+-    const observer = new IntersectionObserver(
+-      (entries) => {
+-        entries.forEach((entry) => {
+-          if (entry.isIntersecting) setActive(entry.target.id)
+-        })
+-      },
+-      { rootMargin: '-40% 0px -50% 0px', threshold: 0 },
+-    )
+-
+-    els.forEach((el) => observer.observe(el))
+-    return () => observer.disconnect()
+-  }, [])
+-
+-  const goTo = (id: string) => {
+-    setOpen(false)
+-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+-  }
+-
+-  return (
+-    <>
+-      {/* Desktop rail */}
+-      <nav
+-        aria-label="Section navigation"
+-        className="fixed left-0 top-0 z-40 hidden h-screen w-20 flex-col items-center justify-between border-r border-line py-8 lg:flex xl:w-24"
+-      >
+-        <a
+-          href="#home"
+-          onClick={(e) => {
+-            e.preventDefault()
+-            goTo('home')
+-          }}
+-          className="font-display text-lg tracking-tight text-ink"
+-          aria-label="Go to top"
+-        >
+-          SM
+-        </a>
+-
+-        <ul className="flex flex-col items-center gap-5">
+-          {sections.map((s) => {
+-            const isActive = active === s.id
+-            return (
+-              <li key={s.id} className="group relative">
+-                <button
+-                  onClick={() => goTo(s.id)}
+-                  aria-current={isActive ? 'true' : undefined}
+-                  className="flex flex-col items-center gap-1.5 py-1"
+-                >
+-                  <span
+-                    className={`h-1.5 w-1.5 rounded-full transition-colors duration-300 ${
+-                      isActive ? 'bg-crimson' : 'bg-ink-faint group-hover:bg-ink'
+-                    }`}
+-                  />
+-                  <span className="sr-only">{s.label}</span>
+-                </button>
+-                <span
+-                  role="tooltip"
+-                  className="pointer-events-none absolute left-full top-1/2 ml-3 -translate-y-1/2 whitespace-nowrap rounded-sm bg-ink px-2.5 py-1 font-mono text-[11px] text-paper opacity-0 transition-opacity duration-200 group-hover:opacity-100"
+-                >
+-                  {s.number} — {s.label}
+-                </span>
+-              </li>
+-            )
+-          })}
+-        </ul>
+-
+-        <span className="font-mono text-[10px] tracking-[0.15em] text-ink-faint [writing-mode:vertical-rl]">
+-          © 2026
+-        </span>
+-      </nav>
+-
+-      {/* Mobile bar */}
+-      <div className="fixed inset-x-0 top-0 z-40 flex items-center justify-between border-b border-line bg-paper/95 px-5 py-4 backdrop-blur-sm lg:hidden">
+-        <a
+-          href="#home"
+-          onClick={(e) => {
+-            e.preventDefault()
+-            goTo('home')
+-          }}
+-          className="font-display text-base text-ink"
+-        >
+-          Sunil Mandloi
+-        </a>
+-        <button
+-          onClick={() => setOpen((v) => !v)}
+-          aria-expanded={open}
+-          aria-label={open ? 'Close menu' : 'Open menu'}
+-          className="flex h-9 w-9 flex-col items-center justify-center gap-[5px]"
+-        >
+-          <span className={`h-px w-5 bg-ink transition-transform duration-300 ${open ? 'translate-y-[3px] rotate-45' : ''}`} />
+-          <span className={`h-px w-5 bg-ink transition-opacity duration-200 ${open ? 'opacity-0' : ''}`} />
+-          <span className={`h-px w-5 bg-ink transition-transform duration-300 ${open ? '-translate-y-[3px] -rotate-45' : ''}`} />
+-        </button>
+-      </div>
+-
+-      {open && (
+-        <div className="fixed inset-0 z-30 flex flex-col justify-center bg-paper px-8 lg:hidden">
+-          <ul className="flex flex-col gap-1">
+-            {sections.map((s) => (
+-              <li key={s.id} className="border-b border-line py-3">
+-                <button
+-                  onClick={() => goTo(s.id)}
+-                  className="flex w-full items-baseline gap-4 text-left"
+-                >
+-                  <span className="font-mono text-xs text-crimson">{s.number}</span>
+-                  <span className="font-display text-2xl text-ink">{s.label}</span>
+-                </button>
+-              </li>
+-            ))}
+-          </ul>
+-        </div>
+-      )}
+-    </>
+-  )
+-}
+diff --git a/src/components/NetworkField.tsx b/src/components/NetworkField.tsx
+deleted file mode 100644
+index 7312b3b..0000000
+--- a/src/components/NetworkField.tsx
++++ /dev/null
+@@ -1,151 +0,0 @@
+-import { useEffect, useRef } from "react";
+-import { useReducedMotion } from "../hooks/useReducedMotion";
+-
+-interface NetworkFieldProps {
+-  className?: string;
+-  density?: "hero" | "ambient";
+-  /** "light" (default) draws dark ink nodes for use on warm-ivory
+-   *  surfaces; "dark" draws warm mist-toned nodes for use on the
+-   *  graphite anchor sections. */
+-  tone?: "light" | "dark";
+-}
+-
+-interface Node {
+-  x: number;
+-  y: number;
+-  z: number;
+-  vx: number;
+-  vy: number;
+-  vz: number;
+-}
+-
+-/**
+- * A quiet field of connected nodes suggesting a molecular / computational
+- * network. Pure canvas 2D (no WebGL dependency) so it stays light and
+- * predictable across devices. Node count and motion scale down on small
+- * screens and switch off entirely under prefers-reduced-motion.
+- */
+-export default function NetworkField({
+-  className = "",
+-  density = "ambient",
+-  tone = "light",
+-}: NetworkFieldProps) {
+-  const canvasRef = useRef<HTMLCanvasElement | null>(null);
+-  const reduced = useReducedMotion();
+-
+-  useEffect(() => {
+-    const canvas = canvasRef.current;
+-    if (!canvas) return;
+-    const ctx = canvas.getContext("2d");
+-    if (!ctx) return;
+-
+-    let width = 0;
+-    let height = 0;
+-    let dpr = Math.min(window.devicePixelRatio || 1, 2);
+-    let nodes: Node[] = [];
+-    let raf = 0;
+-    let destroyed = false;
+-
+-    const isSmall = window.innerWidth < 640;
+-    const baseCount = density === "hero" ? (isSmall ? 26 : 52) : isSmall ? 16 : 34;
+-
+-    function resize() {
+-      const parent = canvas!.parentElement;
+-      width = parent ? parent.clientWidth : window.innerWidth;
+-      height = parent ? parent.clientHeight : window.innerHeight;
+-      canvas!.width = width * dpr;
+-      canvas!.height = height * dpr;
+-      canvas!.style.width = `${width}px`;
+-      canvas!.style.height = `${height}px`;
+-      ctx!.setTransform(dpr, 0, 0, dpr, 0, 0);
+-    }
+-
+-    function seed() {
+-      nodes = Array.from({ length: baseCount }, () => ({
+-        x: Math.random() * width,
+-        y: Math.random() * height,
+-        z: Math.random(),
+-        vx: (Math.random() - 0.5) * 0.12,
+-        vy: (Math.random() - 0.5) * 0.12,
+-        vz: (Math.random() - 0.5) * 0.0015,
+-      }));
+-    }
+-
+-    function step() {
+-      if (destroyed) return;
+-      ctx!.clearRect(0, 0, width, height);
+-
+-      const maxDist = Math.min(width, height) * 0.22;
+-
+-      for (const n of nodes) {
+-        n.x += n.vx;
+-        n.y += n.vy;
+-        n.z += n.vz;
+-        if (n.x < 0 || n.x > width) n.vx *= -1;
+-        if (n.y < 0 || n.y > height) n.vy *= -1;
+-        if (n.z < 0 || n.z > 1) n.vz *= -1;
+-      }
+-
+-      for (let i = 0; i < nodes.length; i++) {
+-        for (let j = i + 1; j < nodes.length; j++) {
+-          const a = nodes[i];
+-          const b = nodes[j];
+-          const dx = a.x - b.x;
+-          const dy = a.y - b.y;
+-          const dist = Math.sqrt(dx * dx + dy * dy);
+-          if (dist < maxDist) {
+-            const alpha = (1 - dist / maxDist) * 0.14 * ((a.z + b.z) / 2 + 0.3);
+-            ctx!.strokeStyle = `rgba(159, 18, 57, ${alpha})`;
+-            ctx!.lineWidth = 0.6;
+-            ctx!.beginPath();
+-            ctx!.moveTo(a.x, a.y);
+-            ctx!.lineTo(b.x, b.y);
+-            ctx!.stroke();
+-          }
+-        }
+-      }
+-
+-      const nodeColor = tone === "dark" ? "243, 240, 232" : "27, 23, 18";
+-      for (const n of nodes) {
+-        const r = 0.6 + n.z * 1.8;
+-        ctx!.beginPath();
+-        ctx!.fillStyle = `rgba(${nodeColor}, ${0.1 + n.z * 0.22})`;
+-        ctx!.arc(n.x, n.y, r, 0, Math.PI * 2);
+-        ctx!.fill();
+-      }
+-
+-      raf = requestAnimationFrame(step);
+-    }
+-
+-    resize();
+-    seed();
+-
+-    if (reduced) {
+-      // Draw a single static frame and stop — respects reduced-motion.
+-      step();
+-      cancelAnimationFrame(raf);
+-    } else {
+-      raf = requestAnimationFrame(step);
+-    }
+-
+-    const handleResize = () => {
+-      resize();
+-      seed();
+-    };
+-    window.addEventListener("resize", handleResize);
+-
+-    return () => {
+-      destroyed = true;
+-      cancelAnimationFrame(raf);
+-      window.removeEventListener("resize", handleResize);
+-    };
+-  }, [density, reduced, tone]);
+-
+-  return (
+-    <canvas
+-      ref={canvasRef}
+-      aria-hidden="true"
+-      className={`pointer-events-none absolute inset-0 ${className}`}
+-    />
+-  );
+-}
+diff --git a/src/components/Philosophy.tsx b/src/components/Philosophy.tsx
+deleted file mode 100644
+index bc95fa1..0000000
+--- a/src/components/Philosophy.tsx
++++ /dev/null
+@@ -1,37 +0,0 @@
+-import Reveal from "./Reveal";
+-import NetworkField from "./NetworkField";
+-import { philosophy } from "../data/content";
+-
+-export default function Philosophy() {
+-  return (
+-    <section className="relative flex min-h-[80vh] items-center overflow-hidden border-b border-graphite-line bg-graphite bg-scientific-grid-dark py-28">
+-      <NetworkField className="opacity-25" tone="dark" />
+-      <div
+-        aria-hidden="true"
+-        className="pointer-events-none absolute -left-24 top-0 h-72 w-72 rounded-full bg-crimson/10 blur-[120px]"
+-      />
+-      <div className="relative mx-auto max-w-4xl px-6 sm:px-10">
+-        <span className="ledger-num text-sm text-crimson-bright">Methodology</span>
+-
+-        <div className="mt-10">
+-          {philosophy.map((p, i) => (
+-            <Reveal key={p.line} delayMs={i * 140}>
+-              <div className="flex items-start gap-5 border-l border-graphite-line py-3 pl-6">
+-                <span className="ledger-num mt-2 shrink-0 text-xs text-mist-faint">
+-                  {String(i + 1).padStart(2, "0")}
+-                </span>
+-                <p
+-                  className={`font-display text-2xl font-medium leading-tight sm:text-4xl lg:text-5xl ${
+-                    p.accent ? "text-crimson-bright" : "text-mist"
+-                  }`}
+-                >
+-                  {p.line}
+-                </p>
+-              </div>
+-            </Reveal>
+-          ))}
+-        </div>
+-      </div>
+-    </section>
+-  );
+-}
+diff --git a/src/components/ProjectCard.tsx b/src/components/ProjectCard.tsx
+deleted file mode 100644
+index b52e49b..0000000
+--- a/src/components/ProjectCard.tsx
++++ /dev/null
+@@ -1,143 +0,0 @@
+-import { useRef, useState, type MouseEvent } from "react";
+-import { categoryMeta, type Project } from "../data/content";
+-import { useReducedMotion } from "../hooks/useReducedMotion";
+-
+-export type CardTone = "ivory" | "warm" | "graphite";
+-
+-const steps = [
+-  { key: "problem", label: "Problem" },
+-  { key: "approach", label: "Approach" },
+-  { key: "result", label: "Result" },
+-] as const;
+-
+-export default function ProjectCard({
+-  project,
+-  tone = "ivory",
+-}: {
+-  project: Project;
+-  tone?: CardTone;
+-}) {
+-  const ref = useRef<HTMLElement | null>(null);
+-  const [tilt, setTilt] = useState({ rx: 0, ry: 0 });
+-  const flagship = project.tier === "flagship";
+-  const [open, setOpen] = useState(flagship);
+-  const reduced = useReducedMotion();
+-  const meta = categoryMeta[project.category];
+-  const isDark = tone === "graphite";
+-  const panelId = `project-${project.number}-details`;
+-
+-  const surface =
+-    tone === "graphite"
+-      ? "reticle-dark border-graphite-line bg-graphite text-mist"
+-      : tone === "warm"
+-        ? "reticle border-void-line bg-void-raised/70 text-paper"
+-        : "reticle border-void-line bg-void-panel/60 text-paper";
+-
+-  const text = isDark ? "text-mist-dim" : "text-paper-dim";
+-  const faint = isDark ? "text-mist-faint" : "text-paper-faint";
+-  const line = isDark ? "border-graphite-line" : "border-void-line";
+-  const accent = isDark ? "text-crimson-soft" : "text-crimson";
+-
+-  // Tilt is a light, decorative flourish on the compact cards only; the
+-  // flagship cards hold more reading content, so they stay still.
+-  const handleMove = (e: MouseEvent<HTMLElement>) => {
+-    if (reduced || flagship || !ref.current) return;
+-    const rect = ref.current.getBoundingClientRect();
+-    const px = (e.clientX - rect.left) / rect.width - 0.5;
+-    const py = (e.clientY - rect.top) / rect.height - 0.5;
+-    setTilt({ rx: py * -5, ry: px * 5 });
+-  };
+-  const handleLeave = () => setTilt({ rx: 0, ry: 0 });
+-
+-  return (
+-    <article
+-      ref={ref}
+-      onMouseMove={handleMove}
+-      onMouseLeave={handleLeave}
+-      style={{
+-        transform: `perspective(900px) rotateX(${tilt.rx}deg) rotateY(${tilt.ry}deg)`,
+-        transition: "transform 0.25s ease-out",
+-      }}
+-      className={`group relative flex h-full flex-col border p-7 sm:p-8 ${surface}`}
+-    >
+-      <div className="flex items-start justify-between gap-4">
+-        <span className={`ledger-num text-xs ${faint}`}>{project.number}</span>
+-        <span className={`ledger-num rounded-sm border px-2 py-1 text-[11px] ${line} ${accent}`}>
+-          {meta.label}
+-        </span>
+-      </div>
+-
+-      <h3
+-        className={`mt-5 font-display font-medium ${isDark ? "text-mist" : "text-paper"} ${
+-          flagship ? "text-2xl sm:text-3xl" : "text-xl sm:text-2xl"
+-        }`}
+-      >
+-        {project.name}
+-      </h3>
+-
+-      <p className={`mt-3 text-sm leading-relaxed ${text}`}>{project.description}</p>
+-
+-      {/* Technology + status are always visible: they are the first thing a
+-          reviewer scans for. */}
+-      <ul className="mt-5 flex flex-wrap gap-2" aria-label="Technology">
+-        {project.tech.map((t) => (
+-          <li
+-            key={t}
+-            className={`rounded-sm border px-2.5 py-1 text-xs ${line} ${text}`}
+-          >
+-            {t}
+-          </li>
+-        ))}
+-      </ul>
+-
+-      {!flagship && (
+-        <button
+-          onClick={() => setOpen((v) => !v)}
+-          aria-expanded={open}
+-          aria-controls={panelId}
+-          className={`mt-5 self-start text-xs underline underline-offset-4 transition-colors hover:text-crimson-bright ${faint} ${
+-            isDark ? "decoration-graphite-line" : "decoration-void-line"
+-          }`}
+-        >
+-          {open ? "Hide problem → approach → result" : "Show problem → approach → result"}
+-        </button>
+-      )}
+-
+-      {open && (
+-        <dl id={panelId} className={`mt-5 space-y-4 border-t pt-5 text-sm ${line}`}>
+-          {steps.map(({ key, label }) => (
+-            <div key={key}>
+-              <dt className={`ledger-num text-[11px] uppercase tracking-wide ${faint}`}>{label}</dt>
+-              <dd className={`mt-1 leading-relaxed ${text}`}>{project[key]}</dd>
+-            </div>
+-          ))}
+-        </dl>
+-      )}
+-
+-      {project.caveat && (
+-        <p className={`mt-5 border-l-2 pl-3 text-xs leading-relaxed ${faint} ${isDark ? "border-crimson-soft/60" : "border-crimson/40"}`}>
+-          {project.caveat}
+-        </p>
+-      )}
+-
+-      <div className={`mt-auto flex flex-wrap items-center justify-between gap-3 pt-7`}>
+-        <a
+-          href={project.github}
+-          target="_blank"
+-          rel="noopener noreferrer"
+-          aria-label={`${project.name} on GitHub (opens in a new tab)`}
+-          className={`inline-flex items-center gap-2 rounded-sm border px-4 py-2 text-sm transition-colors hover:border-crimson hover:text-crimson-bright group-hover:border-crimson group-hover:text-crimson-bright ${
+-            isDark ? "border-mist/20 text-mist" : "border-paper/20 text-paper"
+-          }`}
+-        >
+-          View on GitHub
+-          <span aria-hidden="true">↗</span>
+-        </a>
+-        <p className={`ledger-num text-[11px] ${faint}`}>
+-          <span className="sr-only">Status: </span>
+-          {project.status}
+-        </p>
+-      </div>
+-    </article>
+-  );
+-}
+diff --git a/src/components/ProjectRow.tsx b/src/components/ProjectRow.tsx
+deleted file mode 100644
+index b2edd69..0000000
+--- a/src/components/ProjectRow.tsx
++++ /dev/null
+@@ -1,41 +0,0 @@
+-import type { Project } from '../data/projects'
+-
+-export default function ProjectRow({ project, delay }: { project: Project; delay: number }) {
+-  return (
+-    <a
+-      href={project.url}
+-      target="_blank"
+-      rel="noreferrer"
+-      className="reveal group grid gap-4 border-t border-line py-8 transition-colors lg:grid-cols-[64px_1.1fr_1.4fr_auto] lg:items-start lg:gap-8 lg:py-10"
+-      style={{ transitionDelay: `${delay}ms` }}
+-    >
+-      <span className="font-mono text-xs text-ink-faint transition-colors group-hover:text-crimson">
+-        {project.number}
+-      </span>
+-
+-      <div>
+-        <h3 className="font-display text-2xl text-ink transition-colors group-hover:text-crimson lg:text-3xl">
+-          {project.name}
+-        </h3>
+-        <p className="mt-2 text-xs uppercase tracking-[0.12em] text-ink-faint">{project.category}</p>
+-        <div className="mt-3 flex flex-wrap gap-2">
+-          {project.technology.map((t) => (
+-            <span key={t} className="rounded-full border border-line px-2.5 py-0.5 text-[11px] text-ink-soft">
+-              {t}
+-            </span>
+-          ))}
+-        </div>
+-      </div>
+-
+-      <div className="max-w-md">
+-        <p className="text-sm leading-relaxed text-ink-soft">{project.description}</p>
+-        <p className="mt-2 text-sm leading-relaxed text-ink-faint">{project.problem}</p>
+-      </div>
+-
+-      <span className="flex items-center gap-2 font-mono text-xs text-ink transition-colors group-hover:text-crimson lg:justify-self-end">
+-        View project
+-        <span className="transition-transform group-hover:translate-x-1">→</span>
+-      </span>
+-    </a>
+-  )
+-}
+diff --git a/src/components/Reveal.tsx b/src/components/Reveal.tsx
+deleted file mode 100644
+index 31f8ac2..0000000
+--- a/src/components/Reveal.tsx
++++ /dev/null
+@@ -1,40 +0,0 @@
+-import { useEffect, useRef, useState, type ReactNode } from "react";
+-
+-interface RevealProps {
+-  children: ReactNode;
+-  className?: string;
+-  delayMs?: number;
+-  as?: keyof JSX.IntrinsicElements;
+-}
+-
+-export default function Reveal({ children, className = "", delayMs = 0, as = "div" }: RevealProps) {
+-  const ref = useRef<HTMLDivElement | null>(null);
+-  const [visible, setVisible] = useState(false);
+-  const Tag = as as any;
+-
+-  useEffect(() => {
+-    const node = ref.current;
+-    if (!node) return;
+-
+-    const observer = new IntersectionObserver(
+-      (entries) => {
+-        entries.forEach((entry) => {
+-          if (entry.isIntersecting) {
+-            window.setTimeout(() => setVisible(true), delayMs);
+-            observer.unobserve(entry.target);
+-          }
+-        });
+-      },
+-      { threshold: 0.15, rootMargin: "0px 0px -8% 0px" }
+-    );
+-
+-    observer.observe(node);
+-    return () => observer.disconnect();
+-  }, [delayMs]);
+-
+-  return (
+-    <Tag ref={ref} className={`reveal ${visible ? "is-visible" : ""} ${className}`}>
+-      {children}
+-    </Tag>
+-  );
+-}
+diff --git a/src/components/SectionHeading.tsx b/src/components/SectionHeading.tsx
+deleted file mode 100644
+index 21518a5..0000000
+--- a/src/components/SectionHeading.tsx
++++ /dev/null
+@@ -1,19 +0,0 @@
+-type Props = {
+-  number: string
+-  title: string
+-  eyebrow?: string
+-}
+-
+-export default function SectionHeading({ number, title, eyebrow }: Props) {
+-  return (
+-    <div className="reveal mb-14 flex items-start gap-5 lg:mb-20 lg:gap-8">
+-      <span className="mt-2 font-mono text-xs text-crimson lg:mt-4">{number}</span>
+-      <div>
+-        {eyebrow && <p className="mb-2 text-sm text-ink-soft">{eyebrow}</p>}
+-        <h2 className="font-display text-4xl leading-[1.02] tracking-tight text-ink sm:text-5xl lg:text-6xl">
+-          {title}
+-        </h2>
+-      </div>
+-    </div>
+-  )
+-}
+diff --git a/src/components/Vision.tsx b/src/components/Vision.tsx
+deleted file mode 100644
+index 62f79ad..0000000
+--- a/src/components/Vision.tsx
++++ /dev/null
+@@ -1,40 +0,0 @@
+-import Reveal from "./Reveal";
+-
+-const terms = ["Biology", "Technology", "Data", "Economics", "Strategy"];
+-
+-export default function Vision() {
+-  return (
+-    <section id="vision" className="relative border-b border-void-line py-28 sm:py-36">
+-      <div className="mx-auto max-w-6xl px-6 sm:px-10">
+-        <Reveal>
+-          <span className="ledger-num text-sm text-crimson">09 — Vision</span>
+-        </Reveal>
+-        <Reveal delayMs={80}>
+-          <h2 className="mt-6 font-display text-3xl font-medium text-paper sm:text-4xl">
+-            Where I'm heading
+-          </h2>
+-        </Reveal>
+-
+-        <div className="mt-16 flex flex-wrap items-center justify-center gap-x-5 gap-y-6 text-center">
+-          {terms.map((term, i) => (
+-            <Reveal key={term} delayMs={i * 90} className="flex items-center gap-x-5">
+-              <span className="font-display text-xl text-paper sm:text-3xl">{term}</span>
+-              {i < terms.length - 1 && (
+-                <span className="font-display text-xl text-crimson sm:text-3xl">+</span>
+-              )}
+-            </Reveal>
+-          ))}
+-        </div>
+-
+-        <Reveal delayMs={terms.length * 90 + 100}>
+-          <div className="mx-auto mt-10 w-fit border-t border-void-line pt-10 text-center">
+-            <span className="font-display text-2xl text-paper-faint sm:text-3xl">=</span>
+-            <p className="mt-6 font-display text-3xl font-medium text-crimson-bright sm:text-4xl lg:text-5xl">
+-              Better life-science decisions
+-            </p>
+-          </div>
+-        </Reveal>
+-      </div>
+-    </section>
+-  );
+-}
+diff --git a/src/data/profile.ts b/src/data/profile.ts
+deleted file mode 100644
+index c2654a1..0000000
+--- a/src/data/profile.ts
++++ /dev/null
+@@ -1,67 +0,0 @@
+-export const profile = {
+-  firstName: 'Sunil',
+-  lastName: 'Mandloi',
+-  label: 'Life Sciences / Technology / Business',
+-  headline: 'Life Sciences × Biotechnology × Computation',
+-  statement:
+-    'Building at the intersection of biological science, computation, AI, data and business strategy.',
+-  about: [
+-    'I am an Integrated M.Sc. Life Sciences student at the University of Hyderabad, building at the intersection of life sciences, biotechnology, computation, data, AI and business.',
+-    'My long-term goal is to work on complex life-science problems where scientific understanding needs to be combined with data, technology, economics and strategic thinking to support better decisions.',
+-    'I am developing practical skills in Python, scientific computing, data analysis, bioinformatics and AI while simultaneously building knowledge in finance, economics, business strategy and biotechnology commercialization.',
+-  ],
+-  approach: ['Problem', 'Research', 'Data', 'Analysis', 'Economics', 'Strategy', 'Decision', 'Output'],
+-  objective: 'My objective is to bridge scientific understanding with analytical and commercial thinking.',
+-  location: 'Hyderabad, Telangana',
+-  email: 'sunilnarayan419@gmail.com',
+-  linkedin: 'https://www.linkedin.com/in/sunil-mandloi-1365582aa',
+-  github: 'https://github.com/sunilnarayan419-ui',
+-  education: {
+-    degree: 'Integrated M.Sc. Life Sciences',
+-    institution: 'University of Hyderabad',
+-    note: 'School of Life Sciences',
+-  },
+-  philosophy: [
+-    'Science explains what is possible.',
+-    'Data helps us understand what is happening.',
+-    'Economics tells us what is valuable.',
+-    'Strategy determines what we should do.',
+-  ],
+-  vision:
+-    'I want to build a career at the intersection of biotechnology, computational science, AI, data and business strategy. My long-term objective is to develop the ability to understand a scientific problem, analyze the underlying technology and data, evaluate economics and markets, understand competitive dynamics, and translate the analysis into a clear strategic decision.',
+-  visionEquation: ['Biology', 'Technology', 'Data', 'Economics', 'Strategy'],
+-  visionResult: 'Life-Science Business Decisions',
+-  developmentPath: [
+-    'Life Sciences',
+-    'Biotechnology',
+-    'Computational Biology',
+-    'Python / Data',
+-    'Artificial Intelligence',
+-    'Finance / Economics',
+-    'Business Strategy',
+-    'Life-Science Consulting',
+-  ],
+-}
+-
+-export const expertise = [
+-  {
+-    number: '01',
+-    domain: 'Life Sciences',
+-    items: ['Life Sciences', 'Biotechnology', 'Molecular Biology', 'Biological Systems', 'Computational Biology', 'Bioinformatics'],
+-  },
+-  {
+-    number: '02',
+-    domain: 'Computation',
+-    items: ['Python', 'Scientific Computing', 'Data Analysis', 'Git', 'Backend Development', 'FastAPI'],
+-  },
+-  {
+-    number: '03',
+-    domain: 'AI & Data',
+-    items: ['Artificial Intelligence', 'Biological Data Analysis', 'Automation', 'Data-Driven Workflows', 'Computational Approaches to Biology'],
+-  },
+-  {
+-    number: '04',
+-    domain: 'Business & Strategy',
+-    items: ['Business Analysis', 'Financial Analysis', 'Economics', 'Market Analysis', 'Strategy', 'Biotechnology Commercialization', 'Life-Science Consulting'],
+-  },
+-]
+diff --git a/src/data/projects.ts b/src/data/projects.ts
+deleted file mode 100644
+index 60553cb..0000000
+--- a/src/data/projects.ts
++++ /dev/null
+@@ -1,70 +0,0 @@
+-export type Project = {
+-  number: string
+-  name: string
+-  category: string
+-  description: string
+-  technology: string[]
+-  problem: string
+-  url: string
+-}
+-
+-export const projects: Project[] = [
+-  {
+-    number: '01',
+-    name: 'Library Management System',
+-    category: 'Application / Management System',
+-    description:
+-      'A Python-based library application for storing books, managing users, and issuing and returning books — structured for clarity and extendability.',
+-    technology: ['Python'],
+-    problem: 'Practical, well-structured record-keeping: books, borrowers, and circulation, built as a real application rather than a script.',
+-    url: 'https://github.com/sunilnarayan419-ui/Library-Management-System',
+-  },
+-  {
+-    number: '02',
+-    name: 'Sales Performance Tracker',
+-    category: 'Business Analytics',
+-    description:
+-      'A modular tracker designed to monitor sales activities, analyze team performance, track targets, and generate actionable insights through a clean, practical, scalable interface.',
+-    technology: ['Python'],
+-    problem: 'Turning raw sales activity into performance visibility — targets, trends, and team-level insight in one place.',
+-    url: 'https://github.com/sunilnarayan419-ui/sales-performer-trackers',
+-  },
+-  {
+-    number: '03',
+-    name: 'Startup Runway Manager',
+-    category: 'Finance',
+-    description: 'A prototype to calculate startup cash burn, runway, and basic financial health for early-stage founders.',
+-    technology: ['Python'],
+-    problem: 'Making an early-stage company\u2019s financial runway legible — when cash runs out, and what changes that timeline.',
+-    url: 'https://github.com/sunilnarayan419-ui/startup-runway-manager',
+-  },
+-  {
+-    number: '04',
+-    name: 'Mini-Bio-Python-Projects',
+-    category: 'Computational Biology / Curriculum',
+-    description:
+-      'A biology-themed Python curriculum built in eight phases, from foundations through control flow, data structures, NumPy, Pandas, visualization, and scikit-learn — applied throughout to molecular biology and protein-analysis problems.',
+-    technology: ['Python', 'NumPy', 'Pandas', 'Matplotlib', 'scikit-learn'],
+-    problem: 'Building Python fluency specifically through biological problems, not generic exercises.',
+-    url: 'https://github.com/sunilnarayan419-ui/Mini-Bio-Python-Projects',
+-  },
+-  {
+-    number: '05',
+-    name: 'Finance-Logistics-100-Python-Projects',
+-    category: 'Business Analytics / Operations Research',
+-    description:
+-      'A 100-project curriculum in finance, business analytics, logistics, supply chain, operations research, and network engineering — progressing from single scripts to data pipelines, optimization systems, and decision-support tools.',
+-    technology: ['Python', 'NumPy', 'Pandas', 'NetworkX', 'scikit-learn'],
+-    problem: 'Learning to use Python to understand, diagnose, model, and optimize real business and supply-chain systems, mirroring the biology curriculum but retargeted at computational business engineering.',
+-    url: 'https://github.com/sunilnarayan419-ui/Finance-Logistics-100-Python-Projects',
+-  },
+-  {
+-    number: '06',
+-    name: 'python_practice',
+-    category: 'Fundamentals',
+-    description: 'An ongoing set of Python exercises for fundamentals, logic, and problem-solving repetitions.',
+-    technology: ['Python'],
+-    problem: 'Deliberate, repeated practice of core Python fundamentals underneath every other project.',
+-    url: 'https://github.com/sunilnarayan419-ui/python_practice',
+-  },
+-]
+diff --git a/src/data/sections.ts b/src/data/sections.ts
+deleted file mode 100644
+index c3c58dc..0000000
+--- a/src/data/sections.ts
++++ /dev/null
+@@ -1,11 +0,0 @@
+-export const sections = [
+-  { id: 'home', number: '01', label: 'Home' },
+-  { id: 'about', number: '02', label: 'About' },
+-  { id: 'education', number: '03', label: 'Education' },
+-  { id: 'expertise', number: '04', label: 'Expertise' },
+-  { id: 'projects', number: '05', label: 'Projects' },
+-  { id: 'building', number: '06', label: 'What I\u2019m Building' },
+-  { id: 'path', number: '07', label: 'Learning Path' },
+-  { id: 'vision', number: '08', label: 'Vision' },
+-  { id: 'contact', number: '09', label: 'Contact' },
+-] as const
+diff --git a/src/hooks/useMouseParallax.ts b/src/hooks/useMouseParallax.ts
+deleted file mode 100644
+index 2e49124..0000000
+--- a/src/hooks/useMouseParallax.ts
++++ /dev/null
+@@ -1,36 +0,0 @@
+-import { useEffect, useRef, useState } from "react";
+-import { useReducedMotion } from "./useReducedMotion";
+-
+-/**
+- * Tracks normalized mouse position (-1..1 on each axis) relative to the
+- * viewport center. Returns {0,0} on touch devices or when the user prefers
+- * reduced motion, so callers can skip parallax work entirely.
+- */
+-export function useMouseParallax() {
+-  const reduced = useReducedMotion();
+-  const [pos, setPos] = useState({ x: 0, y: 0 });
+-  const frame = useRef<number | null>(null);
+-
+-  useEffect(() => {
+-    if (reduced) return;
+-    const isCoarse = window.matchMedia("(pointer: coarse)").matches;
+-    if (isCoarse) return;
+-
+-    const handleMove = (e: MouseEvent) => {
+-      if (frame.current) cancelAnimationFrame(frame.current);
+-      frame.current = requestAnimationFrame(() => {
+-        const x = (e.clientX / window.innerWidth) * 2 - 1;
+-        const y = (e.clientY / window.innerHeight) * 2 - 1;
+-        setPos({ x, y });
+-      });
+-    };
+-
+-    window.addEventListener("mousemove", handleMove, { passive: true });
+-    return () => {
+-      window.removeEventListener("mousemove", handleMove);
+-      if (frame.current) cancelAnimationFrame(frame.current);
+-    };
+-  }, [reduced]);
+-
+-  return pos;
+-}
+diff --git a/src/hooks/useReducedMotion.ts b/src/hooks/useReducedMotion.ts
+deleted file mode 100644
+index d44ca2e..0000000
+--- a/src/hooks/useReducedMotion.ts
++++ /dev/null
+@@ -1,15 +0,0 @@
+-import { useEffect, useState } from "react";
+-
+-export function useReducedMotion(): boolean {
+-  const [reduced, setReduced] = useState(false);
+-
+-  useEffect(() => {
+-    const mq = window.matchMedia("(prefers-reduced-motion: reduce)");
+-    setReduced(mq.matches);
+-    const handler = (e: MediaQueryListEvent) => setReduced(e.matches);
+-    mq.addEventListener("change", handler);
+-    return () => mq.removeEventListener("change", handler);
+-  }, []);
+-
+-  return reduced;
+-}
+diff --git a/src/useReveal.ts b/src/useReveal.ts
+deleted file mode 100644
+index 8339063..0000000
+--- a/src/useReveal.ts
++++ /dev/null
+@@ -1,31 +0,0 @@
+-import { useEffect, useRef } from 'react'
+-
+-/** Adds `.is-visible` to every `.reveal` element inside the returned ref once it enters the viewport. */
+-export function useReveal<T extends HTMLElement>() {
+-  const ref = useRef<T | null>(null)
+-
+-  useEffect(() => {
+-    const root = ref.current
+-    if (!root) return
+-
+-    const targets = root.classList.contains('reveal') ? [root] : Array.from(root.querySelectorAll('.reveal'))
+-    if (targets.length === 0) return
+-
+-    const observer = new IntersectionObserver(
+-      (entries) => {
+-        entries.forEach((entry) => {
+-          if (entry.isIntersecting) {
+-            entry.target.classList.add('is-visible')
+-            observer.unobserve(entry.target)
+-          }
+-        })
+-      },
+-      { threshold: 0.15, rootMargin: '0px 0px -8% 0px' },
+-    )
+-
+-    targets.forEach((t) => observer.observe(t))
+-    return () => observer.disconnect()
+-  }, [])
+-
+-  return ref
+-}
+diff --git a/theme.css b/theme.css
+deleted file mode 100644
+index c9d51bc..0000000
+--- a/theme.css
++++ /dev/null
+@@ -1,360 +0,0 @@
+-/* ============================================================
+-   GLOBAL DESIGN TOKEN SYSTEM
+-   Sunil Mandloi Portfolio — Warm Neutral + Scientific Pink Palette
+-   Drop this in as your base stylesheet (imported before all
+-   component CSS) and reference these variables everywhere.
+-   ============================================================ */
+-
+-:root {
+-  /* ---------- BACKGROUNDS ---------- */
+-  --bg: #F2EFEA;              /* main page background — warm ivory, NEVER pure white */
+-  --bg-secondary: #E9E4DE;     /* alternating section background */
+-  --surface: #F8F5F1;          /* cards, panels */
+-  --surface-light: #FBF9F6;    /* lightest surface, use sparingly */
+-  --surface-dark: #242126;     /* dark anchor sections (Philosophy, Contact, Footer) */
+-
+-  /* ---------- TEXT ---------- */
+-  --text: #242126;             /* primary text — dark charcoal, on light backgrounds */
+-  --text-secondary: #55505A;   /* secondary text */
+-  --text-muted: #77717A;       /* muted / caption text */
+-  --text-on-dark: #F5F1EC;     /* primary text on dark-anchor sections */
+-  --text-on-dark-secondary: #C9C2C6;
+-
+-  /* ---------- BORDERS / LINES ---------- */
+-  --border: #D5CEC8;           /* default hairline border on light surfaces */
+-  --border-dark: #3A353C;      /* hairline border on dark surfaces */
+-
+-  /* ---------- THE FOUR OFFICIAL PINKS ---------- */
+-  --pink-super: #CF6BA9;        /* primary accent — labels, borders, icons, links, buttons */
+-  --pink-thulian: #DE6FA1;      /* secondary accent — same family of uses as super pink */
+-  --pink-new-york: #D7837F;     /* warm accent — variation, warmth */
+-  --pink-light-deep: #FF5CCD;   /* high-energy accent — hover/active/interactive ONLY */
+-
+-  /* Derived tones (kept in the pink family, never introduce blue/purple/green) */
+-  --pink-super-tint: #F3E2ED;   /* very light wash, e.g. subtle button backgrounds */
+-  --pink-super-shade: #A8547F;  /* darker variant for text-on-light link default state */
+-
+-  /* ---------- SEMANTIC TOKENS ---------- */
+-  --link: var(--pink-super-shade);
+-  --link-hover: var(--pink-light-deep);
+-  --accent-label: var(--pink-super);
+-  --accent-active: var(--pink-thulian);
+-  --accent-warm: var(--pink-new-york);
+-  --accent-interactive: var(--pink-light-deep);
+-
+-  --shadow-sm: 0 1px 2px rgba(36, 33, 38, 0.06);
+-  --shadow-md: 0 4px 16px rgba(36, 33, 38, 0.08);
+-  --shadow-pink-glow: 0 0 24px rgba(255, 92, 205, 0.25);
+-
+-  --radius-sm: 6px;
+-  --radius-md: 12px;
+-  --radius-lg: 20px;
+-}
+-
+-/* ============================================================
+-   BASE
+-   ============================================================ */
+-
+-html, body {
+-  background: var(--bg);
+-  color: var(--text);
+-}
+-
+-* {
+-  box-sizing: border-box;
+-}
+-
+-a {
+-  color: var(--link);
+-  text-decoration: none;
+-  transition: color 0.2s ease;
+-}
+-a:hover {
+-  color: var(--link-hover);
+-}
+-a:visited {
+-  color: var(--link); /* never fall back to browser purple */
+-}
+-
+-/* ============================================================
+-   SECTION RHYTHM — alternate warm-neutral surfaces
+-   Apply one of these classes to each <section>
+-   ============================================================ */
+-
+-.section--hero,
+-.section--projects {
+-  background: var(--bg);
+-  color: var(--text);
+-}
+-
+-.section--about,
+-.section--development {
+-  background: var(--bg-secondary);
+-  color: var(--text);
+-}
+-
+-.section--education,
+-.section--vision {
+-  background: var(--surface-light);
+-  color: var(--text);
+-}
+-
+-.section--expertise {
+-  background: var(--bg-secondary);
+-  color: var(--text);
+-}
+-
+-.section--philosophy,
+-.section--contact,
+-.section--footer {
+-  background: var(--surface-dark);
+-  color: var(--text-on-dark);
+-}
+-.section--philosophy a,
+-.section--contact a,
+-.section--footer a {
+-  color: var(--pink-thulian);
+-}
+-.section--philosophy a:hover,
+-.section--contact a:hover,
+-.section--footer a:hover {
+-  color: var(--pink-light-deep);
+-}
+-
+-/* ============================================================
+-   NAVIGATION
+-   ============================================================ */
+-
+-.nav {
+-  background: rgba(248, 245, 241, 0.82);
+-  backdrop-filter: blur(10px);
+-  border-bottom: 1px solid var(--border);
+-}
+-
+-.nav__link {
+-  color: var(--text);
+-  font-weight: 500;
+-}
+-
+-.nav__number {
+-  color: var(--pink-super);
+-  font-weight: 600;
+-  margin-right: 0.5em;
+-}
+-
+-.nav__link:hover {
+-  color: var(--pink-light-deep);
+-}
+-
+-.nav__link.is-active {
+-  color: var(--pink-thulian);
+-}
+-
+-/* ============================================================
+-   TYPOGRAPHY
+-   ============================================================ */
+-
+-h1, h2, h3, h4 {
+-  color: var(--text);
+-}
+-
+-.label,
+-.eyebrow {
+-  color: var(--pink-super);
+-  text-transform: uppercase;
+-  letter-spacing: 0.08em;
+-  font-size: 0.8rem;
+-  font-weight: 600;
+-}
+-
+-.text-secondary { color: var(--text-secondary); }
+-.text-muted { color: var(--text-muted); }
+-.text-emphasis { color: var(--pink-new-york); }
+-.text-interactive { color: var(--pink-light-deep); }
+-
+-/* ============================================================
+-   BUTTONS
+-   ============================================================ */
+-
+-.btn {
+-  display: inline-flex;
+-  align-items: center;
+-  justify-content: center;
+-  padding: 0.75em 1.5em;
+-  border-radius: var(--radius-sm);
+-  font-weight: 600;
+-  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
+-}
+-
+-.btn--primary {
+-  background: var(--pink-super);
+-  color: #FBF7FA; /* warm white, not pure #fff */
+-  border: 1px solid var(--pink-super);
+-}
+-.btn--primary:hover {
+-  background: var(--pink-light-deep);
+-  border-color: var(--pink-light-deep);
+-  transform: translateY(-1px);
+-}
+-
+-.btn--secondary {
+-  background: transparent;
+-  color: var(--text);
+-  border: 1px solid var(--text);
+-}
+-.btn--secondary:hover {
+-  border-color: var(--pink-light-deep);
+-  color: var(--pink-light-deep);
+-  background: var(--pink-super-tint);
+-}
+-
+-/* On dark-anchor sections */
+-.section--philosophy .btn--secondary,
+-.section--contact .btn--secondary,
+-.section--footer .btn--secondary {
+-  color: var(--text-on-dark);
+-  border-color: var(--text-on-dark-secondary);
+-}
+-
+-/* ============================================================
+-   CARDS (projects, expertise, general)
+-   ============================================================ */
+-
+-.card {
+-  background: var(--surface);
+-  border: 1px solid var(--border);
+-  border-radius: var(--radius-md);
+-  box-shadow: var(--shadow-sm);
+-  transition: box-shadow 0.2s ease, border-color 0.2s ease, transform 0.2s ease;
+-}
+-
+-.card:hover {
+-  box-shadow: var(--shadow-md);
+-  border-color: var(--pink-super);
+-  transform: translateY(-2px);
+-}
+-
+-.card__title {
+-  color: var(--text);
+-}
+-
+-.card__description {
+-  color: var(--text-secondary);
+-}
+-
+-.card__category {
+-  color: var(--pink-super);
+-  font-size: 0.75rem;
+-  text-transform: uppercase;
+-  letter-spacing: 0.06em;
+-}
+-
+-.card__link {
+-  color: var(--pink-thulian);
+-  font-weight: 600;
+-}
+-.card__link:hover {
+-  color: var(--pink-light-deep);
+-}
+-
+-/* Featured / dark variant card, used sparingly for emphasis */
+-.card--dark {
+-  background: var(--surface-dark);
+-  border-color: var(--border-dark);
+-}
+-.card--dark .card__title { color: var(--text-on-dark); }
+-.card--dark .card__description { color: var(--text-on-dark-secondary); }
+-.card--dark .card__link { color: var(--pink-light-deep); }
+-
+-/* ============================================================
+-   PROFILE IMAGE FRAME
+-   ============================================================ */
+-
+-.profile-frame {
+-  position: relative;
+-  width: min(360px, 80vw);
+-  aspect-ratio: 1 / 1;
+-  margin-inline: auto;
+-}
+-
+-.profile-frame__image {
+-  width: 100%;
+-  height: 100%;
+-  object-fit: cover;
+-  border-radius: 50%;
+-  position: relative;
+-  z-index: 2;
+-  box-shadow: var(--shadow-md);
+-}
+-
+-.profile-frame__ring {
+-  position: absolute;
+-  inset: -14px;
+-  border-radius: 50%;
+-  border: 1.5px solid var(--pink-super);
+-  opacity: 0.55;
+-  z-index: 1;
+-}
+-
+-.profile-frame__ring--outer {
+-  inset: -30px;
+-  border-color: var(--pink-new-york);
+-  opacity: 0.35;
+-}
+-
+-.profile-frame__node {
+-  position: absolute;
+-  width: 6px;
+-  height: 6px;
+-  border-radius: 50%;
+-  background: var(--pink-light-deep);
+-  box-shadow: 0 0 8px rgba(255, 92, 205, 0.6);
+-  z-index: 3;
+-}
+-
+-/* ============================================================
+-   GRADIENTS — pink-family only
+-   ============================================================ */
+-
+-.gradient-primary {
+-  background: linear-gradient(135deg, var(--pink-super), var(--pink-thulian));
+-}
+-
+-.gradient-warm {
+-  background: linear-gradient(135deg, var(--pink-thulian), var(--pink-new-york));
+-}
+-
+-.gradient-energy {
+-  background: linear-gradient(135deg, var(--pink-super), var(--pink-light-deep));
+-}
+-
+-/* ============================================================
+-   SCIENTIFIC / DIAGRAM ELEMENTS (expertise visualization, bg motifs)
+-   ============================================================ */
+-
+-.diagram-line {
+-  stroke: var(--pink-super);
+-  stroke-width: 1;
+-  opacity: 0.6;
+-}
+-
+-.diagram-node {
+-  fill: var(--pink-thulian);
+-}
+-
+-.diagram-node--core {
+-  fill: var(--pink-light-deep);
+-  filter: drop-shadow(0 0 6px rgba(255, 92, 205, 0.5));
+-}
+-
+-.bg-motif {
+-  color: var(--pink-super);
+-  opacity: 0.08; /* keep decorative geometry subtle, never competing with text */
+-}
+-
+-/* ============================================================
+-   UTILITY — never let contrast fall below this pairing
+-   ============================================================ */
+-
+-.on-light { color: var(--text); background: var(--bg); }
+-.on-dark  { color: var(--text-on-dark); background: var(--surface-dark); }
