@@ -17,6 +17,9 @@ export const profile = {
   researchgate: "https://www.researchgate.net/profile/Sunil-Mandloi-2",
   site: "https://sunil-narayan.netlify.app/",
   siteLabel: "sunil-narayan.netlify.app",
+  // Same wording as the LinkedIn headline; used by the Footer component.
+  headline:
+    "Biotechnology × Computational Biology × AI · Python & Data Analytics · Exploring Life-Science Business & Strategy",
 };
 
 export const nav = [
@@ -113,6 +116,8 @@ export type StatusKind = "prototype" | "implemented" | "conceptual" | "contribut
 export interface Project {
   id: string;
   name: string;
+  /** Short area label, e.g. "Machine Learning / Telecom Analytics". */
+  category: string;
   positioning: string;
   status: string;
   statusKind: StatusKind;
@@ -135,6 +140,7 @@ export const projects: Project[] = [
   {
     id: "algal",
     name: "AlgalPathogenRisk-ML",
+    category: "Computational Biology / Bioprocess Risk",
     positioning: "Computational risk assessment for algal cultivation and bioprocess resilience.",
     status: "Research prototype",
     statusKind: "prototype",
@@ -168,6 +174,7 @@ export const projects: Project[] = [
   {
     id: "churn",
     name: "Churn Handset Targeting",
+    category: "Machine Learning / Telecom Analytics",
     positioning: "Machine learning for telecom churn analysis and handset-targeting decisions, ending in a pilot design.",
     status: "Implemented, coursework data",
     statusKind: "implemented",
@@ -199,7 +206,8 @@ export const projects: Project[] = [
   },
   {
     id: "paperleet",
-    name: "Network biology for PaperLeet",
+    name: "Network Biology for PaperLeet",
+    category: "Open Source / Network Biology",
     positioning: "Open-source educational work connecting biological networks with practical algorithmic problem-solving.",
     status: "Open-source contribution",
     statusKind: "contribution",
@@ -233,6 +241,7 @@ export const projects: Project[] = [
   {
     id: "bio-inspired",
     name: "Bio-Inspired Information Processing Infrastructure",
+    category: "Conceptual Research / Systems Architecture",
     positioning: "Exploring whether principles of alternative splicing can inspire fault-tolerant backend architecture.",
     status: "Conceptual research, early stage",
     statusKind: "conceptual",
@@ -258,6 +267,7 @@ export const projects: Project[] = [
   {
     id: "home-credit",
     name: "Home Credit Default Risk",
+    category: "Predictive Analytics / Credit Risk",
     positioning: "Predictive analytics for credit risk and financial decision support.",
     status: "Notebook analysis",
     statusKind: "notebook",
@@ -353,25 +363,168 @@ export const experience = [
   },
 ];
 
-export const certifications = [
-  { name: "Introduction to MS Excel", date: "1 August 2026", topics: "Navigation and formatting, basic formulas, data organisation, sorting and filtering, tables and charts." },
-  { name: "Power BI for Beginners", date: "4 August 2026", topics: "Dashboard creation, data visualisation and business-intelligence fundamentals." },
+export interface Certification {
+  name: string;
+  /**
+   * Awarding organisation. Deliberately left unset: the hand-over notes say the issuer is not shown,
+   * to avoid implying an official vendor credential. Components render it only when present.
+   */
+  issuer?: string;
+  completed: string;
+  topics: string;
+}
+
+export const certifications: Certification[] = [
+  { name: "Introduction to MS Excel", completed: "1 August 2026", topics: "Navigation and formatting, basic formulas, data organisation, sorting and filtering, tables and charts." },
+  { name: "Power BI for Beginners", completed: "4 August 2026", topics: "Dashboard creation, data visualisation and business-intelligence fundamentals." },
 ];
 export const certNote = "Course completion certificates, not advanced or official vendor credentials.";
 
 // ---------------------------------------------------------------------------
 // Skills: what the repositories and experience actually show
 // ---------------------------------------------------------------------------
-export const skills = {
+export interface SkillGroup {
+  group: string;
+  items: string[];
+  /** Where the skill is actually shown: only projects, coursework or experience already on this site. */
+  seenIn: string;
+}
+
+export const skills: { shown: SkillGroup[]; learning: string[] } = {
   shown: [
-    { group: "Software engineering", items: ["Python", "FastAPI and REST APIs", "pytest", "Git and GitHub", "Docker (basics)", "TypeScript and React (this site)"] },
-    { group: "Data science and ML", items: ["pandas and NumPy", "scikit-learn", "Exploratory analysis", "Model evaluation and calibration", "Jupyter"] },
-    { group: "Computational and molecular biology", items: ["Biological network analysis", "Molecular biology and genetics", "Genomics", "Cell culture", "Gel electrophoresis", "Protein purification", "Research methodology"] },
-    { group: "Business and decision analysis", items: ["Market research", "Financial analysis", "Spreadsheet modelling", "Power BI fundamentals", "Research synthesis"] },
+    { group: "Software engineering", items: ["Python", "FastAPI and REST APIs", "pytest", "Git and GitHub", "Docker (basics)", "TypeScript and React (this site)"], seenIn: "AlgalPathogenRisk-ML, Churn Handset Targeting, and this website" },
+    { group: "Data science and ML", items: ["pandas and NumPy", "scikit-learn", "Exploratory analysis", "Model evaluation and calibration", "Jupyter"], seenIn: "Churn Handset Targeting and Home Credit Default Risk" },
+    { group: "Computational and molecular biology", items: ["Biological network analysis", "Molecular biology and genetics", "Genomics", "Cell culture", "Gel electrophoresis", "Protein purification", "Research methodology"], seenIn: "Network Biology for PaperLeet and Integrated M.Sc. coursework" },
+    { group: "Business and decision analysis", items: ["Market research", "Financial analysis", "Spreadsheet modelling", "Power BI fundamentals", "Research synthesis"], seenIn: "Epochfolio internship and the break-even economics in Churn Handset Targeting" },
   ],
   learning: ["SQL beyond ORMs", "Matplotlib and SciPy", "Bioinformatics pipelines", "Statistics for biological data", "Bioprocess and techno-economic modelling"],
 };
 
 export const contact = {
   intro: "If you work on computational biology, bioprocess data or applied machine learning and think I could help or learn from the team, I'd like to hear from you. Email is the fastest way to reach me.",
+};
+
+// ---------------------------------------------------------------------------
+// Exports used by the About, Education, Expertise, Data & Business, Journey and Philosophy
+// components. Where possible they are derived from the data above so each fact lives in one place.
+// ---------------------------------------------------------------------------
+
+/** The eight-step lens the About section frames every problem through. */
+export const approach: string[] = [
+  "Problem",
+  "Research",
+  "Data",
+  "Analysis",
+  "Economics",
+  "Strategy",
+  "Decision",
+  "Output",
+];
+
+/** What is being built now, kept separate from longer-horizon interests so ambition never reads as expertise. */
+export const currentFocus: { building: string[]; exploring: string[] } = {
+  building: [
+    "Python backends and data tooling: FastAPI, pandas, scikit-learn and pytest across the projects above",
+    "Evidence-labelled research prototypes, starting with AlgalPathogenRisk-ML",
+    "A churn-targeting pipeline that ends in a randomised pilot design, not a headline accuracy number",
+  ],
+  exploring: skills.learning,
+};
+
+export interface ExpertiseDomain {
+  id: string;
+  title: string;
+  items: string[];
+  seenIn: string;
+}
+
+/** Skill domains, derived from `skills.shown` so the Skills section and the Expertise orbit cannot drift apart. */
+export const expertiseDomains: ExpertiseDomain[] = skills.shown.map((g) => ({
+  id: g.group.toLowerCase().replace(/[^a-z0-9]+/g, "-").replace(/^-|-$/g, ""),
+  title: g.group,
+  items: g.items,
+  seenIn: g.seenIn,
+}));
+
+export const evidenceChain: string[] = [
+  "Scientific evidence",
+  "Decision",
+  "Investment",
+  "Partnership",
+  "Product",
+  "Market impact",
+];
+
+export interface BusinessThread {
+  kind: string;
+  title: string;
+  org: string;
+  body: string;
+  link: string | null;
+}
+
+const repoOf = (id: string): string | null => projects.find((p) => p.id === id)?.repo ?? null;
+
+/** Where the data-and-business thread actually shows up. Each entry restates something already on this site. */
+export const businessThreads: BusinessThread[] = [
+  {
+    kind: "Work",
+    title: "Funding-ecosystem research",
+    org: "Epochfolio",
+    body: "Mapped funding ecosystems across government, CSR, NGO, corporate and institutional sources, and checked the evidence behind funding information.",
+    link: null,
+  },
+  {
+    kind: "Project",
+    title: "Retention economics",
+    org: "Churn Handset Targeting",
+    body: "Break-even save-rate maths, a base-rate adjustment and a randomised pilot design for a retention offer.",
+    link: repoOf("churn"),
+  },
+  {
+    kind: "Project",
+    title: "Bioprocess break-even economics",
+    org: "AlgalPathogenRisk-ML",
+    body: "A break-even endpoint for algal cultivation. It needs facility-specific costs before it means anything.",
+    link: repoOf("algal"),
+  },
+  {
+    kind: "Project",
+    title: "Credit-default analysis",
+    org: "Home Credit Default Risk",
+    body: "A notebook analysis of loan-default risk where classes are imbalanced and errors have different costs. No performance figures are claimed.",
+    link: repoOf("home-credit"),
+  },
+];
+
+export const businessDisclaimer =
+  "Everything here is coursework-stage, self-directed or internship-level work, and each item says what exists and what does not.";
+
+export const journeyStages = [
+  { stage: "Life Sciences", status: "Foundation" },
+  { stage: "Biotechnology", status: "Foundation" },
+  { stage: "Python", status: "Building" },
+  { stage: "Data analytics", status: "Building" },
+  { stage: "Computational Biology", status: "Exploring" },
+  { stage: "AI for science", status: "Exploring" },
+  { stage: "Finance & economics", status: "Exploring" },
+  { stage: "Strategy", status: "Exploring" },
+  { stage: "Life-science consulting", status: "Long-term direction" },
+] as const;
+
+export const philosophy: { line: string; accent: boolean }[] = [
+  { line: "Science explains what is possible.", accent: false },
+  { line: "Data helps us understand what is happening.", accent: false },
+  { line: "Economics tells us what is valuable.", accent: false },
+  { line: "Strategy determines what we should do.", accent: true },
+];
+
+export const education = {
+  degree: "Integrated M.Sc. Life Sciences",
+  institution: "University of Hyderabad",
+  unit: "Centre for Integrated Studies",
+  period: "September 2025 – June 2030",
+  stage: "Second year",
+  location: "Hyderabad, Telangana, India",
+  note: "An integrated programme spanning the core biological sciences, leaving room to build computational, data and business capability alongside it.",
 };

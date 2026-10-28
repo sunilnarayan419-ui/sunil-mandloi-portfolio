@@ -40,7 +40,7 @@ export default function Experience() {
         <ul className="mt-4 grid gap-4 sm:grid-cols-2">
           {certifications.map((c) => (
             <li key={c.name} className="text-sm leading-relaxed">
-              <p className="font-medium text-ink">{c.name} <span className="font-normal text-faint">· completed {c.date}</span></p>
+              <p className="font-medium text-ink">{c.name} <span className="font-normal text-faint">· completed {c.completed}</span></p>
               <p className="mt-1 text-muted">{c.topics}</p>
             </li>
           ))}

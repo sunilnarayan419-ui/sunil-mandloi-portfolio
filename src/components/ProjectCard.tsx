@@ -1,30 +1,36 @@
 import { useRef, useState, type MouseEvent } from "react";
-import { categoryMeta, type Project } from "../data/content";
+import type { Project } from "../data/content";
 import { useReducedMotion } from "../hooks/useReducedMotion";
 
 export type CardTone = "ivory" | "warm" | "graphite";
 
+// Keys of the shared `Project` type in data/content.ts. `evidence` is optional there, so it is
+// only rendered when a project actually documents a result.
 const steps = [
   { key: "problem", label: "Problem" },
-  { key: "approach", label: "Approach" },
-  { key: "result", label: "Result" },
+  { key: "contribution", label: "Contribution" },
+  { key: "evidence", label: "Evidence" },
 ] as const;
 
 export default function ProjectCard({
   project,
+  index,
   tone = "ivory",
 }: {
   project: Project;
+  /** Zero-based position in the project list; shown as a two-digit number. */
+  index: number;
   tone?: CardTone;
 }) {
   const ref = useRef<HTMLElement | null>(null);
   const [tilt, setTilt] = useState({ rx: 0, ry: 0 });
-  const flagship = project.tier === "flagship";
+  // `open` in the data means "expanded by default", which is what the flagship tier meant here.
+  const flagship = project.open === true;
   const [open, setOpen] = useState(flagship);
   const reduced = useReducedMotion();
-  const meta = categoryMeta[project.category];
   const isDark = tone === "graphite";
-  const panelId = `project-${project.number}-details`;
+  const number = String(index + 1).padStart(2, "0");
+  const panelId = `project-${number}-details`;
 
   const surface =
     tone === "graphite"
@@ -61,9 +67,9 @@ export default function ProjectCard({
       className={`group relative flex h-full flex-col border p-7 sm:p-8 ${surface}`}
     >
       <div className="flex items-start justify-between gap-4">
-        <span className={`ledger-num text-xs ${faint}`}>{project.number}</span>
+        <span className={`ledger-num text-xs ${faint}`}>{number}</span>
         <span className={`ledger-num rounded-sm border px-2 py-1 text-[11px] ${line} ${accent}`}>
-          {meta.label}
+          {project.category}
         </span>
       </div>
 
@@ -75,12 +81,12 @@ export default function ProjectCard({
         {project.name}
       </h3>
 
-      <p className={`mt-3 text-sm leading-relaxed ${text}`}>{project.description}</p>
+      <p className={`mt-3 text-sm leading-relaxed ${text}`}>{project.positioning}</p>
 
       {/* Technology + status are always visible: they are the first thing a
           reviewer scans for. */}
       <ul className="mt-5 flex flex-wrap gap-2" aria-label="Technology">
-        {project.tech.map((t) => (
+        {project.stack.map((t) => (
           <li
             key={t}
             className={`rounded-sm border px-2.5 py-1 text-xs ${line} ${text}`}
@@ -99,30 +105,42 @@ export default function ProjectCard({
             isDark ? "decoration-graphite-line" : "decoration-void-line"
           }`}
         >
-          {open ? "Hide problem → approach → result" : "Show problem → approach → result"}
+          {open ? "Hide problem → contribution → evidence" : "Show problem → contribution → evidence"}
         </button>
       )}
 
       {open && (
         <dl id={panelId} className={`mt-5 space-y-4 border-t pt-5 text-sm ${line}`}>
-          {steps.map(({ key, label }) => (
-            <div key={key}>
-              <dt className={`ledger-num text-[11px] uppercase tracking-wide ${faint}`}>{label}</dt>
-              <dd className={`mt-1 leading-relaxed ${text}`}>{project[key]}</dd>
-            </div>
-          ))}
+          {steps.map(({ key, label }) => {
+            const value = project[key];
+            if (!value) return null;
+            return (
+              <div key={key}>
+                <dt className={`ledger-num text-[11px] uppercase tracking-wide ${faint}`}>{label}</dt>
+                <dd className={`mt-1 leading-relaxed ${text}`}>{value}</dd>
+              </div>
+            );
+          })}
         </dl>
       )}
 
-      {project.caveat && (
-        <p className={`mt-5 border-l-2 pl-3 text-xs leading-relaxed ${faint} ${isDark ? "border-crimson-soft/60" : "border-crimson/40"}`}>
-          {project.caveat}
-        </p>
+      {/* Limits are shown on the card, never hidden behind the expander. */}
+      {project.notYet.length > 0 && (
+        <ul className="mt-5 space-y-2" aria-label="Not done, or not claimed">
+          {project.notYet.map((caveat) => (
+            <li
+              key={caveat}
+              className={`border-l-2 pl-3 text-xs leading-relaxed ${faint} ${isDark ? "border-crimson-soft/60" : "border-crimson/40"}`}
+            >
+              {caveat}
+            </li>
+          ))}
+        </ul>
       )}
 
       <div className={`mt-auto flex flex-wrap items-center justify-between gap-3 pt-7`}>
         <a
-          href={project.github}
+          href={project.repo}
           target="_blank"
           rel="noopener noreferrer"
           aria-label={`${project.name} on GitHub (opens in a new tab)`}

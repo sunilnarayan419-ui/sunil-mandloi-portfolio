@@ -2,6 +2,8 @@ import { useState } from "react";
 import Reveal from "./Reveal";
 import { expertiseDomains } from "../data/content";
 
+const countWords = ["Zero", "One", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine"];
+
 export default function Expertise() {
   const [active, setActive] = useState<string>(expertiseDomains[0].id);
   const activeDomain = expertiseDomains.find((d) => d.id === active) ?? expertiseDomains[0];
@@ -17,7 +19,7 @@ export default function Expertise() {
         </Reveal>
         <Reveal delayMs={80}>
           <h2 className="mt-6 max-w-2xl font-display text-3xl font-medium text-paper sm:text-4xl">
-            Five domains, one lens.
+            {countWords[expertiseDomains.length] ?? expertiseDomains.length} domains, one lens.
           </h2>
         </Reveal>
 

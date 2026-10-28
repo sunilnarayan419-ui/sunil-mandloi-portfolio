@@ -97,7 +97,7 @@ export default function DataBusiness() {
             <Reveal key={cert.name} delayMs={i * 80} as="li">
               <div className="flex h-full flex-col border border-void-line bg-void-panel/60 px-6 py-5">
                 <p className="font-display text-base font-medium text-paper">{cert.name}</p>
-                <p className="mt-1 text-sm text-paper-dim">{cert.issuer}</p>
+                {cert.issuer && <p className="mt-1 text-sm text-paper-dim">{cert.issuer}</p>}
                 <p className="ledger-num mt-3 text-xs text-paper-faint">
                   Completed {cert.completed}
                 </p>

@@ -24,7 +24,7 @@ export default function Certifications() {
                 <h3 className="font-display text-lg font-medium text-paper sm:text-xl">
                   {cert.name}
                 </h3>
-                <p className="mt-2 text-sm text-paper-dim">{cert.issuer}</p>
+                {cert.issuer && <p className="mt-2 text-sm text-paper-dim">{cert.issuer}</p>}
                 <p className="ledger-num mt-auto pt-6 text-xs text-paper-faint">
                   Completed {cert.completed}
                 </p>
