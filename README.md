@@ -34,7 +34,7 @@ scripts/              check-content.mjs (exclusion guard), verify-projects.mjs (
 
 1. Evidence order: repository code and README, then the GitHub/research overview, then LinkedIn, then ResearchGate.
 2. Prototype, conceptual and notebook work carries its own label. No result is shown unless a repository documents it.
-3. The only numeric result on the site is the churn model's reported test-set ROC-AUC, labelled as coursework data.
+3. The Projects section lists exactly five projects chosen by the owner (AlgalPathogenRisk-ML, Churn Handset Targeting, PaperLeet network biology, Bio-Inspired Infrastructure, Home Credit Default Risk). Change only on the owner's instruction. The only numeric result shown is the churn model's reported test-set ROC-AUC, labelled as coursework data.
 4. One repository is deliberately excluded by the owner. `check:content` runs before every build and
    `verify:projects` ignores it, so it cannot reappear through a project list or a GitHub sync.
 5. No publications, awards, user numbers or skill percentages. GCI is described as a programme, not a placement.

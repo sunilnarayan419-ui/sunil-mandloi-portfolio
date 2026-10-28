@@ -7,19 +7,21 @@ Tailwind 3.4 CSS generation, an esbuild bundle of `src/main.tsx` against React 1
 overflow, no broken in-page anchors, one h1, no console errors apart from the test harness image path.
 Run `npm install && npm run build` before pushing; fix any type error it reports.
 
-## Please confirm (owner-only facts)
-1. cell_division_timer and novo_nordisk_insulin_india_strategy were on the previous site but are not in the
-   17-repository list supplied. `npm run verify:projects` will tell you; delete the entries in `secondaryGroups` if they 404.
-2. GCI Scholar start date ("From September 2026") and whether the programme is still running.
-3. PaperLeet pull request: shown as "2026" with a search link; paste the exact PR URL into `experience` and `projects` if you want it.
-4. Home Credit Default Risk: shown without metrics (not re-verified). Add them from the notebook if reproducible.
-5. Certificate issuer is not shown (the earlier "Microsoft / Simplilearn / SkillUp" wording implied an official vendor credential).
-6. network-biology-collection is a fork of Hongyang-Du/PaperLeet whose README describes the upstream ML-papers library;
-   the network-biology work itself is the merged upstream PR. The site links both and says so.
+## Projects section (revision 3)
+Lists exactly five projects: AlgalPathogenRisk-ML, Churn Handset Targeting, PaperLeet network biology,
+Bio-Inspired Infrastructure, Home Credit Default Risk. Cell Division Timer, Novo Nordisk, Sales Performance
+Tracker, Startup Runway Manager and Library Management System were removed on request. `verify:projects`
+reads every repo link from `content.ts`; run it with network to confirm each link answers.
 
-## Removed from the previous site
-Finance-Logistics-100-Python-Projects (scaffold only, not in your list), the 11-section layout, canvas network
-animation and parallax. Unused portrait PNGs in `public/images` were left in place.
+Evidence notes: the algal project has no risk model (the dataset has no outcome labels); churn ROC-AUC 0.693 is
+a reported coursework test-set figure; network-biology-collection is a fork of the upstream PaperLeet library,
+so the work is described as the merged upstream pull request; Home Credit is shown without metrics (not re-verified).
+
+## Please confirm
+1. GCI Scholar start date ("From September 2026") and whether the programme is still running.
+2. PaperLeet pull request is linked as a search of your PRs; paste the exact URL if you have it.
+4. Home Credit Default Risk: add metrics only if you can reproduce them from the notebook.
+3. Certificate issuer is not shown, to avoid implying an official vendor credential.
 
 ## Git
 ```

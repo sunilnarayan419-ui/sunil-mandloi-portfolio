@@ -1,6 +1,6 @@
 import type { ReactNode } from "react";
 import Section from "./Section";
-import { projects, secondaryGroups, profile, type Project, type StatusKind } from "../data/content";
+import { projects, profile, type Project, type StatusKind } from "../data/content";
 
 const badge: Record<StatusKind, string> = {
   prototype: "bg-amber-soft text-amber",
@@ -32,6 +32,10 @@ function Block({ title, children }: { title: string; children: ReactNode }) {
   );
 }
 
+function Text({ children }: { children: string }) {
+  return <p className="mt-2 text-sm leading-relaxed text-muted">{children}</p>;
+}
+
 function Dossier({ p }: { p: Project }) {
   return (
     <details open={p.open} className="group border-b border-line first:border-t">
@@ -46,12 +50,12 @@ function Dossier({ p }: { p: Project }) {
         </span>
       </summary>
 
-      <div className="grid gap-8 pb-10 pl-0 sm:pl-8 lg:grid-cols-2">
+      <div className="grid gap-8 pb-10 sm:pl-8 lg:grid-cols-2">
         <div className="space-y-6">
-          <Block title="The problem"><p className="mt-2 text-sm leading-relaxed text-muted">{p.problem}</p></Block>
-          <Block title="Why it matters"><p className="mt-2 text-sm leading-relaxed text-muted">{p.why}</p></Block>
-          <Block title="My contribution"><p className="mt-2 text-sm leading-relaxed text-muted">{p.contribution}</p></Block>
-          <Block title="What I learned"><p className="mt-2 text-sm leading-relaxed text-muted">{p.learned}</p></Block>
+          <Block title="The problem"><Text>{p.problem}</Text></Block>
+          <Block title="Why it matters"><Text>{p.why}</Text></Block>
+          <Block title="My contribution"><Text>{p.contribution}</Text></Block>
+          <Block title="What I learned"><Text>{p.learned}</Text></Block>
         </div>
         <div className="space-y-6">
           <Block title="Built so far"><List items={p.implemented} /></Block>
@@ -89,34 +93,15 @@ export default function Projects() {
     <Section
       id="projects"
       title="Projects"
-      lead="Each project says what exists, what does not, and what the evidence is. Prototypes and conceptual work are labelled as such."
+      lead="Five projects. Each says what exists, what does not, and what the evidence is. Prototypes and conceptual work are labelled as such."
     >
       <div>
         {projects.map((p) => (
           <Dossier key={p.id} p={p} />
         ))}
       </div>
-
-      <h3 className="mt-16 font-display text-xl font-semibold text-ink">Smaller repositories</h3>
-      <div className="mt-6 grid gap-x-10 gap-y-8 sm:grid-cols-2">
-        {secondaryGroups.map((g) => (
-          <div key={g.title}>
-            <h4 className="text-sm font-semibold text-ink">{g.title}</h4>
-            <ul className="mt-3 divide-y divide-line border-y border-line">
-              {g.items.map((i) => (
-                <li key={i.name} className="py-3">
-                  <a href={i.href} target="_blank" rel="noopener noreferrer" className="text-sm font-medium text-accent underline underline-offset-4">
-                    {i.name}<span className="sr-only"> (opens in a new tab)</span>
-                  </a>
-                  <p className="mt-1 text-sm leading-snug text-muted">{i.text}</p>
-                </li>
-              ))}
-            </ul>
-          </div>
-        ))}
-      </div>
       <p className="mt-8 text-sm text-faint">
-        More on{" "}
+        Source for every project is on{" "}
         <a href={profile.github} target="_blank" rel="noopener noreferrer" className="underline underline-offset-4 hover:text-accent">
           GitHub<span className="sr-only"> (opens in a new tab)</span>
         </a>

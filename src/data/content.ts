@@ -130,6 +130,7 @@ export interface Project {
   open?: boolean;
 }
 
+// Exactly the five projects the owner chose to feature. Nothing else is listed.
 export const projects: Project[] = [
   {
     id: "algal",
@@ -260,6 +261,7 @@ export const projects: Project[] = [
     positioning: "Predictive analytics for credit risk and financial decision support.",
     status: "Notebook analysis",
     statusKind: "notebook",
+    open: true,
     problem: "Classify whether a loan applicant is likely to default, using the financial dataset in the repository.",
     why: "Default prediction is a standard test of whether a model's ranking is useful when classes are imbalanced and errors have different costs.",
     contribution: "Authored the analysis in a Jupyter notebook.",
@@ -269,78 +271,6 @@ export const projects: Project[] = [
     learned: "Exploration is quick; being able to defend an evaluation is the real work.",
     repo: "https://github.com/sunilnarayan419-ui/Home_credit_default_risk",
   },
-  {
-    id: "runway",
-    name: "Startup Runway Manager",
-    positioning: "Financial modelling for startup cash burn, runway and operating decisions.",
-    status: "Working prototype",
-    statusKind: "prototype",
-    problem: "How long can a startup survive, and how does runway change under different spending, revenue and funding assumptions?",
-    why: "Runway is easy to misjudge near break-even. Scenario assumptions decide whether a team has a few months or a few years of options.",
-    contribution: "Wrote the calculation engine, API and dashboard.",
-    stack: ["Python", "FastAPI", "Pydantic", "HTML and JavaScript", "pytest"],
-    implemented: [
-      "Pure-function burn and runway engine; optimistic, base and conservative scenarios.",
-      "Funding and hiring what-if simulations, a cash projection, a health indicator and rule-based alerts, covered by tests.",
-    ],
-    notYet: ["Planning signals only, not financial advice. No real company data."],
-    learned: "Pure functions behind an API make edge cases, such as cash-flow-positive months, easy to test.",
-    repo: "https://github.com/sunilnarayan419-ui/startup-runway-manager",
-  },
-  {
-    id: "library",
-    name: "Library Management System",
-    positioning: "A foundational software engineering project in structured application logic and data management.",
-    status: "Implemented, tested",
-    statusKind: "implemented",
-    problem: "Lending books involves state (issued, reserved, overdue) that a flat script handles badly.",
-    why: "It is where I learned to separate domain rules from storage and to test state transitions.",
-    contribution: "Rebuilt an earlier CSV-based student project as a service with authentication, a circulation domain and tests.",
-    stack: ["Python", "FastAPI", "SQLAlchemy", "Alembic", "Pydantic", "pytest", "Docker", "GitHub Actions"],
-    implemented: [
-      "Books separated from physical copies; issue, return, renew and reserve transitions.",
-      "JWT authentication with admin, librarian and member roles, audit logging and versioned REST endpoints.",
-      "Fine calculation and rule-based recommendations (no machine learning claimed).",
-    ],
-    notYet: ["A learning project, not deployed for a real library."],
-    learned: "Modelling state explicitly removes a whole class of bugs.",
-    repo: "https://github.com/sunilnarayan419-ui/Library-Management-System",
-  },
-];
-
-export const secondaryGroups: { title: string; items: { name: string; text: string; href: string }[] }[] = [
-  {
-    title: "Software engineering",
-    items: [
-      { name: "Anime-Analytics-API", text: "Web API serving analytics on anime datasets.", href: "https://github.com/sunilnarayan419-ui/Anime-Analytics-API" },
-      { name: "Python_full_package", text: "Modular utility scripts packaged as one Python project.", href: "https://github.com/sunilnarayan419-ui/Python_full_package" },
-      { name: "DSA_PRACTICE", text: "Data structures and algorithms practised in Python.", href: "https://github.com/sunilnarayan419-ui/DSA_PRACTICE" },
-      { name: "Python_Practice", text: "Exercises on core Python features, with tests.", href: "https://github.com/sunilnarayan419-ui/Python_Practice" },
-    ],
-  },
-  {
-    title: "Data science and analytics",
-    items: [
-      { name: "sales-performer-trackers", text: "Pipeline that turns a raw sales export into a validated Excel dashboard workbook.", href: "https://github.com/sunilnarayan419-ui/sales-performer-trackers" },
-      { name: "dragonfly-opportunity-intelligence", text: "Analytics framework for tracking and sorting opportunities.", href: "https://github.com/sunilnarayan419-ui/dragonfly-opportunity-intelligence" },
-      { name: "FIMAS", text: "Analytics and processing scripts.", href: "https://github.com/sunilnarayan419-ui/FIMAS" },
-    ],
-  },
-  {
-    // CONFIRM: these two were on the previous site (checked 21 Sep 2026) but are not in the 17-repository
-    // list supplied for this redesign. Run `npm run verify:projects`; delete the entries if a link fails.
-    title: "Biology and strategy case work",
-    items: [
-      { name: "cell_division_timer", text: "FastAPI backend that analyses cell-division timing from time-lapse microscopy records. Research prototype.", href: "https://github.com/sunilnarayan419-ui/cell_division_timer" },
-      { name: "novo_nordisk_insulin_india_strategy", text: "Independent strategy case study on insulin access in India, from public sources. Not client work.", href: "https://github.com/sunilnarayan419-ui/novo_nordisk_insulin_india_strategy" },
-    ],
-  },
-  {
-    title: "Research infrastructure",
-    items: [
-      { name: "paperleet.github.io", text: "Web repository supporting network-biology learning paths and exercises.", href: "https://github.com/sunilnarayan419-ui/paperleet.github.io" },
-    ],
-  },
 ];
 
 // ---------------------------------------------------------------------------
@@ -348,7 +278,7 @@ export const secondaryGroups: { title: string; items: { name: string; text: stri
 // ---------------------------------------------------------------------------
 export const researchAreas = [
   "Computational biology and biological network analysis",
-  "Machine learning for biological and industrial datasets",
+  "Data analysis and machine learning for biological and industrial datasets",
   "Plant and algal biotechnology",
   "AI-enabled biomanufacturing and cell-factory systems",
   "Translational research and biotechnology commercialisation",
@@ -434,7 +364,7 @@ export const certNote = "Course completion certificates, not advanced or officia
 // ---------------------------------------------------------------------------
 export const skills = {
   shown: [
-    { group: "Software engineering", items: ["Python", "FastAPI and REST APIs", "pytest", "Git and GitHub", "Docker (basics)", "SQLAlchemy", "TypeScript and React (this site)"] },
+    { group: "Software engineering", items: ["Python", "FastAPI and REST APIs", "pytest", "Git and GitHub", "Docker (basics)", "TypeScript and React (this site)"] },
     { group: "Data science and ML", items: ["pandas and NumPy", "scikit-learn", "Exploratory analysis", "Model evaluation and calibration", "Jupyter"] },
     { group: "Computational and molecular biology", items: ["Biological network analysis", "Molecular biology and genetics", "Genomics", "Cell culture", "Gel electrophoresis", "Protein purification", "Research methodology"] },
     { group: "Business and decision analysis", items: ["Market research", "Financial analysis", "Spreadsheet modelling", "Power BI fundamentals", "Research synthesis"] },
