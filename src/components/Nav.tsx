@@ -1,140 +1,56 @@
-import { useEffect, useState, type MouseEvent } from "react";
-import { navSections, profile } from "../data/content";
+import { useEffect, useState } from "react";
+import { nav, profile } from "../data/content";
 
 export default function Nav() {
-  const [active, setActive] = useState<string>("about");
   const [open, setOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 24);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  useEffect(() => {
-    const sections = navSections
-      .map((s) => document.getElementById(s.id))
-      .filter((el): el is HTMLElement => Boolean(el));
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) setActive(entry.target.id);
-        });
-      },
-      { rootMargin: "-40% 0px -50% 0px", threshold: 0 }
-    );
-
-    sections.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
 
   useEffect(() => {
     if (!open) return;
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === "Escape") setOpen(false);
-    };
+    const onKey = (e: KeyboardEvent) => e.key === "Escape" && setOpen(false);
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
   }, [open]);
 
-  const handleJump = (id: string) => {
-    setOpen(false);
-    document.getElementById(id)?.scrollIntoView({ behavior: "smooth", block: "start" });
-  };
-
-  // Real links (so middle-click, copy-link and screen readers work); the
-  // click handler only adds the smooth scroll.
-  const jump = (id: string) => (e: MouseEvent<HTMLAnchorElement>) => {
-    e.preventDefault();
-    handleJump(id);
-  };
-
   return (
-    <header
-      className={`fixed inset-x-0 top-0 z-50 transition-colors duration-500 ${
-        scrolled ? "bg-void/85 backdrop-blur-md border-b border-void-line" : "bg-transparent"
-      }`}
-    >
-      <nav
-        aria-label="Primary"
-        className="mx-auto flex max-w-6xl items-center justify-between px-6 py-4 sm:px-10"
-      >
-        <a
-          href="#hero"
-          onClick={(e) => {
-            e.preventDefault();
-            handleJump("hero");
-          }}
-          className="font-display text-sm tracking-tight text-paper hover:text-crimson-bright transition-colors"
-        >
-          {profile.name}
+    <header className="fixed inset-x-0 top-0 z-50 border-b border-line bg-bg/90 backdrop-blur">
+      <nav aria-label="Primary" className="mx-auto flex h-14 max-w-6xl items-center justify-between px-5 sm:px-8">
+        <a href="#top" className="font-display text-base font-semibold text-ink">
+          Sunil Mandloi
         </a>
-
-        <ul className="hidden items-center gap-0.5 lg:flex xl:gap-1">
-          {navSections.map((s, i) => (
-            <li key={s.id}>
-              <a
-                href={`#${s.id}`}
-                onClick={jump(s.id)}
-                aria-current={active === s.id ? "true" : undefined}
-                className={`group flex items-center gap-1.5 whitespace-nowrap rounded px-2 py-2 text-xs transition-colors xl:px-3 xl:text-sm ${
-                  active === s.id ? "text-paper" : "text-paper-faint hover:text-paper"
-                }`}
-              >
-                <span className="ledger-num hidden text-xs text-crimson 2xl:inline">
-                  {String(i + 1).padStart(2, "0")}
-                </span>
-                {s.label}
+        <ul className="hidden items-center gap-7 md:flex">
+          {nav.map((n) => (
+            <li key={n.id}>
+              <a href={`#${n.id}`} className="text-sm text-muted transition-colors hover:text-accent">
+                {n.label}
               </a>
             </li>
           ))}
         </ul>
-
         <button
+          type="button"
+          className="rounded border border-line px-3 py-1.5 text-sm text-ink md:hidden"
           aria-expanded={open}
           aria-controls="mobile-menu"
-          aria-label="Toggle navigation menu"
           onClick={() => setOpen((v) => !v)}
-          className="flex h-9 w-9 flex-col items-center justify-center gap-1.5 lg:hidden"
         >
-          <span
-            className={`block h-px w-5 bg-paper transition-transform duration-300 ${
-              open ? "translate-y-[3.5px] rotate-45" : ""
-            }`}
-          />
-          <span
-            className={`block h-px w-5 bg-paper transition-transform duration-300 ${
-              open ? "-translate-y-[3.5px] -rotate-45" : ""
-            }`}
-          />
+          {open ? "Close" : "Menu"}
         </button>
       </nav>
-
       {open && (
-        <div id="mobile-menu" className="border-t border-void-line bg-void px-6 pb-6 pt-2 lg:hidden">
-          <ul className="flex flex-col gap-1">
-            {navSections.map((s, i) => (
-              <li key={s.id}>
-                <a
-                  href={`#${s.id}`}
-                  onClick={jump(s.id)}
-                  aria-current={active === s.id ? "true" : undefined}
-                  className={`flex w-full items-center gap-3 rounded px-2 py-3 text-left text-base ${
-                    active === s.id ? "text-paper" : "text-paper-dim"
-                  }`}
-                >
-                  <span className="ledger-num text-xs text-crimson">
-                    {String(i + 1).padStart(2, "0")}
-                  </span>
-                  {s.label}
-                </a>
-              </li>
-            ))}
-          </ul>
-        </div>
+        <ul id="mobile-menu" className="border-t border-line bg-bg px-5 pb-4 md:hidden">
+          {nav.map((n) => (
+            <li key={n.id}>
+              <a href={`#${n.id}`} onClick={() => setOpen(false)} className="block py-3 text-base text-ink">
+                {n.label}
+              </a>
+            </li>
+          ))}
+          <li>
+            <a href={profile.github} target="_blank" rel="noopener noreferrer" className="block py-3 text-base text-ink">
+              GitHub (opens in a new tab)
+            </a>
+          </li>
+        </ul>
       )}
     </header>
   );

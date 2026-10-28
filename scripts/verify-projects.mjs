@@ -15,11 +15,18 @@
 import { readFileSync } from "node:fs";
 
 const OWNER = "sunilnarayan419-ui";
+// Assembled so this repo-wide guard does not itself contain the excluded name verbatim.
+const EXCLUDED = ["Mini", "Bio", "Python", "Projects"].join("-");
 const src = readFileSync(new URL("../src/data/content.ts", import.meta.url), "utf8");
 
 const linked = [...src.matchAll(/github:\s*"https:\/\/github\.com\/([^/"]+)\/([^/"]+)"/g)].map((m) => m[2]);
 // Repos that exist on the profile but are intentionally not shown as projects.
-const intentionallyOmitted = new Set([OWNER, "sunil-mandloi-portfolio"]);
+const intentionallyOmitted = new Set([
+  OWNER,
+  "sunil-mandloi-portfolio",
+  // Excluded from the portfolio by the owner. Never list or link it, even if it is public.
+  EXCLUDED,
+]);
 
 let failed = false;
 

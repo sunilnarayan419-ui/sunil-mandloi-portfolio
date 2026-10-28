@@ -1,85 +1,52 @@
-import Reveal from "./Reveal";
-import { experience } from "../data/content";
+import Section from "./Section";
+import { certifications, certNote, experience } from "../data/content";
 
 export default function Experience() {
   return (
-    <section
-      id="experience"
-      className="relative border-b border-void-line bg-void-raised py-28 sm:py-36"
-    >
-      <div className="mx-auto max-w-6xl px-6 sm:px-10">
-        <Reveal>
-          <span className="ledger-num text-sm text-crimson">03 — Experience</span>
-        </Reveal>
-        <Reveal delayMs={80}>
-          <h2 className="mt-6 max-w-2xl font-display text-3xl font-medium text-paper sm:text-4xl">
-            Applied research, not just coursework.
-          </h2>
-        </Reveal>
-
-        <div className="mt-14 flex flex-col gap-8">
-          {experience.map((role, i) => (
-            <Reveal key={role.id} delayMs={i * 100}>
-              <div className="reticle border border-void-line bg-void-panel/60 p-8 sm:p-10">
-                <div className="flex flex-wrap items-start justify-between gap-4">
-                  <div>
-                    <p className="ledger-num flex items-center gap-3 text-xs text-crimson">
-                      {role.kind}
-                      {role.current && (
-                        <span className="inline-flex items-center gap-1.5 rounded-sm border border-crimson/40 px-2 py-0.5 text-[10px] uppercase tracking-wide">
-                          <span
-                            aria-hidden="true"
-                            className="h-1.5 w-1.5 animate-pulse rounded-full bg-crimson motion-reduce:animate-none"
-                          />
-                          Current
-                        </span>
-                      )}
-                    </p>
-                    <h3 className="mt-2 font-display text-xl font-medium text-paper sm:text-2xl">
-                      {role.role}
-                    </h3>
-                    <p className="mt-1 text-base text-paper-dim">{role.org}</p>
-                  </div>
-                  <div className="sm:text-right">
-                    <p className="ledger-num text-sm text-paper-faint">{role.period}</p>
-                    <p className="mt-1 text-sm text-paper-faint">{role.location}</p>
-                  </div>
-                </div>
-
-                <p className="mt-6 max-w-prose text-sm leading-relaxed text-paper-dim sm:text-base">
-                  {role.summary}
+    <Section id="experience" title="Experience">
+      <ol className="space-y-10">
+        {experience.map((e) => (
+          <li key={e.role + e.org} className="grid gap-3 border-t border-line pt-6 md:grid-cols-[14rem_1fr] md:gap-8">
+            <div>
+              <p className="text-sm text-faint">{e.period}</p>
+              <p className="mt-1 text-sm text-muted">{e.kind}</p>
+            </div>
+            <div>
+              <h3 className="font-display text-xl font-semibold text-ink">{e.role}</h3>
+              <p className="text-sm text-muted">{e.org}</p>
+              <p className="mt-3 max-w-prose text-sm leading-relaxed text-muted sm:text-base">{e.summary}</p>
+              {e.points.length > 0 && (
+                <ul className="mt-3 max-w-prose list-disc space-y-1.5 pl-5 text-sm leading-relaxed text-muted">
+                  {e.points.map((p) => (
+                    <li key={p}>{p}</li>
+                  ))}
+                </ul>
+              )}
+              {e.evidence && <p className="mt-3 max-w-prose text-sm text-faint">{e.evidence}</p>}
+              {e.href && (
+                <p className="mt-3 text-sm">
+                  <a href={e.href} target="_blank" rel="noopener noreferrer" className="text-accent underline underline-offset-4">
+                    {e.hrefLabel}<span className="sr-only"> (opens in a new tab)</span>
+                  </a>
                 </p>
+              )}
+            </div>
+          </li>
+        ))}
+      </ol>
 
-                <ul className="mt-6 space-y-3 border-t border-void-line pt-6">
-                  {role.bullets.map((bullet) => (
-                    <li key={bullet} className="flex items-start gap-3 text-sm text-paper-dim">
-                      <span className="mt-2 h-1 w-1 shrink-0 rounded-full bg-crimson" />
-                      {bullet}
-                    </li>
-                  ))}
-                </ul>
-
-                <ul className="mt-6 flex flex-wrap gap-2" aria-label="Focus areas">
-                  {role.tags.map((tag) => (
-                    <li
-                      key={tag}
-                      className="rounded-sm border border-void-line px-2.5 py-1 text-xs text-paper-dim"
-                    >
-                      {tag}
-                    </li>
-                  ))}
-                </ul>
-
-                {role.learned && (
-                  <p className="mt-6 max-w-prose border-l-2 border-crimson/40 pl-4 text-sm italic leading-relaxed text-paper-dim">
-                    {role.learned}
-                  </p>
-                )}
-              </div>
-            </Reveal>
+      <div className="mt-14 border-t border-line pt-6">
+        <h3 className="font-display text-lg font-semibold text-ink">Short courses</h3>
+        <ul className="mt-4 grid gap-4 sm:grid-cols-2">
+          {certifications.map((c) => (
+            <li key={c.name} className="text-sm leading-relaxed">
+              <p className="font-medium text-ink">{c.name} <span className="font-normal text-faint">· completed {c.date}</span></p>
+              <p className="mt-1 text-muted">{c.topics}</p>
+            </li>
           ))}
-        </div>
+        </ul>
+        <p className="mt-4 text-sm text-faint">{certNote}</p>
       </div>
-    </section>
+    </Section>
   );
 }
